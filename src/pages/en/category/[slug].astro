@@ -1,6 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { getCategories } from '../../../lib/airtable.js';
+import { getCategories, getToolsByCategory } from '../../../lib/airtable.js';
 
 export async function getStaticPaths() {
   const categories = await getCategories();
@@ -11,21 +11,53 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.props;
+const tools = await getToolsByCategory(category.Name);
 ---
 
 <Base title={`${category.title_en} — GetBench.io`}>
-  <div style="margin-bottom: 32px;">
-    <a href="/" style="font-size:13px; color:#888; text-decoration:none;">← Home</a>
+  <div style="margin-bottom:32px;">
+    <a href="/" style="font-size:13px;color:#888;text-decoration:none;">← Home</a>
   </div>
 
-  <h1 style="font-size:28px; font-weight:600; margin-bottom:12px;">
-    {category.title_en}
-  </h1>
-  <p style="font-size:15px; color:#555; margin-bottom:40px; max-width:600px; line-height:1.6;">
+  <h1 style="font-size:28px;font-weight:600;margin-bottom:12px;">{category.title_en}</h1>
+  <p style="font-size:15px;color:#555;margin-bottom:40px;max-width:600px;line-height:1.6;">
     {category.description_en || 'Compare the best AI tools for this category, curated for LATAM.'}
   </p>
 
-  <div style="padding:40px; background:#f9f9f9; border-radius:12px; text-align:center; color:#888;">
-    Tools coming soon — add them in Airtable to see them here.
-  </div>
+  {tools.length === 0 ? (
+    <div style="padding:40px;background:#f9f9f9;border-radius:12px;text-align:center;color:#888;">
+      Tools coming soon — add them in Airtable to see them here.
+    </div>
+  ) : (
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      {tools.map(tool => (
+        <div style="padding:24px;border:1px solid #eee;border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <h2 style="font-size:16px;font-weight:600;">{tool.Name}</h2>
+              {tool.works_in_brazil && (
+                <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Works in BR</span>
+              )}
+              {tool.has_free_plan && (
+                <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Free plan</span>
+              )}
+            </div>
+            <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_en}</p>
+            {tool.latam_note_pt && (
+              <p style="font-size:11px;color:#0F6E56;background:#E1F5EE;padding:4px 10px;border-radius:6px;display:inline-block;">{tool.latam_note_pt}</p>
+            )}
+          </div>
+          <div style="text-align:right;margin-left:24px;flex-shrink:0;">
+            <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
+              {tool.has_free_plan ? 'Free' : `From $${tool.starting_price_usd}/mo`}
+            </div>
+            <a href={tool.affiliate_url || tool.website} target="_blank"
+              style="display:inline-block;padding:8px 16px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;">
+              Visit →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
 </Base>
