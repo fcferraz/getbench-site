@@ -1,6 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getCategories } from '../lib/airtable.js';
+
+const categories = await getCategories();
 ---
+
 <Base>
   <div style="text-align:center; padding: 60px 0 40px;">
     <div style="display:inline-block; font-size:12px; padding:4px 12px; background:#E1F5EE; color:#0F6E56; border-radius:20px; margin-bottom:20px;">
@@ -20,29 +24,11 @@ import Base from '../layouts/Base.astro';
   </div>
 
   <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px;">
-    <a href="/en/category/sales-outreach" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">Sales outreach</div>
-      <div style="font-size:12px; color:#888;">38 tools</div>
-    </a>
-    <a href="#" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">Customer success</div>
-      <div style="font-size:12px; color:#888;">24 tools</div>
-    </a>
-    <a href="#" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">CRM automation</div>
-      <div style="font-size:12px; color:#888;">31 tools</div>
-    </a>
-    <a href="#" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">SDR automation</div>
-      <div style="font-size:12px; color:#888;">19 tools</div>
-    </a>
-    <a href="#" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">Marketing automation</div>
-      <div style="font-size:12px; color:#888;">27 tools</div>
-    </a>
-    <a href="#" style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block;">
-      <div style="font-size:13px; font-weight:500; margin-bottom:4px;">HR automation</div>
-      <div style="font-size:12px; color:#888;">16 tools</div>
-    </a>
+    {categories.map(cat => (
+      <a href={`/en/category/${cat.Slug}`} style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block; transition: border-color 0.2s;">
+        <div style="font-size:13px; font-weight:500; margin-bottom:4px;">{cat.Name}</div>
+        <div style="font-size:12px; color:#888;">{cat.title_en}</div>
+      </a>
+    ))}
   </div>
 </Base>
