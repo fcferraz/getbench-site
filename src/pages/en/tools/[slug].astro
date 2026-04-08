@@ -1,6 +1,6 @@
 ---
-import Base from '../../layouts/Base.astro';
-import { getTools } from '../../lib/airtable.js';
+import Base from '../../../layouts/Base.astro';
+import { getTools } from '../../../lib/airtable.js';
 
 export async function getStaticPaths() {
   const tools = await getTools();
