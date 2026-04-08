@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getTools } from '../../lib/airtable.js';
+
+export async function getStaticPaths() {
+  const tools = await getTools();
+  return tools.map(tool => ({
+    params: { slug: tool.slug },
+    props: { tool }
+  }));
+}
+
+const { tool } = Astro.props;
+---
+
+<Base title={`${tool.Name} Review — GetBench.io`}>
+  <div style="margin-bottom:24px;">
+    <a href="/" style="font-size:13px;color:#888;text-decoration:none;">← Home</a>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+        <h1 style="font-size:28px;font-weight:600;">{tool.Name}</h1>
+        {tool.works_in_brazil && <span style="font-size:11px;padding:3px 10px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Works in BR</span>}
+        {tool.has_free_plan && <span style="font-size:11px;padding:3px 10px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Free plan</span>}
+      </div>
+      <p style="font-size:16px;color:#555;max-width:600px;">{tool.tagline_en}</p>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:20px;font-weight:600;margin-bottom:8px;">
+        {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `From $${tool.starting_price_usd}/mo`}
+      </div>
+      <a href={tool.affiliate_url || tool.website} target="_blank"
+        style="display:inline-block;padding:12px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+        Visit {tool.Name} →
+      </a>
+    </div>
+  </div>
+
+  {tool.description_en && (
+    <div style="margin-bottom:32px;padding:24px;border:1px solid #eee;border-radius:12px;">
+      <h2 style="font-size:16px;font-weight:600;margin-bottom:12px;">About {tool.Name}</h2>
+      <p style="font-size:14px;color:#444;line-height:1.7;">{tool.description_en}</p>
+    </div>
+  )}
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+    <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
+      <h2 style="font-size:14px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Pricing</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Starting price</span>
+          <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `$${tool.starting_price_usd}/mo`}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Free plan</span>
+          <span style="font-weight:500;">{tool.has_free_plan ? 'Yes' : 'No'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Billing</span>
+          <span style="font-weight:500;">{tool.pricing_model || 'Monthly'}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
+      <h2 style="font-size:14px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">LATAM availability</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Works in Brazil</span>
+          <span style="font-weight:500;color:{tool.works_in_brazil ? '#0F6E56' : '#888'}">{tool.works_in_brazil ? '✓ Yes' : '✗ No'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Works in Mexico</span>
+          <span style="font-weight:500;color:{tool.works_in_mexico ? '#0F6E56' : '#888'}">{tool.works_in_mexico ? '✓ Yes' : '✗ No'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">Accepts BRL</span>
+          <span style="font-weight:500;color:{tool.accepts_brl ? '#0F6E56' : '#888'}">{tool.accepts_brl ? '✓ Yes' : '✗ No'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">PT support</span>
+          <span style="font-weight:500;color:{tool.has_pt_support ? '#0F6E56' : '#888'}">{tool.has_pt_support ? '✓ Yes' : '✗ No'}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:#555;">LATAM data</span>
+          <span style="font-weight:500;color:{tool.has_latam_data ? '#0F6E56' : '#888'}">{tool.has_latam_data ? '✓ Yes' : '✗ No'}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {tool.latam_note_pt && (
+    <div style="margin-bottom:32px;padding:16px 20px;background:#E1F5EE;border-radius:12px;">
+      <h2 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">🇧🇷 Nota para o mercado brasileiro</h2>
+      <p style="font-size:13px;color:#085041;line-height:1.6;">{tool.latam_note_pt}</p>
+    </div>
+  )}
+
+  <div style="text-align:center;padding:32px;border:1px solid #eee;border-radius:12px;background:#f9f9f9;">
+    <p style="font-size:15px;color:#555;margin-bottom:16px;">Ready to try {tool.Name}?</p>
+    <a href={tool.affiliate_url || tool.website} target="_blank"
+      style="display:inline-block;padding:12px 32px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+      Get started with {tool.Name} →
+    </a>
+  </div>
+</Base>
