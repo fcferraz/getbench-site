@@ -11,11 +11,14 @@ export async function getStaticPaths() {
 }
 
 const { tool } = Astro.props;
+const firstCategory = tool.categories?.[0];
 ---
 
 <Base title={`${tool.Name} Review — GetBench.io`}>
-  <div style="margin-bottom:24px;">
-    <a href="/" style="font-size:13px;color:#888;text-decoration:none;">← Home</a>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    {firstCategory && <><a href={`/en/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categories'}</a><span>›</span></>}
+    {tool.Name}
   </div>
 
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
@@ -47,15 +50,15 @@ const { tool } = Astro.props;
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
     <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
-      <h2 style="font-size:14px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Pricing</h2>
-      <div style="display:flex;flex-direction:column;gap:8px;">
+      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Pricing</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Starting price</span>
           <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `$${tool.starting_price_usd}/mo`}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Free plan</span>
-          <span style="font-weight:500;">{tool.has_free_plan ? 'Yes' : 'No'}</span>
+          <span style="font-weight:500;color:{tool.has_free_plan ? '#0F6E56' : '#888'}">{tool.has_free_plan ? '✓ Yes' : '✗ No'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Billing</span>
@@ -65,8 +68,8 @@ const { tool } = Astro.props;
     </div>
 
     <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
-      <h2 style="font-size:14px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">LATAM availability</h2>
-      <div style="display:flex;flex-direction:column;gap:8px;">
+      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">LATAM availability</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Works in Brazil</span>
           <span style="font-weight:500;color:{tool.works_in_brazil ? '#0F6E56' : '#888'}">{tool.works_in_brazil ? '✓ Yes' : '✗ No'}</span>
@@ -93,7 +96,7 @@ const { tool } = Astro.props;
 
   {tool.latam_note_pt && (
     <div style="margin-bottom:32px;padding:16px 20px;background:#E1F5EE;border-radius:12px;">
-      <h2 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">🇧🇷 Nota para o mercado brasileiro</h2>
+      <h2 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">Nota para o mercado brasileiro</h2>
       <p style="font-size:13px;color:#085041;line-height:1.6;">{tool.latam_note_pt}</p>
     </div>
   )}
