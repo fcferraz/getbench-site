@@ -6,28 +6,28 @@ const categories = await getCategories();
 ---
 
 <Base>
-  <div style="text-align:center; padding: 60px 0 40px;">
-    <div style="display:inline-block; font-size:12px; padding:4px 12px; background:#E1F5EE; color:#0F6E56; border-radius:20px; margin-bottom:20px;">
-      340+ AI tools curated for LATAM
+  <div style="text-align:center;padding:60px 0 40px;">
+    <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
+      28 AI tools curated for LATAM B2B
     </div>
-    <h1 style="font-size:36px; font-weight:600; line-height:1.2; margin-bottom:16px;">
-      Find the right AI tool<br/>for your business in LATAM
+    <h1 style="font-size:40px;font-weight:600;line-height:1.15;margin-bottom:20px;">
+      Build your AI stack.<br/>Verified for LATAM.
     </h1>
-    <p style="font-size:16px; color:#555; max-width:480px; margin:0 auto 32px; line-height:1.6;">
-      Compare pricing, features, and local availability.<br/>
-      In Portuguese, Spanish, and English.
+    <p style="font-size:16px;color:#555;max-width:520px;margin:0 auto 32px;line-height:1.6;">
+      Thousands of AI tools exist. Few actually work in LATAM.<br/>
+      We check pricing in BRL, Portuguese support, and local compliance for every tool.
     </p>
-    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-      <a href="/en/category/sales-outreach" style="padding:10px 20px; background:#1D9E75; color:#fff; border-radius:8px; text-decoration:none; font-size:14px;">Browse categories</a>
-      <a href="#" style="padding:10px 20px; border:1px solid #ddd; border-radius:8px; text-decoration:none; font-size:14px; color:#333;">Compare tools</a>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <a href="/en/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Browse categories</a>
+      <a href="/en/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Compare tools</a>
     </div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px;">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;">
     {categories.map(cat => (
-      <a href={`/en/category/${cat.Slug}`} style="padding:20px; border:1px solid #eee; border-radius:12px; text-decoration:none; color:inherit; display:block; transition: border-color 0.2s;">
-        <div style="font-size:13px; font-weight:500; margin-bottom:4px;">{cat.Name}</div>
-        <div style="font-size:12px; color:#888;">{cat.title_en}</div>
+      <a href={'/en/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px;">{cat.Name}</div>
+        <div style="font-size:12px;color:#888;">{cat.title_en}</div>
       </a>
     ))}
   </div>

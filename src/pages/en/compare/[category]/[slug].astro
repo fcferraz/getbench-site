@@ -1,0 +1,100 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import { getTools } from '../../../../lib/airtable.js';
+import { categoryCriteria } from '../../../../lib/comparisons.js';
+
+const { category, slug } = Astro.params;
+const vsIndex = slug.indexOf('-vs-');
+const slugA = slug.substring(0, vsIndex);
+const slugB = slug.substring(vsIndex + 4);
+
+const tools = await getTools();
+const toolsBySlug = Object.fromEntries(tools.map(t => [t.slug, t]));
+
+const toolA = toolsBySlug[slugA];
+const toolB = toolsBySlug[slugB];
+const criteria = categoryCriteria[category] || [];
+
+function formatValue(tool, criterion) {
+  if (!tool) return '-';
+  const val = tool[criterion.key];
+  if (criterion.type === 'boolean') return val ? 'Yes' : 'No';
+  if (criterion.type === 'price') return val === 0 ? 'Free' : val ? '$' + val + '/mo' : '-';
+  return val || '-';
+}
+
+function getColor(tool, criterion) {
+  if (!tool || criterion.type !== 'boolean') return '#555';
+  return tool[criterion.key] ? '#0F6E56' : '#888';
+}
+
+const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+---
+
+<Base title={toolA?.Name + ' vs ' + toolB?.Name + ' — GetBench.io'}>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/en/categories">Categories</a><span>›</span>
+    <a href={'/en/category/' + category}>{categoryName}</a><span>›</span>
+    {toolA?.Name} vs {toolB?.Name}
+  </div>
+
+  <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">{toolA?.Name} vs {toolB?.Name}</h1>
+  <p style="font-size:15px;color:#555;margin-bottom:40px;">Side-by-side comparison for <strong>{categoryName}</strong> — curated for LATAM businesses.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+    {[toolA, toolB].map(tool => (
+      <div style="padding:24px;border:1px solid #eee;border-radius:12px;text-align:center;">
+        <h2 style="font-size:20px;font-weight:600;margin-bottom:8px;">{tool?.Name}</h2>
+        <p style="font-size:13px;color:#555;margin-bottom:16px;">{tool?.tagline_en}</p>
+        <div style="font-size:18px;font-weight:600;margin-bottom:12px;">
+          {tool?.has_free_plan && tool?.starting_price_usd === 0 ? 'Free' : tool ? 'From $' + tool?.starting_price_usd + '/mo' : '-'}
+        </div>
+        <a href={tool?.affiliate_url || tool?.website} target="_blank" style="display:inline-block;padding:8px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;">Visit {tool?.Name} →</a>
+      </div>
+    ))}
+  </div>
+
+  <div style="border:1px solid #eee;border-radius:12px;overflow:hidden;margin-bottom:32px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:#f9f9f9;padding:12px 20px;border-bottom:1px solid #eee;">
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;">Criteria</div>
+      <div style="font-size:13px;font-weight:600;text-align:center;">{toolA?.Name}</div>
+      <div style="font-size:13px;font-weight:600;text-align:center;">{toolB?.Name}</div>
+    </div>
+    {criteria.map((c, i) => (
+      <div style={'display:grid;grid-template-columns:1fr 1fr 1fr;padding:14px 20px;align-items:center;' + (i < criteria.length - 1 ? 'border-bottom:1px solid #f0f0f0;' : '')}>
+        <div style="font-size:13px;color:#555;">{c.label}</div>
+        <div style={'font-size:13px;font-weight:500;text-align:center;color:' + getColor(toolA, c)}>{formatValue(toolA, c)}</div>
+        <div style={'font-size:13px;font-weight:500;text-align:center;color:' + getColor(toolB, c)}>{formatValue(toolB, c)}</div>
+      </div>
+    ))}
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+    {[toolA, toolB].filter(t => t?.latam_note_pt).map(tool => (
+      <div style="padding:16px 20px;background:#E1F5EE;border-radius:12px;">
+        <h3 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">{tool?.Name} no Brasil</h3>
+        <p style="font-size:13px;color:#085041;line-height:1.6;">{tool?.latam_note_pt}</p>
+      </div>
+    ))}
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+    {[toolA, toolB].map(tool => (
+      <div style="padding:24px;border:1px solid #eee;border-radius:12px;">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:12px;">About {tool?.Name}</h3>
+        <p style="font-size:13px;color:#444;line-height:1.7;">{tool?.description_en?.substring(0, 300)}...</p>
+        <a href={'/en/tools/' + tool?.slug} style="font-size:12px;color:#1D9E75;text-decoration:none;margin-top:8px;display:inline-block;">Full {tool?.Name} review →</a>
+      </div>
+    ))}
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    {[toolA, toolB].map(tool => (
+      <div style="padding:24px;border:1px solid #eee;border-radius:12px;text-align:center;background:#f9f9f9;">
+        <p style="font-size:14px;color:#555;margin-bottom:12px;">Ready to try {tool?.Name}?</p>
+        <a href={tool?.affiliate_url || tool?.website} target="_blank" style="display:inline-block;padding:10px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;">Get started →</a>
+      </div>
+    ))}
+  </div>
+</Base>
