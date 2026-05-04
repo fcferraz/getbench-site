@@ -8,19 +8,114 @@ const categories = await getCategories();
 <Base>
   <div style="text-align:center;padding:60px 0 40px;">
     <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
-      28 AI tools curated for LATAM B2B
+      Ferramentas de IA curadas para o mercado LATAM
     </div>
     <h1 style="font-size:40px;font-weight:600;line-height:1.15;margin-bottom:20px;">
-      Build your AI stack.<br/>Verified for LATAM.
+      As melhores ferramentas de IA para empresas
     </h1>
     <p style="font-size:16px;color:#555;max-width:520px;margin:0 auto 32px;line-height:1.6;">
       Thousands of AI tools exist. Few actually work in LATAM.<br/>
       We check pricing in BRL, Portuguese support, and local compliance for every tool.
     </p>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <a href="/en/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Browse categories</a>
-      <a href="/en/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Compare tools</a>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <a href="/en/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Explorar categorias</a>
+      <a href="/en/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Comparar ferramentas</a>
+      <button onclick="startTour()" style="background:none;border:none;cursor:pointer;font-size:14px;color:#1D9E75;text-decoration:underline;padding:10px 4px;">Como funciona →</button>
     </div>
+
+  <!-- Onboarding Modal -->
+  <div id="onboarding-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);" onclick="closeOnboarding(event)">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;max-width:480px;padding:0 20px;">
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.2);position:relative;"><button onclick="closeOnboardingDirect()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:20px;color:#aaa;cursor:pointer;line-height:1;z-index:10;">✕</button>
+
+        <!-- Step 1 -->
+        <div class="step" id="step-1">
+          <div style="padding:32px 32px 24px;">
+            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">1 de 4</div>
+            <div style="font-size:40px;margin-bottom:16px;">🔍</div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">O que é o Buskai?</h2>
+            <p style="font-size:15px;color:#555;line-height:1.6;">O Buskai é um diretório curado de AI tools verificadas. Checamos se cada ferramenta funciona de verdade — preço em R$, suporte em português, conformidade com a LGPD.</p>
+          </div>
+          <div style="padding:0 32px 32px;display:flex;justify-content:flex-end;">
+            <button onclick="goStep(2)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step" id="step-2" style="display:none;">
+          <div style="padding:32px 32px 24px;">
+            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">2 de 4</div>
+            <div style="font-size:40px;margin-bottom:16px;">🤖</div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Busca com IA</h2>
+            <p style="font-size:15px;color:#555;line-height:1.6;">Descreva o que você precisa — "bot de WhatsApp para clínica" ou "CRM gratuito com suporte em português" — e a IA devolve as melhores opções em segundos.</p>
+            <div style="background:#f5f5f5;border-radius:10px;padding:12px 16px;margin-top:16px;font-size:13px;color:#555;">🔍 Use o ícone de busca no menu para acessar de qualquer página</div>
+          </div>
+          <div style="padding:0 32px 32px;display:flex;justify-content:space-between;">
+            <button onclick="goStep(1)" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">← Voltar</button>
+            <button onclick="goStep(3)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step" id="step-3" style="display:none;">
+          <div style="padding:32px 32px 24px;">
+            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">3 de 4</div>
+            <div style="font-size:40px;margin-bottom:16px;">⚖️</div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Compare ferramentas</h2>
+            <p style="font-size:15px;color:#555;line-height:1.6;">Não sabe escolher entre Clay e Apollo? HubSpot e Pipedrive? Compare lado a lado com critérios relevantes para o seu contexto — preço, free plan, suporte PT e disponibilidade no Brasil.</p>
+          </div>
+          <div style="padding:0 32px 32px;display:flex;justify-content:space-between;">
+            <button onclick="goStep(2)" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">← Voltar</button>
+            <button onclick="goStep(4)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step" id="step-4" style="display:none;">
+          <div style="padding:32px 32px 24px;">
+            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">4 de 4</div>
+            <div style="font-size:40px;margin-bottom:16px;">🚀</div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Pronto para explorar!</h2>
+            <p style="font-size:15px;color:#555;line-height:1.6;">Comece pela busca com IA ou explore as categorias. Se tiver uma AI tool que merece estar aqui, submete para a gente.</p>
+          </div>
+          <div style="padding:0 32px 32px;display:flex;gap:8px;justify-content:flex-end;">
+            <button onclick="closeOnboardingDirect()" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">Fechar</button>
+            <button onclick="closeOnboardingDirect();openSearch();" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Buscar agora →</button>
+          </div>
+        </div>
+
+        <!-- Progress dots -->
+        <div style="display:flex;justify-content:center;gap:6px;padding-bottom:24px;">
+          <div id="dot-1" style="width:6px;height:6px;border-radius:50%;background:#1D9E75;"></div>
+          <div id="dot-2" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
+          <div id="dot-3" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
+          <div id="dot-4" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    function startTour() {
+      document.getElementById('onboarding-modal').style.display = 'block';
+      goStep(1);
+    }
+    function closeOnboardingDirect() {
+      document.getElementById('onboarding-modal').style.display = 'none';
+    }
+    function closeOnboarding(e) {
+      if (e.target === document.getElementById('onboarding-modal')) closeOnboardingDirect();
+    }
+    function goStep(n) {
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('step-' + i).style.display = i === n ? 'block' : 'none';
+        document.getElementById('dot-' + i).style.background = i === n ? '#1D9E75' : '#ddd';
+      }
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeOnboardingDirect();
+    });
+  </script>
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;">
