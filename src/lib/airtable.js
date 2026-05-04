@@ -1,8 +1,7 @@
-const BASE_URL = `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}`;
-
 async function fetchFromAirtable(table, params = '') {
+  const BASE_URL = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}`;
   const res = await fetch(`${BASE_URL}/${table}?${params}`, {
-    headers: { Authorization: `Bearer ${import.meta.env.AIRTABLE_API_KEY}` }
+    headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` }
   });
   const data = await res.json();
   if (!res.ok || !Array.isArray(data.records)) {

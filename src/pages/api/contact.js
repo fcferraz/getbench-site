@@ -1,7 +1,5 @@
 import { rateLimit } from '../../lib/rateLimit.js';
 
-console.log('AIRTABLE KEY:', process.env.AIRTABLE_API_KEY?.slice(0, 10));
-
 export async function POST({ request }) {
   const limited = rateLimit(request);
   if (limited) return limited;
@@ -24,11 +22,11 @@ export async function POST({ request }) {
   }
 
   const res = await fetch(
-    `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}/tblDBDppZjrC0hLAS`,
+    `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/tblDBDppZjrC0hLAS`,
     {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${import.meta.env.AIRTABLE_API_KEY}`,
+        Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
