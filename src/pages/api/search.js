@@ -1,6 +1,10 @@
 import { getTools } from '../../lib/airtable.js';
+import { rateLimit } from '../../lib/rateLimit.js';
 
 export async function POST({ request }) {
+  const limited = rateLimit(request);
+  if (limited) return limited;
+
   const { query } = await request.json();
   const tools = await getTools();
 

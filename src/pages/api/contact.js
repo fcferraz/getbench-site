@@ -1,4 +1,9 @@
+import { rateLimit } from '../../lib/rateLimit.js';
+
 export async function POST({ request }) {
+  const limited = rateLimit(request);
+  if (limited) return limited;
+
   let body;
   try {
     body = await request.json();
