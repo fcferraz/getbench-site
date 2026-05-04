@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Buscar AI tools para LATAM — Buskai.net">
+  <style>
+    html, body { background: #0b0d0b !important; --logo-color: #e9ecea; --logo-accent: #3ddc84; }
+    main { padding: 0 !important; max-width: 100% !important; background: #0b0d0b !important; }
+    nav { background: rgba(11,13,11,0.95) !important; border-bottom: 1px solid rgba(255,255,255,.1) !important; }
+    .logo { color: #e9ecea !important; }
+    .logo span { color: #3ddc84 !important; }
+    .nav-links a { color: #8b938f !important; }
+    .nav-links a:hover { color: #e9ecea !important; }
+    .nav-submit { border-color: rgba(255,255,255,.2) !important; color: #e9ecea !important; }
+    footer { background: #0b0d0b !important; border-color: rgba(255,255,255,.1) !important; color: #5d6662 !important; }
+  </style>
+  <div style="min-height:100vh;background:#0b0d0b;color:#e9ecea;font-family:'Inter Tight',system-ui,sans-serif;position:relative;overflow:hidden;margin:-40px -32px;padding:80px 28px 120px;">
+    
+    <div style="position:fixed;inset:0;pointer-events:none;background:radial-gradient(1200px 600px at 15% -5%,rgba(61,220,132,.18),transparent 55%);"></div>
+    <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <a href="/" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d6662;text-decoration:none;margin-bottom:32px;">← Buskai.net</a>
+        <h1 style="font-size:clamp(44px,7vw,76px);font-weight:700;line-height:1.02;letter-spacing:-.035em;margin:0 0 16px;">
+          Ache a AI tool certa.<br/>
+          <span style="background:linear-gradient(180deg,#3ddc84,#2bb86c);-webkit-background-clip:text;background-clip:text;color:transparent;">Em 10 segundos.</span>
+        </h1>
+        <p style="color:#8b938f;font-size:17px;max-width:520px;margin:0 auto 36px;line-height:1.5;">
+          Descreva o que voce precisa — devolvemos um shortlist com preco em R$, suporte PT/ES e postura LGPD.
+        </p>
+        <div id="search-box" style="border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(15,18,15,.9);box-shadow:0 0 0 6px rgba(61,220,132,.12),0 30px 60px -30px rgba(0,0,0,.7);overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 14px 14px 20px;">
+            <svg width="20" height="20" fill="none" stroke="#8b938f" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="query" type="text" placeholder="bot de WhatsApp para clinica em Sao Paulo..." style="flex:1;background:transparent;border:0;outline:0;color:#e9ecea;font-size:17px;font-family:inherit;"/>
+            <button id="search-btn" onclick="runSearch()" style="background:#3ddc84;color:#0b0d0b;border:0;padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;">Buscar →</button>
+          </div>
+          <div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button onclick="setQuery('SDR em PT-BR')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">SDR em PT-BR</button>
+            <button onclick="setQuery('Copiloto de CRM')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Copiloto de CRM</button>
+            <button onclick="setQuery('ferramentas de marketing gratuitas')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Marketing gratis</button>
+            <button onclick="setQuery('recrutamento RH Brasil')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Recrutamento RH</button>
+          </div>
+        </div>
+      </div>
+      <div id="loading" style="display:none;text-align:center;padding:60px 0;">
+        <div style="display:inline-flex;align-items:center;gap:12px;color:#8b938f;font-family:'JetBrains Mono',monospace;font-size:13px;">
+          <div style="width:16px;height:16px;border:2px solid rgba(61,220,132,.2);border-top-color:#3ddc84;border-radius:50%;animation:spin .8s linear infinite;"></div>
+          Analisando tools para sua busca...
+        </div>
+      </div>
+      <div id="results" style="display:none;"></div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  </style>
+
+  <script is:inline>
+    function setQuery(q) {
+      document.getElementById('query').value = q;
+    }
+    document.getElementById('query').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') runSearch();
+    });
+    async function runSearch() {
+      const query = document.getElementById('query').value.trim();
+      if (!query) return;
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('search-btn').disabled = true;
+      document.getElementById('search-btn').textContent = 'Buscando...';
+      try {
+        const res = await fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+        renderResults(data, query);
+      } catch(e) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('results').innerHTML = '<p style="color:#ff6a5b;text-align:center;">Erro ao buscar. Tente novamente.</p>';
+        document.getElementById('results').style.display = 'block';
+      }
+      document.getElementById('search-btn').disabled = false;
+      document.getElementById('search-btn').textContent = 'Buscar →';
+    }
+    function renderResults(data, query) {
+      const c = document.getElementById('results');
+      c.innerHTML = '<div style="margin-bottom:16px;font-family:monospace;font-size:11px;color:#5d6662;">' + data.tools.length + ' tools para "' + query + '"</div>' +
+        '<div style="margin-bottom:20px;padding:16px 20px;border:1px solid rgba(61,220,132,.2);border-radius:12px;background:rgba(61,220,132,.05);"><p style="color:#8b938f;font-size:14px;line-height:1.6;margin:0;">' + data.reasoning + '</p></div>' +
+        '<div style="display:flex;flex-direction:column;gap:12px;">' +
+        data.tools.map(function(tool, i) {
+          return '<div style="border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:rgba(15,18,15,.6);display:flex;justify-content:space-between;align-items:flex-start;">' +
+            '<div style="flex:1;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
+            '<span style="font-family:monospace;font-size:11px;color:#3ddc84;">#' + (i+1) + '</span>' +
+            '<a href="/en/tools/' + tool.slug + '" style="font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;">' + tool.name + '</a>' +
+            (tool.works_in_brazil ? '<span style="font-size:11px;padding:2px 8px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">Works in BR</span>' : '') +
+            (tool.has_free_plan ? '<span style="font-size:11px;padding:2px 8px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Free plan</span>' : '') +
+            '</div><p style="color:#8b938f;font-size:13px;margin:0 0 6px;">' + tool.tagline + '</p>' +
+            '<p style="color:#5d6662;font-size:12px;margin:0;font-style:italic;">' + tool.reason + '</p></div>' +
+            '<div style="text-align:right;margin-left:20px;flex-shrink:0;"><div style="font-size:15px;font-weight:600;margin-bottom:10px;color:#e9ecea;">' + tool.price + '</div>' +
+            '<a href="' + (tool.affiliate_url || tool.website) + '" target="_blank" style="display:inline-block;padding:8px 18px;background:#3ddc84;color:#0b0d0b;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;">Visitar →</a></div></div>';
+        }).join('') + '</div>';
+    }
+  </script>
+</Base>

@@ -1,5 +1,5 @@
 ---
-const { title = "GetBench.io — Find & Benchmark AI Tools for LATAM" } = Astro.props;
+const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,8 @@ const { title = "GetBench.io — Find & Benchmark AI Tools for LATAM" } = Astro.
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body { font-family: system-ui, sans-serif; color: #1a1a1a; }
       nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid #eee; }
-      .logo { font-size: 18px; font-weight: 600; color: #1a1a1a; text-decoration: none; }
+      .logo { font-size: 18px; font-weight: 600; color: var(--logo-color, #1a1a1a); text-decoration: none; }
+      .logo span { color: var(--logo-accent, #1D9E75); }
       .logo span { color: #1D9E75; }
       .nav-links { display: flex; gap: 24px; align-items: center; }
       .nav-links a { font-size: 14px; color: #555; text-decoration: none; }
@@ -28,7 +29,7 @@ const { title = "GetBench.io — Find & Benchmark AI Tools for LATAM" } = Astro.
   </head>
   <body>
     <nav>
-      <a href="/" class="logo">Get<span>Bench</span>.io</a>
+      <a href="/" class="logo">Busk<span>ai</span>.net</a>
       <div class="nav-links">
         <a href="/en/categories">Categories</a>
         <a href="/en/compare">Compare</a>
@@ -40,7 +41,7 @@ const { title = "GetBench.io — Find & Benchmark AI Tools for LATAM" } = Astro.
       <slot />
     </main>
     <footer>
-      © 2026 GetBench.io — The AI tools benchmark for LATAM
+      © 2026 Buskai.net — The AI tools benchmark for LATAM
     </footer>
   </body>
 </html>

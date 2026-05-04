@@ -14,7 +14,7 @@ const { tool } = Astro.props;
 const firstCategory = tool.categories?.[0];
 ---
 
-<Base title={`${tool.Name} Review — GetBench.io`}>
+<Base title={`${tool.Name} Review — Buskai.net`}>
   <div class="breadcrumb">
     <a href="/">Home</a><span>›</span>
     {firstCategory && <><a href={`/en/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categories'}</a><span>›</span></>}
