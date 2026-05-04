@@ -34,6 +34,9 @@ const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.p
         <a href="/en/categories">Categories</a>
         <a href="/en/compare">Compare</a>
         <a href="/en/blog">Blog</a>
+        <button onclick="openSearch()" style="background:none;border:none;cursor:pointer;padding:6px;color:#555;display:flex;align-items:center;" title="Buscar (⌘K)">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
         <a href="/en/submit" class="nav-submit">+ Submit a tool</a>
       </div>
     </nav>
@@ -43,5 +46,100 @@ const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.p
     <footer>
       © 2026 Buskai.net — The AI tools benchmark for LATAM
     </footer>
-  </body>
+    <!-- Search Modal -->
+  <div id="search-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);" onclick="closeSearch(event)">
+    <div style="position:absolute;top:15%;left:50%;transform:translateX(-50%);width:100%;max-width:680px;padding:0 20px;">
+      <div style="background:#0f120f;border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08);">
+          <svg width="18" height="18" fill="none" stroke="#5d6662" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="modal-query" type="text" placeholder="Buscar AI tools para LATAM..." style="flex:1;background:transparent;border:0;outline:0;color:#e9ecea;font-size:16px;font-family:system-ui,sans-serif;"/>
+          <button onclick="runModalSearch()" id="modal-btn" style="background:#3ddc84;color:#0b0d0b;border:0;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">Buscar →</button>
+          <span style="font-size:11px;color:#5d6662;border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;cursor:pointer;" onclick="closeSearchDirect()">ESC</span>
+        </div>
+        <div style="padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06);">
+          <button onclick="setModalQuery('SDR em PT-BR')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">SDR em PT-BR</button>
+          <button onclick="setModalQuery('Copiloto de CRM')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Copiloto de CRM</button>
+          <button onclick="setModalQuery('Marketing gratis')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Marketing gratis</button>
+          <button onclick="setModalQuery('Recrutamento RH')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Recrutamento RH</button>
+        </div>
+        <div id="modal-loading" style="display:none;padding:32px;text-align:center;color:#5d6662;font-size:13px;">
+          <div style="width:16px;height:16px;border:2px solid rgba(61,220,132,.2);border-top-color:#3ddc84;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;margin-right:8px;vertical-align:middle;"></div>
+          Analisando tools...
+        </div>
+        <div id="modal-results" style="max-height:400px;overflow-y:auto;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    function openSearch() {
+      document.getElementById('search-modal').style.display = 'block';
+      setTimeout(() => document.getElementById('modal-query').focus(), 100);
+    }
+    function closeSearchDirect() {
+      document.getElementById('search-modal').style.display = 'none';
+      document.getElementById('modal-results').innerHTML = '';
+      document.getElementById('modal-query').value = '';
+    }
+    function closeSearch(e) {
+      if (e.target === document.getElementById('search-modal')) closeSearchDirect();
+    }
+    function setModalQuery(q) {
+      document.getElementById('modal-query').value = q;
+      document.getElementById('modal-query').focus();
+    }
+    document.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+      if (e.key === 'Escape') closeSearchDirect();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('modal-query').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') runModalSearch();
+      });
+    });
+    async function runModalSearch() {
+      const query = document.getElementById('modal-query').value.trim();
+      if (!query) return;
+      document.getElementById('modal-results').innerHTML = '';
+      document.getElementById('modal-loading').style.display = 'block';
+      document.getElementById('modal-btn').disabled = true;
+      try {
+        const res = await fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+        document.getElementById('modal-loading').style.display = 'none';
+        document.getElementById('modal-results').innerHTML =
+          '<div style="padding:12px 20px;font-size:11px;color:#5d6662;font-family:monospace;">' + data.tools.length + ' tools para "' + query + '"</div>' +
+          '<div style="padding:0 12px 8px;font-size:13px;color:#8b938f;line-height:1.5;padding:8px 20px;">' + data.reasoning + '</div>' +
+          data.tools.map(function(tool, i) {
+            return '<a href="/en/tools/' + tool.slug + '" onclick="closeSearchDirect()" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);">' +
+              '<div>' +
+                '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
+                  '<span style="font-size:11px;color:#3ddc84;font-family:monospace;">#' + (i+1) + '</span>' +
+                  '<span style="font-size:14px;font-weight:600;color:#e9ecea;">' + tool.name + '</span>' +
+                  (tool.works_in_brazil ? '<span style="font-size:10px;padding:1px 6px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">BR</span>' : '') +
+                  (tool.has_free_plan ? '<span style="font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Free</span>' : '') +
+                '</div>' +
+                '<div style="font-size:12px;color:#5d6662;font-style:italic;">' + tool.reason + '</div>' +
+              '</div>' +
+              '<div style="font-size:13px;font-weight:600;color:#e9ecea;margin-left:16px;flex-shrink:0;">' + tool.price + '</div>' +
+            '</a>';
+          }).join('') +
+          '<div style="padding:12px 20px;border-top:1px solid rgba(255,255,255,.05);text-align:center;">' +
+            '<a href="/en/search?q=' + encodeURIComponent(query) + '" style="font-size:12px;color:#3ddc84;text-decoration:none;">Ver página completa →</a>' +
+          '</div>';
+      } catch(e) {
+        document.getElementById('modal-loading').style.display = 'none';
+        document.getElementById('modal-results').innerHTML = '<div style="padding:20px;text-align:center;color:#ff6a5b;font-size:13px;">Erro ao buscar. Tente novamente.</div>';
+      }
+      document.getElementById('modal-btn').disabled = false;
+    }
+  </script>
+</body>
 </html>
