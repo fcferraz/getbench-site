@@ -5,6 +5,10 @@ async function fetchFromAirtable(table, params = '') {
     headers: { Authorization: `Bearer ${import.meta.env.AIRTABLE_API_KEY}` }
   });
   const data = await res.json();
+  if (!res.ok || !Array.isArray(data.records)) {
+    console.error(`Airtable error [${table}]:`, data.error ?? data);
+    return [];
+  }
   return data.records.map(r => ({ id: r.id, ...r.fields }));
 }
 
