@@ -36,15 +36,15 @@ const firstCategory = tool.categories?.[0];
       </div>
       <a href={tool.affiliate_url || tool.website} target="_blank"
         style="display:inline-block;padding:12px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
-        Visit {tool.Name} →
+        Acessar {tool.Name} →
       </a>
     </div>
   </div>
 
-  {tool.description_en && (
+  {tool.description_pt && (
     <div style="margin-bottom:32px;padding:24px;border:1px solid #eee;border-radius:12px;">
-      <h2 style="font-size:16px;font-weight:600;margin-bottom:12px;">About {tool.Name}</h2>
-      <p style="font-size:14px;color:#444;line-height:1.7;">{tool.description_en}</p>
+      <h2 style="font-size:16px;font-weight:600;margin-bottom:12px;">Sobre {tool.Name}</h2>
+      <p style="font-size:14px;color:#444;line-height:1.7;">{tool.description_pt}</p>
     </div>
   )}
 
@@ -102,10 +102,10 @@ const firstCategory = tool.categories?.[0];
   )}
 
   <div style="text-align:center;padding:32px;border:1px solid #eee;border-radius:12px;background:#f9f9f9;">
-    <p style="font-size:15px;color:#555;margin-bottom:16px;">Ready to try {tool.Name}?</p>
+    <p style="font-size:15px;color:#555;margin-bottom:16px;">Pronto para usar {tool.Name}?</p>
     <a href={tool.affiliate_url || tool.website} target="_blank"
       style="display:inline-block;padding:12px 32px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
-      Get started with {tool.Name} →
+      Começar com {tool.Name} →
     </a>
   </div>
 </Base>

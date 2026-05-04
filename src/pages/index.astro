@@ -14,8 +14,8 @@ const categories = await getCategories();
       As melhores ferramentas de IA para empresas
     </h1>
     <p style="font-size:16px;color:#555;max-width:520px;margin:0 auto 32px;line-height:1.6;">
-      Thousands of AI tools exist. Few actually work in LATAM.<br/>
-      We check pricing in BRL, Portuguese support, and local compliance for every tool.
+      Milhares de AI tools existem. Poucas funcionam de verdade.<br/>
+      Separamos as que funcionam.
     </p>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
       <a href="/en/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Explorar categorias</a>
@@ -122,7 +122,7 @@ const categories = await getCategories();
     {categories.map(cat => (
       <a href={'/en/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
         <div style="font-size:13px;font-weight:500;margin-bottom:4px;">{cat.Name}</div>
-        <div style="font-size:12px;color:#888;">{cat.title_en}</div>
+        <div style="font-size:12px;color:#888;">{cat.title_pt}</div>
       </a>
     ))}
   </div>

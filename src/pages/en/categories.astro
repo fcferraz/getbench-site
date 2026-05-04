@@ -17,7 +17,7 @@ const categories = await getCategories();
     {categories.map(cat => (
       <a href={`/en/category/${cat.Slug}`} style="padding:24px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
         <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:#1a1a1a;">{cat.Name}</div>
-        <div style="font-size:13px;color:#888;margin-bottom:12px;line-height:1.5;">{cat.title_en}</div>
+        <div style="font-size:13px;color:#888;margin-bottom:12px;line-height:1.5;">{cat.title_pt}</div>
         <div style="font-size:12px;color:#1D9E75;font-weight:500;">Browse tools →</div>
       </a>
     ))}
