@@ -22,7 +22,7 @@ export async function POST({ request }) {
   }
 
   const res = await fetch(
-    `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}/Contacts`,
+    `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}/tblDBDppZjrC0hLAS`,
     {
       method: 'POST',
       headers: {
