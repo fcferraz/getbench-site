@@ -10,28 +10,28 @@ const tools = await getToolsByCategory(category.Name || '');
 
 <Base title={`${category.title_pt} — Buskai.net`}>
   <div class="breadcrumb">
-    <a href="/">Home</a><span>›</span>
-    <a href="/en/categories">Categories</a><span>›</span>
+    <a href="/">Início</a><span>›</span>
+    <a href="/en/categories">Categorias</a><span>›</span>
     {category.Name}
   </div>
 
   <h1 style="font-size:28px;font-weight:600;margin-bottom:12px;">{category.title_pt}</h1>
   <p style="font-size:15px;color:#555;margin-bottom:12px;max-width:600px;line-height:1.6;">
-    {category.description_en || 'Compare the best AI tools for this category, curated for LATAM.'}
+    {category.description_en || 'Compare as melhores AI tools desta categoria, curadas para LATAM.'}
   </p>
-  <p style="font-size:13px;color:#888;margin-bottom:20px;" id="tools-count">{tools.length} tools found</p>
+  <p style="font-size:13px;color:#888;margin-bottom:20px;" id="tools-count">{tools.length} tools encontradas</p>
 
   <div style="display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;" id="filters">
-    <button onclick="toggleFilter(this, 'all')" style="padding:6px 14px;border:1px solid #1D9E75;border-radius:20px;font-size:12px;cursor:pointer;background:#1D9E75;color:#fff;">All</button>
-    <button onclick="toggleFilter(this, 'free')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Free plan</button>
-    <button onclick="toggleFilter(this, 'br')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Works in BR</button>
-    <button onclick="toggleFilter(this, 'brl')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Accepts BRL</button>
-    <button onclick="toggleFilter(this, 'pt')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">PT support</button>
+    <button onclick="toggleFilter(this, 'all')" style="padding:6px 14px;border:1px solid #1D9E75;border-radius:20px;font-size:12px;cursor:pointer;background:#1D9E75;color:#fff;">Todas</button>
+    <button onclick="toggleFilter(this, 'free')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Plano grátis</button>
+    <button onclick="toggleFilter(this, 'br')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Funciona no BR</button>
+    <button onclick="toggleFilter(this, 'brl')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Aceita BRL</button>
+    <button onclick="toggleFilter(this, 'pt')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Suporte PT</button>
   </div>
 
   {tools.length === 0 ? (
     <div style="padding:40px;background:#f9f9f9;border-radius:12px;text-align:center;color:#888;">
-      Tools coming soon.
+      Tools em breve.
     </div>
   ) : (
     <div style="display:flex;flex-direction:column;gap:16px;" id="tools-list">
@@ -40,8 +40,8 @@ const tools = await getToolsByCategory(category.Name || '');
           <div style="flex:1;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
               <a href={`/en/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">{tool.Name}</a>
-              {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Works in BR</span>}
-              {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Free plan</span>}
+              {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
+              {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
             </div>
             <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_en}</p>
             {tool.latam_note_pt && (
@@ -50,11 +50,11 @@ const tools = await getToolsByCategory(category.Name || '');
           </div>
           <div style="text-align:right;margin-left:24px;flex-shrink:0;">
             <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
-              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `From $${tool.starting_price_usd}/mo`}
+              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Grátis' : `A partir de $${tool.starting_price_usd}/mês`}
             </div>
             <div style="display:flex;gap:8px;justify-content:flex-end;">
-              <a href={`/en/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Details</a>
-              <a href={tool.affiliate_url || tool.website} target="_blank" style="display:inline-block;padding:6px 16px;background:#1D9E75;color:#fff;border-radius:6px;text-decoration:none;font-size:12px;">Visit →</a>
+              <a href={`/en/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Detalhes</a>
+              <a href={tool.affiliate_url || tool.website} target="_blank" style="display:inline-block;padding:6px 16px;background:#1D9E75;color:#fff;border-radius:6px;text-decoration:none;font-size:12px;">Visitar →</a>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const tools = await getToolsByCategory(category.Name || '');
         card.style.display = show ? 'flex' : 'none';
         if (show) visible++;
       });
-      document.getElementById('tools-count').textContent = visible + ' tools found';
+      document.getElementById('tools-count').textContent = visible + ' tools encontradas';
     }
   </script>
 </Base>

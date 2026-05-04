@@ -14,10 +14,10 @@ const { tool } = Astro.props;
 const firstCategory = tool.categories?.[0];
 ---
 
-<Base title={`${tool.Name} Review — Buskai.net`}>
+<Base title={`${tool.Name} — Buskai.net`}>
   <div class="breadcrumb">
-    <a href="/">Home</a><span>›</span>
-    {firstCategory && <><a href={`/en/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categories'}</a><span>›</span></>}
+    <a href="/">Início</a><span>›</span>
+    {firstCategory && <><a href={`/en/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categorias'}</a><span>›</span></>}
     {tool.Name}
   </div>
 
@@ -25,14 +25,14 @@ const firstCategory = tool.categories?.[0];
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
         <h1 style="font-size:28px;font-weight:600;">{tool.Name}</h1>
-        {tool.works_in_brazil && <span style="font-size:11px;padding:3px 10px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Works in BR</span>}
-        {tool.has_free_plan && <span style="font-size:11px;padding:3px 10px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Free plan</span>}
+        {tool.works_in_brazil && <span style="font-size:11px;padding:3px 10px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
+        {tool.has_free_plan && <span style="font-size:11px;padding:3px 10px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
       </div>
       <p style="font-size:16px;color:#555;max-width:600px;">{tool.tagline_en}</p>
     </div>
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:20px;font-weight:600;margin-bottom:8px;">
-        {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `From $${tool.starting_price_usd}/mo`}
+        {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Grátis' : `A partir de $${tool.starting_price_usd}/mês`}
       </div>
       <a href={tool.affiliate_url || tool.website} target="_blank"
         style="display:inline-block;padding:12px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
@@ -50,45 +50,45 @@ const firstCategory = tool.categories?.[0];
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
     <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
-      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Pricing</h2>
+      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Preços</h2>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Starting price</span>
-          <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Free' : `$${tool.starting_price_usd}/mo`}</span>
+          <span style="color:#555;">Preço inicial</span>
+          <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Grátis' : `$${tool.starting_price_usd}/mês`}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Free plan</span>
-          <span style="font-weight:500;color:{tool.has_free_plan ? '#0F6E56' : '#888'}">{tool.has_free_plan ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Plano grátis</span>
+          <span style="font-weight:500;color:{tool.has_free_plan ? '#0F6E56' : '#888'}">{tool.has_free_plan ? '✓ Sim' : '✗ Não'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Billing</span>
-          <span style="font-weight:500;">{tool.pricing_model || 'Monthly'}</span>
+          <span style="color:#555;">Cobrança</span>
+          <span style="font-weight:500;">{tool.pricing_model || 'Mensal'}</span>
         </div>
       </div>
     </div>
 
     <div style="padding:20px;border:1px solid #eee;border-radius:12px;">
-      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">LATAM availability</h2>
+      <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:#888;text-transform:uppercase;letter-spacing:.05em;">Disponibilidade LATAM</h2>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Works in Brazil</span>
-          <span style="font-weight:500;color:{tool.works_in_brazil ? '#0F6E56' : '#888'}">{tool.works_in_brazil ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Funciona no Brasil</span>
+          <span style="font-weight:500;color:{tool.works_in_brazil ? '#0F6E56' : '#888'}">{tool.works_in_brazil ? '✓ Sim' : '✗ Não'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Works in Mexico</span>
-          <span style="font-weight:500;color:{tool.works_in_mexico ? '#0F6E56' : '#888'}">{tool.works_in_mexico ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Funciona no México</span>
+          <span style="font-weight:500;color:{tool.works_in_mexico ? '#0F6E56' : '#888'}">{tool.works_in_mexico ? '✓ Sim' : '✗ Não'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">Accepts BRL</span>
-          <span style="font-weight:500;color:{tool.accepts_brl ? '#0F6E56' : '#888'}">{tool.accepts_brl ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Aceita BRL</span>
+          <span style="font-weight:500;color:{tool.accepts_brl ? '#0F6E56' : '#888'}">{tool.accepts_brl ? '✓ Sim' : '✗ Não'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">PT support</span>
-          <span style="font-weight:500;color:{tool.has_pt_support ? '#0F6E56' : '#888'}">{tool.has_pt_support ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Suporte PT</span>
+          <span style="font-weight:500;color:{tool.has_pt_support ? '#0F6E56' : '#888'}">{tool.has_pt_support ? '✓ Sim' : '✗ Não'}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
-          <span style="color:#555;">LATAM data</span>
-          <span style="font-weight:500;color:{tool.has_latam_data ? '#0F6E56' : '#888'}">{tool.has_latam_data ? '✓ Yes' : '✗ No'}</span>
+          <span style="color:#555;">Dados LATAM</span>
+          <span style="font-weight:500;color:{tool.has_latam_data ? '#0F6E56' : '#888'}">{tool.has_latam_data ? '✓ Sim' : '✗ Não'}</span>
         </div>
       </div>
     </div>

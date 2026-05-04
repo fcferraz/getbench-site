@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Contato — Buskai.net">
+  <div style="max-width:640px;margin:0 auto;">
+
+    <div style="margin-bottom:40px;">
+      <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
+        Fale conosco
+      </div>
+      <h1 style="font-size:36px;font-weight:700;line-height:1.2;margin-bottom:16px;">Contato</h1>
+      <p style="font-size:16px;color:#555;line-height:1.6;">
+        Sugestões, parcerias, reporte de erros ou qualquer outro assunto — resposta em até 2 dias úteis.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:48px;">
+      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">🛠</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Sugestão de ferramenta</div>
+        <div style="font-size:12px;color:#888;">Use o botão "Enviar ferramenta" no menu</div>
+      </div>
+      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">🤝</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Parcerias</div>
+        <div style="font-size:12px;color:#888;">Conteúdo, distribuição ou integração</div>
+      </div>
+      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">🐛</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Erro ou problema</div>
+        <div style="font-size:12px;color:#888;">Informação incorreta ou bug no site</div>
+      </div>
+    </div>
+
+    <form
+      id="contact-form"
+      style="display:flex;flex-direction:column;gap:20px;"
+      onsubmit="handleSubmit(event)"
+    >
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label for="name" style="font-size:13px;font-weight:500;color:#333;">Nome</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            placeholder="Seu nome"
+            style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
+            onfocus="this.style.borderColor='#1D9E75'"
+            onblur="this.style.borderColor='#ddd'"
+          />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label for="email" style="font-size:13px;font-weight:500;color:#333;">E-mail</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="seu@email.com"
+            style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
+            onfocus="this.style.borderColor='#1D9E75'"
+            onblur="this.style.borderColor='#ddd'"
+          />
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label for="subject" style="font-size:13px;font-weight:500;color:#333;">Assunto</label>
+        <select
+          id="subject"
+          name="subject"
+          required
+          style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;background:#fff;color:#333;"
+          onfocus="this.style.borderColor='#1D9E75'"
+          onblur="this.style.borderColor='#ddd'"
+        >
+          <option value="" disabled selected>Selecione um assunto</option>
+          <option value="parceria">Parceria comercial</option>
+          <option value="erro">Erro ou dado incorreto</option>
+          <option value="sugestao">Sugestão geral</option>
+          <option value="imprensa">Imprensa</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label for="message" style="font-size:13px;font-weight:500;color:#333;">Mensagem</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows="5"
+          placeholder="Descreva sua dúvida, sugestão ou proposta..."
+          style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;resize:vertical;font-family:system-ui,sans-serif;line-height:1.5;"
+          onfocus="this.style.borderColor='#1D9E75'"
+          onblur="this.style.borderColor='#ddd'"
+        ></textarea>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          id="submit-btn"
+          style="padding:12px 28px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;"
+        >
+          Enviar mensagem
+        </button>
+      </div>
+
+      <div id="form-success" style="display:none;padding:16px 20px;background:#E1F5EE;color:#0F6E56;border-radius:8px;font-size:14px;font-weight:500;">
+        Mensagem enviada! Responderemos em até 2 dias úteis.
+      </div>
+      <div id="form-error" style="display:none;padding:16px 20px;background:#FEF2F2;color:#B91C1C;border-radius:8px;font-size:14px;">
+        Ocorreu um erro. Por favor, tente novamente ou envie um e-mail diretamente.
+      </div>
+    </form>
+
+  </div>
+</Base>
+
+<script is:inline>
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const success = document.getElementById('form-success');
+    const error = document.getElementById('form-error');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    success.style.display = 'none';
+    error.style.display = 'none';
+
+    const data = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      subject: document.getElementById('subject').value,
+      message: document.getElementById('message').value,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        success.style.display = 'block';
+        document.getElementById('contact-form').reset();
+      } else {
+        error.style.display = 'block';
+      }
+    } catch (_) {
+      error.style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Enviar mensagem';
+  }
+</script>

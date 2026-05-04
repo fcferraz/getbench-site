@@ -1,8 +1,8 @@
 ---
-const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.props;
+const { title = "Buskai.net — Encontre e compare AI tools para LATAM" } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,7 +44,13 @@ const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.p
       <slot />
     </main>
     <footer>
-      © 2026 Buskai.net — The AI tools benchmark for LATAM
+      <div style="display:flex;justify-content:center;gap:24px;margin-bottom:12px;flex-wrap:wrap;">
+        <a href="/sobre" style="font-size:13px;color:#888;text-decoration:none;">Sobre</a>
+        <a href="/privacidade" style="font-size:13px;color:#888;text-decoration:none;">Privacidade</a>
+        <a href="/contato" style="font-size:13px;color:#888;text-decoration:none;">Contato</a>
+        <a href="/en/submit" style="font-size:13px;color:#888;text-decoration:none;">Enviar ferramenta</a>
+      </div>
+      © 2026 Buskai.net — O benchmark de AI tools para LATAM
     </footer>
     <!-- Search Modal -->
   <div id="search-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);" onclick="closeSearch(event)">
@@ -124,7 +130,7 @@ const { title = "Buskai.net — Find & Benchmark AI Tools for LATAM" } = Astro.p
                   '<span style="font-size:11px;color:#3ddc84;font-family:monospace;">#' + (i+1) + '</span>' +
                   '<span style="font-size:14px;font-weight:600;color:#e9ecea;">' + tool.name + '</span>' +
                   (tool.works_in_brazil ? '<span style="font-size:10px;padding:1px 6px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">BR</span>' : '') +
-                  (tool.has_free_plan ? '<span style="font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Free</span>' : '') +
+                  (tool.has_free_plan ? '<span style="font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Grátis</span>' : '') +
                 '</div>' +
                 '<div style="font-size:12px;color:#5d6662;font-style:italic;">' + tool.reason + '</div>' +
               '</div>' +

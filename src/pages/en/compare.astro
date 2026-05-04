@@ -8,36 +8,36 @@ const categories = await getCategories();
 
 <Base title="Comparar Ferramentas de IA — Buskai.net">
   <div class="breadcrumb">
-    <a href="/">Home</a><span>›</span>Comparar
+    <a href="/">Início</a><span>›</span>Comparar
   </div>
 
   <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">Comparar ferramentas de IA</h1>
   <p style="font-size:15px;color:#555;margin-bottom:40px;max-width:600px;line-height:1.6;">
-    Select a category and two tools to compare side by side.
+    Selecione uma categoria e duas tools para comparar lado a lado.
   </p>
 
   <div style="padding:24px;border:1px solid #eee;border-radius:12px;margin-bottom:48px;background:#f9f9f9;">
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:20px;">Build your comparison</h2>
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:20px;">Monte sua comparação</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;">
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Category</label>
+        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Categoria</label>
         <select id="sel-category" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;">
-          <option value="">Select category...</option>
+          <option value="">Selecione uma categoria...</option>
           {categories.map(cat => (
             <option value={cat.Slug}>{cat.Name}</option>
           ))}
         </select>
       </div>
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Tool A</label>
+        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Ferramenta A</label>
         <select id="sel-toolA" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;" disabled>
-          <option value="">Select tool...</option>
+          <option value="">Selecione uma ferramenta...</option>
         </select>
       </div>
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Tool B</label>
+        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Ferramenta B</label>
         <select id="sel-toolB" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;" disabled>
-          <option value="">Select tool...</option>
+          <option value="">Selecione uma ferramenta...</option>
         </select>
       </div>
       <button id="btn-compare" style="padding:9px 20px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;opacity:0.5;" disabled>
@@ -46,7 +46,7 @@ const categories = await getCategories();
     </div>
   </div>
 
-  <h2 style="font-size:18px;font-weight:600;margin-bottom:20px;">Popular comparisons</h2>
+  <h2 style="font-size:18px;font-weight:600;margin-bottom:20px;">Comparações populares</h2>
   <div style="display:flex;flex-direction:column;gap:12px;">
     {curatedComparisons.map(({ category, slugA, slugB }) => {
       const catName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -76,8 +76,8 @@ const categories = await getCategories();
   categorySelect.addEventListener('change', async () => {
     const slug = categorySelect.value;
     if (!slug) return;
-    toolASelect.innerHTML = '<option>Loading...</option>';
-    toolBSelect.innerHTML = '<option>Loading...</option>';
+    toolASelect.innerHTML = '<option>Carregando...</option>';
+    toolBSelect.innerHTML = '<option>Carregando...</option>';
     toolASelect.disabled = true;
     toolBSelect.disabled = true;
     if (!cache[slug]) {
@@ -85,8 +85,8 @@ const categories = await getCategories();
       cache[slug] = await res.json();
     }
     const opts = cache[slug].map(t => '<option value="' + t.slug + '">' + t.Name + '</option>').join('');
-    toolASelect.innerHTML = '<option value="">Select tool A...</option>' + opts;
-    toolBSelect.innerHTML = '<option value="">Select tool B...</option>' + opts;
+    toolASelect.innerHTML = '<option value="">Selecione a ferramenta A...</option>' + opts;
+    toolBSelect.innerHTML = '<option value="">Selecione a ferramenta B...</option>' + opts;
     toolASelect.disabled = false;
     toolBSelect.disabled = false;
   });
