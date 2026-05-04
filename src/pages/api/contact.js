@@ -1,5 +1,7 @@
 import { rateLimit } from '../../lib/rateLimit.js';
 
+console.log('AIRTABLE KEY:', process.env.AIRTABLE_API_KEY?.slice(0, 10));
+
 export async function POST({ request }) {
   const limited = rateLimit(request);
   if (limited) return limited;
