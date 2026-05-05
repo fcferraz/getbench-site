@@ -6,6 +6,13 @@ import { curatedComparisons } from '../../lib/comparisons.js';
 const categories = await getCategories();
 ---
 
+<style>
+  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+</style>
+
 <Base title="Comparar Ferramentas de IA — Buskai.net">
   <div class="breadcrumb">
     <a href="/">Início</a><span>›</span>Comparar
