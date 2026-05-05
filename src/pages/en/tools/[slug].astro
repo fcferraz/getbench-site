@@ -3,10 +3,16 @@ import Base from '../../../layouts/Base.astro';
 import { getToolBySlug } from '../../../lib/airtable.js';
 
 const { slug } = Astro.params;
-const tool = await getToolBySlug(slug);
+let tool;
+try {
+  tool = await getToolBySlug(slug);
+} catch (err) {
+  console.error(`[tools/${slug}] erro ao buscar ferramenta:`, err);
+  return Astro.redirect('/en/categories');
+}
 
 if (!tool) {
-  return new Response(null, { status: 404 });
+  return Astro.redirect('/en/categories');
 }
 
 const firstCategory = tool.categories?.[0];
