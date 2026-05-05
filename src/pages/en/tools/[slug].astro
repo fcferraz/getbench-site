@@ -1,16 +1,14 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { getTools } from '../../../lib/airtable.js';
+import { getToolBySlug } from '../../../lib/airtable.js';
 
-export async function getStaticPaths() {
-  const tools = await getTools();
-  return tools.map(tool => ({
-    params: { slug: tool.slug },
-    props: { tool }
-  }));
+const { slug } = Astro.params;
+const tool = await getToolBySlug(slug);
+
+if (!tool) {
+  return new Response(null, { status: 404 });
 }
 
-const { tool } = Astro.props;
 const firstCategory = tool.categories?.[0];
 ---
 

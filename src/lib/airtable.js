@@ -20,7 +20,13 @@ export async function getTools() {
 }
 
 export async function getToolsByCategory(categoryName) {
-  return fetchFromAirtable('Tools', 
+  return fetchFromAirtable('Tools',
     `filterByFormula=AND(FIND("${categoryName}",ARRAYJOIN({categories})),{status}="published")`
   );
+}
+
+export async function getToolBySlug(slug) {
+  const records = await fetchFromAirtable('Tools',
+    `filterByFormula=AND({slug}="${slug}",{status}="published")`);
+  return records[0] ?? null;
 }
