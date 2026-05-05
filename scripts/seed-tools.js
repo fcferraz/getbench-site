@@ -241,6 +241,33 @@ const tools = [
   },
 ];
 
+async function fetchExistingSlugs() {
+  const slugs = new Set();
+  let offset = '';
+
+  do {
+    const params = new URLSearchParams({ 'fields[]': 'slug' });
+    if (offset) params.set('offset', offset);
+
+    const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?${params}`, {
+      headers: { Authorization: `Bearer ${API_KEY}` },
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Airtable API error ${res.status}: ${err}`);
+    }
+
+    const data = await res.json();
+    for (const record of data.records) {
+      if (record.fields.slug) slugs.add(record.fields.slug);
+    }
+    offset = data.offset ?? '';
+  } while (offset);
+
+  return slugs;
+}
+
 // Map tool fields to Airtable field names
 function toAirtableFields(tool) {
   return {
@@ -280,11 +307,27 @@ async function createBatch(records) {
 }
 
 async function seed() {
-  console.log(`Seeding ${tools.length} tools into ${TABLE_ID}…\n`);
+  process.stdout.write('Checking existing slugs… ');
+  const existingSlugs = await fetchExistingSlugs();
+  console.log(`${existingSlugs.size} tools already in table.\n`);
 
-  const fields = tools.map(toAirtableFields);
+  const toCreate = [];
+  for (const tool of tools) {
+    if (existingSlugs.has(tool.slug)) {
+      console.log(`  já existe: ${tool.Name}`);
+    } else {
+      toCreate.push(tool);
+    }
+  }
 
-  // Airtable allows max 10 records per batch
+  if (toCreate.length === 0) {
+    console.log('\nNada a criar. Todas as ferramentas já existem.');
+    return;
+  }
+
+  console.log(`\nCreating ${toCreate.length} new tools…\n`);
+
+  const fields = toCreate.map(toAirtableFields);
   const BATCH_SIZE = 10;
   let created = 0;
 
@@ -298,7 +341,7 @@ async function seed() {
     console.log(`✓ ${result.records.map((r) => r.fields.Name).join(', ')}`);
   }
 
-  console.log(`\nDone. ${created}/${tools.length} tools created.`);
+  console.log(`\nDone. ${created}/${toCreate.length} tools created.`);
 }
 
 seed().catch((err) => {
