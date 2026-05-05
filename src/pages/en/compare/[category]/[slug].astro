@@ -29,6 +29,27 @@ function getColor(tool, criterion) {
 }
 
 const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+function getVerdictBullets(tool) {
+  const bullets = [];
+  if (tool?.has_free_plan && tool?.starting_price_usd === 0) {
+    bullets.push('Você precisa de uma opção gratuita para começar');
+  } else if (tool?.has_free_plan) {
+    bullets.push('Você quer testar antes de assinar (plano grátis disponível)');
+  } else if (tool?.starting_price_usd) {
+    bullets.push(tool.starting_price_usd < 30
+      ? `Seu orçamento é enxuto (a partir de $${tool.starting_price_usd}/mês)`
+      : `Você busca uma solução robusta ($${tool.starting_price_usd}/mês)`);
+  }
+  if (tool?.works_in_brazil) bullets.push('Sua operação é baseada no Brasil');
+  if (tool?.has_pt_support) bullets.push('Sua equipe trabalha em português');
+  if (tool?.accepts_brl && bullets.length < 3) bullets.push('Você prefere pagar em reais (BRL)');
+  if (bullets.length < 2) bullets.push('Você prioriza integrações e recursos avançados');
+  return bullets.slice(0, 3);
+}
+
+const bulletsA = getVerdictBullets(toolA);
+const bulletsB = getVerdictBullets(toolB);
 ---
 
 <style>
@@ -94,6 +115,27 @@ const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.
         <a href={'/en/tools/' + tool?.slug} style="font-size:12px;color:#1D9E75;text-decoration:none;margin-top:8px;display:inline-block;">Ver ficha completa de {tool?.Name} →</a>
       </div>
     ))}
+  </div>
+
+  <div style="border:1px solid #1D9E75;border-radius:12px;background:#f0faf6;padding:28px;margin-bottom:32px;">
+    <h2 style="font-size:18px;font-weight:600;margin-bottom:20px;color:#0F6E56;">Qual escolher?</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      {([toolA, toolB] as const).map((tool, i) => {
+        const bullets = i === 0 ? bulletsA : bulletsB;
+        return (
+          <div style="background:#fff;border:1px solid #c8ead9;border-radius:10px;padding:20px;">
+            <h3 style="font-size:14px;font-weight:600;color:#0F6E56;margin-bottom:14px;">Escolha {tool?.Name} se...</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+              {bullets.map(b => (
+                <li style="font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;line-height:1.5;">
+                  <span style="color:#1D9E75;font-weight:700;flex-shrink:0;margin-top:1px;">→</span>{b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
