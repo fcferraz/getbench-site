@@ -52,14 +52,14 @@ const tools = await getToolsByCategory(category.Name || '');
               {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
               {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
             </div>
-            <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_en}</p>
+            <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.description_pt || tool.tagline_en}</p>
             {tool.latam_note_pt && (
               <p style="font-size:11px;color:#0F6E56;background:#E1F5EE;padding:4px 10px;border-radius:6px;display:inline-block;">{tool.latam_note_pt}</p>
             )}
           </div>
           <div style="text-align:right;margin-left:24px;flex-shrink:0;">
             <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
-              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : `A partir de $${tool.starting_price_usd}/mês`}
+              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de $${tool.starting_price_usd}/mês` : 'Consultar preço'}
             </div>
             <div style="display:flex;gap:8px;justify-content:flex-end;">
               <a href={`/en/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Detalhes</a>

@@ -226,6 +226,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    starting_price_usd: 25,
+    tagline_en: 'The world\'s #1 CRM, with Einstein AI for sales, service, and marketing automation.',
     description_en: 'The world\'s leading CRM platform, offering a full suite of sales, service, marketing, and analytics tools powered by Einstein AI. Used by enterprises across LATAM.',
     description_pt: 'A principal plataforma de CRM do mundo, com soluções completas de vendas, atendimento, marketing e analytics com Einstein AI. Amplamente adotada por grandes empresas na LATAM.',
   },
@@ -236,6 +239,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 14,
+    tagline_en: 'Feature-rich CRM with AI assistant Zia and cost-effective plans for LATAM SMBs.',
     description_en: 'Feature-rich CRM with AI assistant Zia, workflow automation, multichannel communication, and strong SMB appeal. Popular across Latin America for its cost-effective plans.',
     description_pt: 'CRM completo com assistente de IA Zia, automação de fluxos de trabalho, comunicação multicanal e planos acessíveis, muito usado por PMEs em toda a América Latina.',
   },
@@ -247,6 +253,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    starting_price_usd: 49,
+    tagline_en: 'Brazilian B2B CRM with native WhatsApp integration and full Portuguese support.',
     description_en: 'Brazilian CRM built for B2B sales teams, with pipeline management, activity automation, WhatsApp integration, and native Portuguese support. Focused on SMBs in Brazil.',
     description_pt: 'CRM brasileiro para equipes de vendas B2B com gestão de pipeline, automação de atividades, integração com WhatsApp e suporte nativo em português. Focado em PMEs no Brasil.',
   },
@@ -259,6 +268,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 20,
+    tagline_en: 'Email and SMS automation for e-commerce, with advanced segmentation and predictive analytics.',
     description_en: 'Data-driven email and SMS marketing automation platform built for e-commerce, with powerful segmentation, predictive analytics, and deep integrations with Shopify and VTEX.',
     description_pt: 'Plataforma de automação de e-mail e SMS focada em e-commerce, com segmentação avançada, analytics preditivo e integrações profundas com Shopify e VTEX.',
   },
@@ -270,6 +282,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: true,
+    starting_price_usd: 0,
+    tagline_en: 'Portuguese-Brazilian multichannel platform: email, SMS, push and voice — free plan included.',
     description_en: 'Portuguese-Brazilian multichannel marketing automation platform with email, SMS, push notifications, and voice campaigns — with a free tier and full Portuguese interface.',
     description_pt: 'Plataforma luso-brasileira de automação de marketing multicanal com e-mail, SMS, push e voz, plano gratuito e interface completamente em português.',
   },
@@ -281,6 +296,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    starting_price_usd: 49,
+    tagline_en: 'Brazilian email marketing and automation with drag-and-drop editor and A/B testing.',
     description_en: 'Brazilian email marketing and marketing automation platform with drag-and-drop editor, advanced segmentation, A/B testing, and CRM integration — built for the Brazilian market.',
     description_pt: 'Plataforma brasileira de e-mail marketing e automação com editor drag-and-drop, segmentação avançada, testes A/B e integração com CRM — desenvolvida para o mercado brasileiro.',
   },
@@ -293,6 +311,8 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    tagline_en: 'The pioneer CS platform with health scoring, playbooks, and AI insights to reduce churn.',
     description_en: 'The pioneer customer success platform with health scoring, journey orchestration, product analytics, and AI-driven insights to reduce churn and expand revenue.',
     description_pt: 'A plataforma pioneira de customer success com health scoring, orquestração de jornadas, analytics de produto e insights por IA para reduzir churn e expandir receita.',
   },
@@ -303,6 +323,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    starting_price_usd: 199,
+    tagline_en: 'CS platform for SaaS with automated playbooks, health scores, and built-in CRM.',
     description_en: 'Customer success platform designed for SaaS companies with automated playbooks, health scores, lifecycle alerts, and built-in CRM — strong alternative to Gainsight for SMBs.',
     description_pt: 'Plataforma de customer success para SaaS com playbooks automatizados, health scores, alertas de ciclo de vida e CRM integrado — alternativa acessível ao Gainsight para PMEs.',
   },
@@ -313,6 +336,8 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    tagline_en: 'Modern CS platform unifying customer success, revenue, and product data in one workspace.',
     description_en: 'Modern customer platform combining CS, revenue, and product data in one workspace — with health metrics, playbooks, analytics, and NRR optimization workflows.',
     description_pt: 'Plataforma moderna que unifica dados de customer success, receita e produto em um único workspace com health metrics, playbooks e fluxos de otimização de NRR.',
   },
@@ -325,6 +350,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    starting_price_usd: 99,
+    tagline_en: 'All-in-one HR platform for SMBs: hiring, onboarding, performance, and payroll.',
     description_en: 'All-in-one HR platform for SMBs covering hiring, onboarding, performance management, and payroll — widely used by multinational companies with Brazilian operations.',
     description_pt: 'Plataforma de RH completa para PMEs com contratação, onboarding, gestão de desempenho e folha de pagamento — utilizada por multinacionais com operações no Brasil.',
   },
@@ -336,6 +364,8 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    tagline_en: 'Brazilian AI-powered talent acquisition with gamified assessments for high-volume hiring.',
     description_en: 'Brazilian talent acquisition platform that uses AI and gamified assessments to screen and match high-volume candidates, focused on operational and frontline roles.',
     description_pt: 'Plataforma brasileira de atração de talentos que usa IA e avaliações gamificadas para triagem e match de candidatos em processos de alto volume, com foco em vagas operacionais.',
   },
@@ -347,6 +377,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    starting_price_usd: 5,
+    tagline_en: 'Brazilian HR platform for continuous feedback, OKRs, and employee engagement.',
     description_en: 'Brazilian HR platform for continuous feedback, OKR management, performance reviews, and employee engagement — designed to strengthen culture in growing Brazilian companies.',
     description_pt: 'Plataforma brasileira de RH para feedback contínuo, gestão de OKRs, avaliações de desempenho e engajamento — desenvolvida para fortalecer a cultura de empresas brasileiras em crescimento.',
   },
@@ -359,6 +392,8 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    tagline_en: 'AI RevOps platform that auto-captures sales activity and enriches CRM with deal insights.',
     description_en: 'AI revenue operations platform that automatically captures all sales activity, enriches CRM data, and surfaces deal insights to improve forecasting accuracy and rep productivity.',
     description_pt: 'Plataforma de RevOps com IA que captura automaticamente toda a atividade de vendas, enriquece dados de CRM e revela insights para melhorar previsões e a produtividade dos representantes.',
   },
@@ -371,6 +406,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 30,
+    tagline_en: 'All-in-one outbound platform: email finder, verification, drip campaigns, and CRM.',
     description_en: 'All-in-one outbound sales platform with email finder, email verification, drip campaigns, and CRM — popular among Brazilian SDR and growth teams for its affordable pricing.',
     description_pt: 'Plataforma de outbound completa com localizador de e-mails, verificação, campanhas de drip e CRM — popular entre equipes SDR e de growth no Brasil pelo custo-benefício.',
   },
@@ -381,6 +419,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 40,
+    tagline_en: 'LinkedIn and email outreach automation — multichannel prospecting sequences, no code needed.',
     description_en: 'LinkedIn and email outreach automation tool that lets sales teams run multichannel prospecting sequences directly from LinkedIn — easy to use, no coding required.',
     description_pt: 'Ferramenta de automação de outreach no LinkedIn e e-mail para criar sequências de prospecção multicanal diretamente do LinkedIn, sem necessidade de programação.',
   },
@@ -394,6 +435,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    starting_price_usd: 20,
+    tagline_en: 'Brazilian omnichannel support with WhatsApp, live chat, chatbot, and helpdesk.',
     description_en: 'Brazilian omnichannel customer support platform with WhatsApp, live chat, chatbot, and helpdesk — built for Brazilian SMBs and e-commerce with native Portuguese support.',
     description_pt: 'Plataforma brasileira de atendimento omnichannel com WhatsApp, chat ao vivo, chatbot e helpdesk — desenvolvida para PMEs e e-commerce no Brasil com suporte nativo em português.',
   },
@@ -405,6 +449,9 @@ const tools = [
     works_in_brazil: true,
     has_pt_support: true,
     accepts_brl: true,
+    has_free_plan: false,
+    starting_price_usd: 10,
+    tagline_en: 'Brazilian service desk and ITSM with ticket management, SLA control, and asset management.',
     description_en: 'Brazilian service desk and ITSM platform with ticket management, SLA control, knowledge base, and asset management — widely adopted by IT teams and MSPs in Brazil.',
     description_pt: 'Plataforma brasileira de service desk e ITSM com gestão de chamados, controle de SLA, base de conhecimento e gestão de ativos — amplamente usada por equipes de TI e MSPs no Brasil.',
   },
@@ -437,6 +484,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 49,
+    tagline_en: 'Verified B2B phone numbers and emails on LinkedIn and Salesforce — built for fast SDR prospecting.',
     description_en: 'B2B contact data platform that provides accurate phone numbers and emails for prospects directly in LinkedIn and Salesforce — popular among SDRs for quick prospecting.',
     description_pt: 'Plataforma de dados de contatos B2B que fornece telefones e e-mails precisos de prospects diretamente no LinkedIn e Salesforce — popular entre SDRs para prospecção rápida.',
   },
@@ -447,6 +497,8 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    tagline_en: 'The largest B2B contact database with intent data and workflow automation to reach buyers faster.',
     description_en: 'Enterprise-grade B2B intelligence platform with the largest contact and company database, intent data, and workflow automation to identify and reach buyers faster.',
     description_pt: 'Plataforma de inteligência B2B empresarial com o maior banco de dados de contatos e empresas, dados de intenção e automação de fluxos para identificar e alcançar compradores mais rapidamente.',
   },
@@ -457,6 +509,8 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: false,
+    tagline_en: 'GDPR-compliant B2B intelligence with verified mobile numbers, intent data, and AI prospecting.',
     description_en: 'GDPR-compliant B2B sales intelligence platform with verified mobile numbers, intent data, and AI-powered prospecting — strong coverage for EMEA and growing LATAM presence.',
     description_pt: 'Plataforma de inteligência de vendas B2B em conformidade com GDPR com números de celular verificados, dados de intenção e prospecção com IA — forte presença na EMEA e expansão para a LATAM.',
   },
@@ -467,6 +521,9 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 45,
+    tagline_en: 'One-click LinkedIn prospecting with CRM sync and AI-generated personalized outreach.',
     description_en: 'Prospecting platform that captures verified contact data from LinkedIn in one click, syncs to CRM, and uses AI to generate personalized outreach — focused on pipeline efficiency.',
     description_pt: 'Plataforma de prospecção que captura dados de contato verificados do LinkedIn com um clique, sincroniza com o CRM e usa IA para gerar outreach personalizado — focada em eficiência de pipeline.',
   },
@@ -477,13 +534,16 @@ const tools = [
     status: 'published',
     works_in_brazil: true,
     has_pt_support: false,
+    has_free_plan: true,
+    starting_price_usd: 49,
+    tagline_en: 'LinkedIn prospecting tool that instantly reveals verified phones and emails with bulk CRM export.',
     description_en: 'LinkedIn prospecting tool that instantly reveals verified phone numbers and emails of prospects, with bulk export and direct CRM sync — a cost-effective alternative to Lusha.',
     description_pt: 'Ferramenta de prospecção no LinkedIn que revela instantaneamente telefones e e-mails verificados de prospects, com exportação em lote e sincronização com CRM — alternativa acessível ao Lusha.',
   },
 ];
 
-async function fetchExistingSlugs() {
-  const slugs = new Set();
+async function fetchExistingRecords() {
+  const map = new Map(); // slug → recordId
   let offset = '';
 
   do {
@@ -501,88 +561,103 @@ async function fetchExistingSlugs() {
 
     const data = await res.json();
     for (const record of data.records) {
-      if (record.fields.slug) slugs.add(record.fields.slug);
+      if (record.fields.slug) map.set(record.fields.slug, record.id);
     }
     offset = data.offset ?? '';
   } while (offset);
 
-  return slugs;
+  return map;
 }
 
 // Map tool fields to Airtable field names
 function toAirtableFields(tool) {
-  return {
-    Name:           tool.Name,
-    slug:           tool.slug,
-    categories:     tool.categories,
-    status:         tool.status,
+  const fields = {
+    Name:            tool.Name,
+    slug:            tool.slug,
+    categories:      tool.categories,
+    status:          tool.status,
     works_in_brazil: tool.works_in_brazil,
-    has_pt_support: tool.has_pt_support,
-    description_en: tool.description_en,
-    description_pt: tool.description_pt,
+    has_pt_support:  tool.has_pt_support,
+    description_en:  tool.description_en,
+    description_pt:  tool.description_pt,
   };
+  if (tool.tagline_en          !== undefined) fields.tagline_en          = tool.tagline_en;
+  if (tool.has_free_plan       !== undefined) fields.has_free_plan       = tool.has_free_plan;
+  if (tool.starting_price_usd  !== undefined) fields.starting_price_usd  = tool.starting_price_usd;
+  if (tool.accepts_brl         !== undefined) fields.accepts_brl         = tool.accepts_brl;
+  return fields;
 }
 
 async function createBatch(records) {
   const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`;
-  const body = {
-    records: records.map((fields) => ({ fields })),
-    typecast: true,
-  };
-
   const res = await fetch(url, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
+    headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ records: records.map((fields) => ({ fields })), typecast: true }),
   });
+  if (!res.ok) throw new Error(`Airtable API error ${res.status}: ${await res.text()}`);
+  return res.json();
+}
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Airtable API error ${res.status}: ${err}`);
-  }
-
+async function updateBatch(records) {
+  const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`;
+  const res = await fetch(url, {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ records, typecast: true }),
+  });
+  if (!res.ok) throw new Error(`Airtable API error ${res.status}: ${await res.text()}`);
   return res.json();
 }
 
 async function seed() {
-  process.stdout.write('Checking existing slugs… ');
-  const existingSlugs = await fetchExistingSlugs();
-  console.log(`${existingSlugs.size} tools already in table.\n`);
+  process.stdout.write('Checking existing records… ');
+  const existing = await fetchExistingRecords();
+  console.log(`${existing.size} tools already in table.\n`);
 
   const toCreate = [];
+  const toUpdate = [];
+
   for (const tool of tools) {
-    if (existingSlugs.has(tool.slug)) {
-      console.log(`  já existe: ${tool.Name}`);
+    const recordId = existing.get(tool.slug);
+    if (recordId) {
+      toUpdate.push({ id: recordId, fields: toAirtableFields(tool) });
     } else {
       toCreate.push(tool);
     }
   }
 
-  if (toCreate.length === 0) {
-    console.log('\nNada a criar. Todas as ferramentas já existem.');
-    return;
-  }
-
-  console.log(`\nCreating ${toCreate.length} new tools…\n`);
-
-  const fields = toCreate.map(toAirtableFields);
   const BATCH_SIZE = 10;
-  let created = 0;
 
-  for (let i = 0; i < fields.length; i += BATCH_SIZE) {
-    const batch = fields.slice(i, i + BATCH_SIZE);
-    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
-
-    process.stdout.write(`  Batch ${batchNum} (${batch.length} records)… `);
-    const result = await createBatch(batch);
-    created += result.records.length;
-    console.log(`✓ ${result.records.map((r) => r.fields.Name).join(', ')}`);
+  if (toCreate.length > 0) {
+    console.log(`Creating ${toCreate.length} new tools…\n`);
+    let created = 0;
+    for (let i = 0; i < toCreate.length; i += BATCH_SIZE) {
+      const batch = toCreate.slice(i, i + BATCH_SIZE);
+      process.stdout.write(`  Batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} records)… `);
+      const result = await createBatch(batch.map(toAirtableFields));
+      created += result.records.length;
+      console.log(`✓ ${result.records.map(r => r.fields.Name).join(', ')}`);
+    }
+    console.log(`\n${created}/${toCreate.length} tools created.`);
   }
 
-  console.log(`\nDone. ${created}/${toCreate.length} tools created.`);
+  if (toUpdate.length > 0) {
+    console.log(`\nUpdating ${toUpdate.length} existing tools…\n`);
+    let updated = 0;
+    for (let i = 0; i < toUpdate.length; i += BATCH_SIZE) {
+      const batch = toUpdate.slice(i, i + BATCH_SIZE);
+      process.stdout.write(`  Batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} records)… `);
+      const result = await updateBatch(batch);
+      updated += result.records.length;
+      console.log(`✓ ${result.records.map(r => r.fields.Name).join(', ')}`);
+    }
+    console.log(`\n${updated}/${toUpdate.length} tools updated.`);
+  }
+
+  if (toCreate.length === 0 && toUpdate.length === 0) {
+    console.log('Nada a fazer.');
+  }
 }
 
 seed().catch((err) => {
