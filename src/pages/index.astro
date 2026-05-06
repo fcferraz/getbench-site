@@ -5,6 +5,21 @@ import { getCategories } from '../lib/airtable.js';
 const categories = await getCategories();
 ---
 
+<style>
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  @media (max-width: 640px) {
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 400px) {
+    .cat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
 <Base>
   <div style="text-align:center;padding:60px 0 40px;">
     <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
@@ -118,7 +133,7 @@ const categories = await getCategories();
   </script>
   </div>
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;">
+  <div class="cat-grid">
     {categories.map(cat => (
       <a href={'/en/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
         <div style="font-size:13px;font-weight:500;margin-bottom:4px;">{cat.Name}</div>

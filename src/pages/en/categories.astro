@@ -10,6 +10,17 @@ const categories = await getCategories();
   .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
   .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
   .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 640px) {
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 400px) {
+    .cat-grid { grid-template-columns: 1fr; }
+  }
 </style>
 
 <Base title="Todas as Categorias de AI Tools — Buskai.net">
@@ -20,7 +31,7 @@ const categories = await getCategories();
   <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">Explorar por categoria</h1>
   <p style="font-size:15px;color:#555;margin-bottom:40px;">Encontre a AI tool certa para o seu caso de uso, curadas para empresas de LATAM.</p>
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+  <div class="cat-grid">
     {categories.map(cat => (
       <a href={`/en/category/${cat.Slug}`} style="padding:24px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
         <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:#1a1a1a;">{cat.Name}</div>

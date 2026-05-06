@@ -23,6 +23,12 @@ const firstCategory = tool.categories?.[0];
   .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
   .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
   .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+  .latam-note {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 </style>
 
 <Base title={`${tool.Name} — Buskai.net`}>
@@ -109,7 +115,7 @@ const firstCategory = tool.categories?.[0];
   {tool.latam_note_pt && (
     <div style="margin-bottom:32px;padding:16px 20px;background:#E1F5EE;border-radius:12px;">
       <h2 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">Nota para o mercado brasileiro</h2>
-      <p style="font-size:13px;color:#085041;line-height:1.6;">{tool.latam_note_pt}</p>
+      <p class="latam-note" style="font-size:13px;color:#085041;line-height:1.6;">{tool.latam_note_pt}</p>
     </div>
   )}
 
