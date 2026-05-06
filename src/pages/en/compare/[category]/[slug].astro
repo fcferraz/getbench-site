@@ -100,7 +100,8 @@ Regras:
     });
 
     const text = response.content[0].type === 'text' ? response.content[0].text : '';
-    const parsed = JSON.parse(text);
+    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const parsed = JSON.parse(clean);
     if (Array.isArray(parsed.bulletsA) && Array.isArray(parsed.bulletsB)) {
       bulletsA = parsed.bulletsA.slice(0, 3);
       bulletsB = parsed.bulletsB.slice(0, 3);
