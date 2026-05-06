@@ -38,6 +38,7 @@ const firstCategory = tool.categories?.[0];
         <h1 style="font-size:28px;font-weight:600;">{tool.Name}</h1>
         {tool.works_in_brazil && <span style="font-size:11px;padding:3px 10px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
         {tool.has_free_plan && <span style="font-size:11px;padding:3px 10px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
+        {tool.ai_native === true && <span style="font-size:11px;padding:3px 10px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
       </div>
       <p style="font-size:16px;color:#555;max-width:600px;">{tool.tagline_en}</p>
     </div>

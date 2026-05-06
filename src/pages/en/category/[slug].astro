@@ -34,6 +34,7 @@ const tools = await getToolsByCategory(category.Name || '');
     <button onclick="toggleFilter(this, 'br')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Funciona no BR</button>
     <button onclick="toggleFilter(this, 'brl')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Aceita BRL</button>
     <button onclick="toggleFilter(this, 'pt')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Suporte PT</button>
+    <button onclick="toggleFilter(this, 'ainative')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">AI Native 🤖</button>
   </div>
 
   {tools.length === 0 ? (
@@ -43,12 +44,13 @@ const tools = await getToolsByCategory(category.Name || '');
   ) : (
     <div style="display:flex;flex-direction:column;gap:16px;" id="tools-list">
       {tools.map(tool => (
-        <div class="tool-card" data-free={tool.has_free_plan ? '1' : '0'} data-br={tool.works_in_brazil ? '1' : '0'} data-brl={tool.accepts_brl ? '1' : '0'} data-pt={tool.has_pt_support ? '1' : '0'} style="padding:24px;border:1px solid #eee;border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="tool-card" data-free={tool.has_free_plan ? '1' : '0'} data-br={tool.works_in_brazil ? '1' : '0'} data-brl={tool.accepts_brl ? '1' : '0'} data-pt={tool.has_pt_support ? '1' : '0'} data-ainative={tool.ai_native === true ? '1' : '0'} style="padding:24px;border:1px solid #eee;border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;">
           <div style="flex:1;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
               <a href={`/en/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">{tool.Name}</a>
               {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
               {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
+              {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
             </div>
             <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_en}</p>
             {tool.latam_note_pt && (
@@ -87,6 +89,7 @@ const tools = await getToolsByCategory(category.Name || '');
         if (filter === 'br') show = card.dataset.br === '1';
         if (filter === 'brl') show = card.dataset.brl === '1';
         if (filter === 'pt') show = card.dataset.pt === '1';
+        if (filter === 'ainative') show = card.dataset.ainative === '1';
         card.style.display = show ? 'flex' : 'none';
         if (show) visible++;
       });
