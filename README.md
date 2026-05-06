@@ -38,6 +38,25 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 🗄️ Airtable Backup
+
+Dumps all records from the **Tools** and **Categories** tables into `backups/`.
+
+```sh
+node scripts/backup-airtable.js
+```
+
+Output files: `backups/tools-YYYY-MM-DD.json` and `backups/categories-YYYY-MM-DD.json`.
+
+Credentials are read from `.env.local.save` (never committed). Required variables:
+
+| Variable | Description |
+| :--- | :--- |
+| `AIRTABLE_API_KEY` | Personal access token from airtable.com/create/tokens |
+| `AIRTABLE_BASE_ID` | Base ID — found in the Airtable API docs for your base |
+
+The `backups/` directory is in `.gitignore`.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

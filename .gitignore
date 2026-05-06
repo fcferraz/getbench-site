@@ -26,3 +26,6 @@ pnpm-debug.log*
 .env.save
 .env*.local
 .env.local.save
+
+# airtable backups — local only, contain raw data
+backups/
