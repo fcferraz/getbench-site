@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.94.0",
     "@astrojs/vercel": "^10.0.6",
     "astro": "^6.2.2"
   }

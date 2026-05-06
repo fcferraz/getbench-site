@@ -1,4 +1,5 @@
 ---
+import Anthropic from '@anthropic-ai/sdk';
 import Base from '../../../../layouts/Base.astro';
 import { getTools } from '../../../../lib/airtable.js';
 import { categoryCriteria } from '../../../../lib/comparisons.js';
@@ -30,7 +31,7 @@ function getColor(tool, criterion) {
 
 const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-function getVerdictBullets(tool) {
+function getVerdictBulletsFallback(tool) {
   const bullets = [];
   if (tool?.has_free_plan && tool?.starting_price_usd === 0) {
     bullets.push('Você precisa de uma opção gratuita para começar');
@@ -48,8 +49,69 @@ function getVerdictBullets(tool) {
   return bullets.slice(0, 3);
 }
 
-const bulletsA = getVerdictBullets(toolA);
-const bulletsB = getVerdictBullets(toolB);
+function toolSummary(tool) {
+  if (!tool) return 'Ferramenta não encontrada';
+  return JSON.stringify({
+    name: tool.Name,
+    description_pt: tool.description_pt?.substring(0, 400) || '',
+    starting_price_usd: tool.starting_price_usd,
+    has_free_plan: tool.has_free_plan,
+    pricing_model: tool.pricing_model,
+    works_in_brazil: tool.works_in_brazil,
+    works_in_mexico: tool.works_in_mexico,
+    accepts_brl: tool.accepts_brl,
+    has_pt_support: tool.has_pt_support,
+    has_latam_data: tool.has_latam_data,
+    latam_note_pt: tool.latam_note_pt,
+    categories: tool.categories,
+  });
+}
+
+let bulletsA: string[] = [];
+let bulletsB: string[] = [];
+
+if (toolA && toolB && process.env.ANTHROPIC_API_KEY) {
+  try {
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5',
+      max_tokens: 512,
+      messages: [{
+        role: 'user',
+        content: `Você é um especialista em ferramentas de IA para empresas de LATAM. Compare as duas ferramentas abaixo e gere bullets de decisão em português.
+
+Ferramenta A: ${toolSummary(toolA)}
+
+Ferramenta B: ${toolSummary(toolB)}
+
+Responda APENAS com JSON válido neste formato exato (sem markdown, sem explicações):
+{
+  "bulletsA": ["bullet 1", "bullet 2", "bullet 3"],
+  "bulletsB": ["bullet 1", "bullet 2", "bullet 3"]
+}
+
+Regras:
+- Cada lista deve ter 2-3 bullets
+- Cada bullet começa com "Você " e descreve um perfil de usuário que se beneficia dessa ferramenta
+- Os bullets devem ser DIFERENTES entre as duas ferramentas — cada uma tem seu ponto forte distinto
+- Seja específico com dados reais (preços, recursos, mercado)
+- Escreva em português brasileiro, tom profissional mas direto`
+      }]
+    });
+
+    const text = response.content[0].type === 'text' ? response.content[0].text : '';
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed.bulletsA) && Array.isArray(parsed.bulletsB)) {
+      bulletsA = parsed.bulletsA.slice(0, 3);
+      bulletsB = parsed.bulletsB.slice(0, 3);
+    }
+  } catch (err) {
+    console.error('[compare] Claude verdict error:', err?.message ?? err);
+  }
+}
+
+if (bulletsA.length === 0) bulletsA = getVerdictBulletsFallback(toolA);
+if (bulletsB.length === 0) bulletsB = getVerdictBulletsFallback(toolB);
 ---
 
 <style>
