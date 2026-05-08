@@ -16,6 +16,8 @@ if (!tool) {
 }
 
 const firstCategory = tool.categories?.[0];
+const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
+const sym = currencySymbol(tool.currency);
 ---
 
 <style>
@@ -50,7 +52,7 @@ const firstCategory = tool.categories?.[0];
     </div>
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:20px;font-weight:600;margin-bottom:8px;">
-        {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de $${tool.starting_price_usd}/mês` : 'Consultar preço'}
+        {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de ${sym}${tool.starting_price_usd}/mês` : 'Consultar preço'}
       </div>
       <a href={tool.affiliate_url || tool.website} target="_blank"
         style="display:inline-block;padding:12px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
@@ -72,7 +74,7 @@ const firstCategory = tool.categories?.[0];
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Preço inicial</span>
-          <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : `$${tool.starting_price_usd}/mês`}</span>
+          <span style="font-weight:500;">{tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : `${sym}${tool.starting_price_usd}/mês`}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Plano grátis</span>

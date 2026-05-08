@@ -6,6 +6,7 @@ const { slug } = Astro.params;
 const categories = await getCategories();
 const category = categories.find(c => c.Slug === slug) || {};
 const tools = await getToolsByCategory(category.Name || '');
+const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
 ---
 
 <style>
@@ -65,7 +66,7 @@ const tools = await getToolsByCategory(category.Name || '');
           </div>
           <div style="text-align:right;margin-left:24px;flex-shrink:0;">
             <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
-              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de $${tool.starting_price_usd}/mês` : 'Consultar preço'}
+              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de ${currencySymbol(tool.currency)}${tool.starting_price_usd}/mês` : 'Consultar preço'}
             </div>
             <div style="display:flex;gap:8px;justify-content:flex-end;">
               <a href={`/en/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Detalhes</a>
