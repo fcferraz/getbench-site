@@ -1,5 +1,5 @@
 ---
-import Base from '../../layouts/Base.astro';
+import Base from '../layouts/Base.astro';
 ---
 
 <Base title="Buscar AI tools para LATAM — Buskai.net">
@@ -15,7 +15,7 @@ import Base from '../../layouts/Base.astro';
     footer { background: #0b0d0b !important; border-color: rgba(255,255,255,.1) !important; color: #5d6662 !important; }
   </style>
   <div style="min-height:100vh;background:#0b0d0b;color:#e9ecea;font-family:'Inter Tight',system-ui,sans-serif;position:relative;overflow:hidden;margin:-40px -32px;padding:80px 28px 120px;">
-    
+
     <div style="position:fixed;inset:0;pointer-events:none;background:radial-gradient(1200px 600px at 15% -5%,rgba(61,220,132,.18),transparent 55%);"></div>
     <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:48px;">
@@ -97,7 +97,7 @@ import Base from '../../layouts/Base.astro';
           return '<div style="border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:rgba(15,18,15,.6);display:flex;justify-content:space-between;align-items:flex-start;">' +
             '<div style="flex:1;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
             '<span style="font-family:monospace;font-size:11px;color:#3ddc84;">#' + (i+1) + '</span>' +
-            '<a href="/en/tools/' + tool.slug + '" style="font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;">' + tool.name + '</a>' +
+            '<a href="/tools/' + tool.slug + '" style="font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;">' + tool.name + '</a>' +
             (tool.works_in_brazil ? '<span style="font-size:11px;padding:2px 8px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">Funciona no BR</span>' : '') +
             (tool.has_free_plan ? '<span style="font-size:11px;padding:2px 8px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Plano grátis</span>' : '') +
             '</div><p style="color:#8b938f;font-size:13px;margin:0 0 6px;">' + tool.tagline + '</p>' +

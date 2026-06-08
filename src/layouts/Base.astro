@@ -49,13 +49,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <nav>
       <a href="/" class="logo">Busk<span>ai</span>.net</a>
       <div class="nav-links">
-        <a href="/en/categories">Categorias</a>
-        <a href="/en/compare">Comparar</a>
-        <a href="/en/blog">Blog</a>
+        <a href="/categories">Categorias</a>
+        <a href="/compare">Comparar</a>
+        <a href="/blog">Blog</a>
         <button onclick="openSearch()" style="background:none;border:none;cursor:pointer;padding:6px;color:#555;display:flex;align-items:center;" title="Buscar (⌘K)">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
-        <a href="/en/submit" class="nav-submit">+ Enviar ferramenta</a>
+        <a href="/submit" class="nav-submit">+ Enviar ferramenta</a>
       </div>
     </nav>
     <main>
@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="/sobre" style="font-size:13px;color:#888;text-decoration:none;">Sobre</a>
         <a href="/privacidade" style="font-size:13px;color:#888;text-decoration:none;">Privacidade</a>
         <a href="/contato" style="font-size:13px;color:#888;text-decoration:none;">Contato</a>
-        <a href="/en/submit" style="font-size:13px;color:#888;text-decoration:none;">Enviar ferramenta</a>
+        <a href="/submit" style="font-size:13px;color:#888;text-decoration:none;">Enviar ferramenta</a>
       </div>
       © 2026 Buskai.net — O benchmark de AI tools para LATAM
     </footer>
@@ -142,7 +142,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           '<div style="padding:12px 20px;font-size:11px;color:#5d6662;font-family:monospace;">' + data.tools.length + ' tools para "' + query + '"</div>' +
           '<div style="padding:0 12px 8px;font-size:13px;color:#8b938f;line-height:1.5;padding:8px 20px;">' + data.reasoning + '</div>' +
           data.tools.map(function(tool, i) {
-            return '<a href="/en/tools/' + tool.slug + '" onclick="closeSearchDirect()" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);">' +
+            return '<a href="/tools/' + tool.slug + '" onclick="closeSearchDirect()" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);">' +
               '<div>' +
                 '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
                   '<span style="font-size:11px;color:#3ddc84;font-family:monospace;">#' + (i+1) + '</span>' +
@@ -156,7 +156,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             '</a>';
           }).join('') +
           '<div style="padding:12px 20px;border-top:1px solid rgba(255,255,255,.05);text-align:center;">' +
-            '<a href="/en/search?q=' + encodeURIComponent(query) + '" style="font-size:12px;color:#3ddc84;text-decoration:none;">Ver página completa →</a>' +
+            '<a href="/search?q=' + encodeURIComponent(query) + '" style="font-size:12px;color:#3ddc84;text-decoration:none;">Ver página completa →</a>' +
           '</div>';
       } catch(e) {
         document.getElementById('modal-loading').style.display = 'none';

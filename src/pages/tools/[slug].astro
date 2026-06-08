@@ -1,6 +1,6 @@
 ---
-import Base from '../../../layouts/Base.astro';
-import { getToolBySlug } from '../../../lib/airtable.js';
+import Base from '../../layouts/Base.astro';
+import { getToolBySlug } from '../../lib/airtable.js';
 
 const { slug } = Astro.params;
 let tool;
@@ -8,11 +8,11 @@ try {
   tool = await getToolBySlug(slug);
 } catch (err) {
   console.error(`[tools/${slug}] erro ao buscar ferramenta:`, err);
-  return Astro.redirect('/en/categories');
+  return Astro.redirect('/categories');
 }
 
 if (!tool) {
-  return Astro.redirect('/en/categories');
+  return Astro.redirect('/categories');
 }
 
 const firstCategory = tool.categories?.[0];
@@ -36,7 +36,7 @@ const sym = currencySymbol(tool.currency);
 <Base title={`${tool.Name} — Buskai.net`}>
   <div class="breadcrumb">
     <a href="/">Início</a><span>›</span>
-    {firstCategory && <><a href={`/en/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categorias'}</a><span>›</span></>}
+    {firstCategory && <><a href={`/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categorias'}</a><span>›</span></>}
     {tool.Name}
   </div>
 

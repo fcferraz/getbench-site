@@ -16,16 +16,16 @@ export async function GET({ request }: APIContext) {
     { loc: '/sobre',         priority: '0.5', changefreq: 'monthly' },
     { loc: '/privacidade',   priority: '0.3', changefreq: 'yearly'  },
     { loc: '/contato',       priority: '0.5', changefreq: 'monthly' },
-    { loc: '/en/categories', priority: '0.8', changefreq: 'weekly'  },
-    { loc: '/en/compare',    priority: '0.7', changefreq: 'weekly'  },
-    { loc: '/en/blog',       priority: '0.7', changefreq: 'weekly'  },
-    { loc: '/en/submit',     priority: '0.5', changefreq: 'monthly' },
+    { loc: '/categories',    priority: '0.8', changefreq: 'weekly'  },
+    { loc: '/compare',       priority: '0.7', changefreq: 'weekly'  },
+    { loc: '/blog',          priority: '0.7', changefreq: 'weekly'  },
+    { loc: '/submit',        priority: '0.5', changefreq: 'monthly' },
   ];
 
   const categoryUrls = categories
     .filter((c: any) => c.Slug)
     .map((c: any) => ({
-      loc: `/en/category/${c.Slug}`,
+      loc: `/category/${c.Slug}`,
       priority: '0.8',
       changefreq: 'weekly',
     }));
@@ -33,13 +33,13 @@ export async function GET({ request }: APIContext) {
   const toolUrls = tools
     .filter((t: any) => t.slug)
     .map((t: any) => ({
-      loc: `/en/tools/${t.slug}`,
+      loc: `/tools/${t.slug}`,
       priority: '0.7',
       changefreq: 'weekly',
     }));
 
   const comparisonUrls = curatedComparisons.map(({ category, slugA, slugB }) => ({
-    loc: `/en/compare/${category}/${slugA}-vs-${slugB}`,
+    loc: `/compare/${category}/${slugA}-vs-${slugB}`,
     priority: '0.6',
     changefreq: 'monthly',
   }));

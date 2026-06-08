@@ -1,7 +1,7 @@
 ---
-import Base from '../../layouts/Base.astro';
-import { getCategories } from '../../lib/airtable.js';
-import { curatedComparisons } from '../../lib/comparisons.js';
+import Base from '../layouts/Base.astro';
+import { getCategories } from '../lib/airtable.js';
+import { curatedComparisons } from '../lib/comparisons.js';
 
 const categories = await getCategories();
 ---
@@ -70,7 +70,7 @@ const categories = await getCategories();
       const labelA = slugA.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
       const labelB = slugB.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
       return (
-        <a href={'/en/compare/' + category + '/' + slugA + '-vs-' + slugB}
+        <a href={'/compare/' + category + '/' + slugA + '-vs-' + slugB}
           style="padding:16px 20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:flex;justify-content:space-between;align-items:center;">
           <div>
             <span style="font-size:14px;font-weight:500;color:#1a1a1a;">{labelA} vs {labelB}</span>
@@ -118,6 +118,6 @@ const categories = await getCategories();
   toolBSelect.addEventListener('change', checkReady);
 
   compareBtn.addEventListener('click', () => {
-    window.location.href = '/en/compare/' + categorySelect.value + '/' + toolASelect.value + '-vs-' + toolBSelect.value;
+    window.location.href = '/compare/' + categorySelect.value + '/' + toolASelect.value + '-vs-' + toolBSelect.value;
   });
 </script>
