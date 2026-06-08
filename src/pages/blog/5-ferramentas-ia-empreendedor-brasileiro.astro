@@ -18,7 +18,14 @@ export const frontmatter = {
     .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
     .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
     .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-    .article { max-width: 680px; }
+    .article { max-width: 720px; margin: 0 auto; }
+    .sumario { background: #f9fafb; border: 1px solid #eee; border-radius: 12px; padding: 20px 24px; margin-bottom: 36px; }
+    .sumario h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario ol { padding-left: 20px; margin: 0; }
+    .sumario li { margin-bottom: 6px; }
+    .sumario a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario a:hover { text-decoration: underline; }
+    .tool-block { scroll-margin-top: 24px; }
     .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
     .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
     .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
@@ -54,6 +61,17 @@ export const frontmatter = {
     <h1>5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026</h1>
     <div class="meta">Publicado em junho de 2026 · 5 min de leitura</div>
 
+    <nav class="sumario" aria-label="Sumário">
+      <h2>Neste artigo</h2>
+      <ol>
+        <li><a href="#chatgpt">ChatGPT — O assistente que nunca dorme</a></li>
+        <li><a href="#funnels">Funnels — Vendas e marketing com IA no piloto automático</a></li>
+        <li><a href="#notion-ai">Notion AI — O segundo cérebro da sua empresa</a></li>
+        <li><a href="#elevenlabs">ElevenLabs — Voz profissional sem estúdio</a></li>
+        <li><a href="#fathom">Fathom — Nunca mais perca o que foi dito numa reunião</a></li>
+      </ol>
+    </nav>
+
     <p>
       A inteligência artificial deixou de ser assunto de startup de tecnologia. Hoje, um dono de academia em
       Curitiba, uma indústria têxtil em Blumenau ou um escritório de contabilidade em Recife podem — e devem —
@@ -65,7 +83,7 @@ export const frontmatter = {
       brasileiro.
     </p>
 
-    <div class="tool-block">
+    <div id="chatgpt" class="tool-block">
       <h2>1. ChatGPT — O assistente que nunca dorme</h2>
       <div class="tag-row">
         <span class="tag tag-green">Plano grátis</span>
@@ -81,7 +99,7 @@ export const frontmatter = {
       <div class="dica"><strong>Dica prática:</strong> use para rascunhar contratos, descrições de produtos e roteiros de treinamento para sua equipe.</div>
     </div>
 
-    <div class="tool-block">
+    <div id="funnels" class="tool-block">
       <h2>2. Funnels — Vendas e marketing com IA no piloto automático</h2>
       <div class="tag-row">
         <span class="tag tag-blue">Funciona no BR</span>
@@ -96,7 +114,7 @@ export const frontmatter = {
       <div class="dica"><strong>Dica prática:</strong> configure um agente de IA para fazer o primeiro contato com leads que preencherem um formulário no seu site — resposta em segundos, não em horas.</div>
     </div>
 
-    <div class="tool-block">
+    <div id="notion-ai" class="tool-block">
       <h2>3. Notion AI — O segundo cérebro da sua empresa</h2>
       <div class="tag-row">
         <span class="tag tag-green">Plano grátis</span>
@@ -112,7 +130,7 @@ export const frontmatter = {
       <div class="dica"><strong>Dica prática:</strong> crie uma wiki interna da sua empresa e use o Notion AI para treinar novos funcionários.</div>
     </div>
 
-    <div class="tool-block">
+    <div id="elevenlabs" class="tool-block">
       <h2>4. ElevenLabs — Voz profissional sem estúdio</h2>
       <div class="tag-row">
         <span class="tag tag-green">Plano grátis</span>
@@ -127,7 +145,7 @@ export const frontmatter = {
       <div class="dica"><strong>Dica prática:</strong> use para criar versões em áudio dos seus materiais de treinamento interno.</div>
     </div>
 
-    <div class="tool-block">
+    <div id="fathom" class="tool-block">
       <h2>5. Fathom — Nunca mais perca o que foi dito numa reunião</h2>
       <div class="tag-row">
         <span class="tag tag-green">Plano grátis</span>
