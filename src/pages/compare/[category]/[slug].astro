@@ -146,7 +146,7 @@ if (bulletsB.length === 0) bulletsB = getVerdictBulletsFallback(toolB);
         <h2 style="font-size:20px;font-weight:600;margin-bottom:8px;">{tool?.Name}</h2>
         <p style="font-size:13px;color:#555;margin-bottom:16px;">{tool?.tagline_en}</p>
         <div style="font-size:18px;font-weight:600;margin-bottom:12px;">
-          {tool?.has_free_plan ? 'Plano gratuito disponível' : tool?.pricing ? tool.pricing : '-'}
+          {tool?.has_free_plan ? 'Plano gratuito disponível' : (tool?.starting_price_usd ? 'A partir de $' + tool.starting_price_usd + '/mês' : (tool?.pricing_model === 'free' ? 'Gratuito' : 'Ver site'))}
         </div>
         <a href={tool?.affiliate_url || tool?.website} target="_blank" style="display:inline-block;padding:8px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;">Visitar {tool?.Name} →</a>
       </div>
