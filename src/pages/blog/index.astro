@@ -1,12 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { posts as allPosts } from '../../data/blog-posts';
 
-const allPosts = await Astro.glob('./*.astro');
-
-const posts = allPosts
-  .filter(p => p.frontmatter)
-  .map(p => ({ ...p.frontmatter, url: `/blog/${p.frontmatter.slug}` }))
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const posts = [...allPosts]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .map(p => ({ ...p, url: `/blog/${p.slug}` }));
 ---
 
 <style>
