@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getTools } from '../../lib/airtable.js';
+import { getTools } from '../lib/airtable.js';
 
 export const GET: APIRoute = async () => {
   const tools = await getTools();
