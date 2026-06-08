@@ -24,7 +24,9 @@ export async function getCategories() {
 // has_free_plan, starting_price_usd, pricing_model, works_in_brazil, works_in_mexico,
 // accepts_brl, has_pt_support, has_latam_data, latam_note_pt, ai_native, categories
 export async function getTools() {
-  return fetchFromAirtable('Tools', 'filterByFormula={status}="published"');
+  const results = await fetchFromAirtable('Tools', 'filterByFormula={status}="published"');
+  console.log('[getTools] count:', results.length, 'slugs:', results.map(t => t.slug).join(', '));
+  return results;
 }
 
 export async function getToolsByCategory(categoryName) {
