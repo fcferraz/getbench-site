@@ -18,26 +18,62 @@ export const frontmatter = {
     .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
     .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
     .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-    .article { max-width: 720px; margin: 0 auto; }
-    .sumario { background: #f9fafb; border: 1px solid #eee; border-radius: 12px; padding: 20px 24px; margin-bottom: 36px; }
-    .sumario h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
-    .sumario ol { padding-left: 20px; margin: 0; }
-    .sumario li { margin-bottom: 6px; }
-    .sumario a { font-size: 14px; color: #1D9E75; text-decoration: none; }
-    .sumario a:hover { text-decoration: underline; }
-    .tool-block { scroll-margin-top: 24px; }
+
+    /* ── Page layout ── */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    .sidebar-nav ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-nav a {
+      display: block;
+      font-size: 13px;
+      color: #999;
+      text-decoration: none;
+      padding: 5px 0 5px 12px;
+      border-left: 2px solid #eee;
+      line-height: 1.45;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    /* ── Article ── */
     .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
     .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
     .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
     .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green  { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue   { background: #E6F1FB; color: #185FA5; }
-    .tag-gray   { background: #f3f3f3; color: #555; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue  { background: #E6F1FB; color: #185FA5; }
+    .tag-gray  { background: #f3f3f3; color: #555; }
     .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
     .dica strong { color: #1D9E75; }
     .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
@@ -45,7 +81,20 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: #178f68; }
-    @media (max-width: 640px) {
+
+    /* ── Mobile inline sumário ── */
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
       .article h1 { font-size: 24px; }
       .tool-block { padding: 20px; }
     }
@@ -57,125 +106,180 @@ export const frontmatter = {
     5 ferramentas de IA para empreendedores
   </div>
 
-  <article class="article">
-    <h1>5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026</h1>
-    <div class="meta">Publicado em junho de 2026 · 5 min de leitura</div>
+  <div class="page-layout">
 
-    <nav class="sumario" aria-label="Sumário">
-      <h2>Neste artigo</h2>
-      <ol>
-        <li><a href="#chatgpt">ChatGPT — O assistente que nunca dorme</a></li>
-        <li><a href="#funnels">Funnels — Vendas e marketing com IA no piloto automático</a></li>
-        <li><a href="#notion-ai">Notion AI — O segundo cérebro da sua empresa</a></li>
-        <li><a href="#elevenlabs">ElevenLabs — Voz profissional sem estúdio</a></li>
-        <li><a href="#fathom">Fathom — Nunca mais perca o que foi dito numa reunião</a></li>
-      </ol>
-    </nav>
+    <!-- Sidebar: desktop only -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#chatgpt">1. ChatGPT</a></li>
+          <li><a href="#funnels">2. Funnels</a></li>
+          <li><a href="#notion-ai">3. Notion AI</a></li>
+          <li><a href="#elevenlabs">4. ElevenLabs</a></li>
+          <li><a href="#fathom">5. Fathom</a></li>
+        </ol>
+      </nav>
+    </aside>
 
-    <p>
-      A inteligência artificial deixou de ser assunto de startup de tecnologia. Hoje, um dono de academia em
-      Curitiba, uma indústria têxtil em Blumenau ou um escritório de contabilidade em Recife podem — e devem —
-      usar IA para crescer mais rápido com menos custo.
-    </p>
-    <p>
-      O problema é que existem milhares de ferramentas no mercado. A maioria foi feita para o mercado americano,
-      cobra em dólar e não tem suporte em português. Separamos as 5 que realmente funcionam para o empreendedor
-      brasileiro.
-    </p>
+    <!-- Main content -->
+    <article class="article">
+      <h1>5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026</h1>
+      <div class="meta">Publicado em junho de 2026 · 5 min de leitura</div>
 
-    <div id="chatgpt" class="tool-block">
-      <h2>1. ChatGPT — O assistente que nunca dorme</h2>
-      <div class="tag-row">
-        <span class="tag tag-green">Plano grátis</span>
-        <span class="tag tag-blue">Suporte PT</span>
-        <span class="tag tag-gray">A partir de $20/mês</span>
+      <!-- Mobile-only inline sumário -->
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#chatgpt">1. ChatGPT — O assistente que nunca dorme</a></li>
+          <li><a href="#funnels">2. Funnels — Vendas e marketing com IA no piloto automático</a></li>
+          <li><a href="#notion-ai">3. Notion AI — O segundo cérebro da sua empresa</a></li>
+          <li><a href="#elevenlabs">4. ElevenLabs — Voz profissional sem estúdio</a></li>
+          <li><a href="#fathom">5. Fathom — Nunca mais perca o que foi dito numa reunião</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        A inteligência artificial deixou de ser assunto de startup de tecnologia. Hoje, um dono de academia em
+        Curitiba, uma indústria têxtil em Blumenau ou um escritório de contabilidade em Recife podem — e devem —
+        usar IA para crescer mais rápido com menos custo.
+      </p>
+      <p>
+        O problema é que existem milhares de ferramentas no mercado. A maioria foi feita para o mercado americano,
+        cobra em dólar e não tem suporte em português. Separamos as 5 que realmente funcionam para o empreendedor
+        brasileiro.
+      </p>
+
+      <div id="chatgpt" class="tool-block">
+        <h2>1. ChatGPT — O assistente que nunca dorme</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $20/mês</span>
+        </div>
+        <p>
+          Se você ainda não usa o ChatGPT no dia a dia do seu negócio, está deixando dinheiro na mesa. Ele escreve
+          propostas comerciais, responde e-mails, cria roteiros de vídeo, analisa planilhas e muito mais — tudo em
+          português.
+        </p>
+        <p><strong>Para quem é:</strong> qualquer empreendedor, independente do setor.</p>
+        <div class="dica"><strong>Dica prática:</strong> use para rascunhar contratos, descrições de produtos e roteiros de treinamento para sua equipe.</div>
       </div>
-      <p>
-        Se você ainda não usa o ChatGPT no dia a dia do seu negócio, está deixando dinheiro na mesa. Ele escreve
-        propostas comerciais, responde e-mails, cria roteiros de vídeo, analisa planilhas e muito mais — tudo em
-        português.
-      </p>
-      <p><strong>Para quem é:</strong> qualquer empreendedor, independente do setor.</p>
-      <div class="dica"><strong>Dica prática:</strong> use para rascunhar contratos, descrições de produtos e roteiros de treinamento para sua equipe.</div>
-    </div>
 
-    <div id="funnels" class="tool-block">
-      <h2>2. Funnels — Vendas e marketing com IA no piloto automático</h2>
-      <div class="tag-row">
-        <span class="tag tag-blue">Funciona no BR</span>
-        <span class="tag tag-gray">A partir de R$497/mês</span>
+      <div id="funnels" class="tool-block">
+        <h2>2. Funnels — Vendas e marketing com IA no piloto automático</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Funciona no BR</span>
+          <span class="tag tag-gray">A partir de R$497/mês</span>
+        </div>
+        <p>
+          Desenvolvida para equipes de vendas e marketing, a Funnels centraliza CRM, automação de e-mails, funis de
+          vendas e agentes de IA em uma única plataforma. Em vez de contratar um time inteiro, você configura
+          agentes que prospectam, qualificam e nutrem leads automaticamente — 24 horas por dia.
+        </p>
+        <p><strong>Para quem é:</strong> empreendedores que querem escalar vendas sem aumentar o time proporcionalmente.</p>
+        <div class="dica"><strong>Dica prática:</strong> configure um agente de IA para fazer o primeiro contato com leads que preencherem um formulário no seu site — resposta em segundos, não em horas.</div>
       </div>
-      <p>
-        Desenvolvida para equipes de vendas e marketing, a Funnels centraliza CRM, automação de e-mails, funis de
-        vendas e agentes de IA em uma única plataforma. Em vez de contratar um time inteiro, você configura
-        agentes que prospectam, qualificam e nutrem leads automaticamente — 24 horas por dia.
-      </p>
-      <p><strong>Para quem é:</strong> empreendedores que querem escalar vendas sem aumentar o time proporcionalmente.</p>
-      <div class="dica"><strong>Dica prática:</strong> configure um agente de IA para fazer o primeiro contato com leads que preencherem um formulário no seu site — resposta em segundos, não em horas.</div>
-    </div>
 
-    <div id="notion-ai" class="tool-block">
-      <h2>3. Notion AI — O segundo cérebro da sua empresa</h2>
-      <div class="tag-row">
-        <span class="tag tag-green">Plano grátis</span>
-        <span class="tag tag-blue">Suporte PT</span>
-        <span class="tag tag-gray">A partir de $10/mês</span>
+      <div id="notion-ai" class="tool-block">
+        <h2>3. Notion AI — O segundo cérebro da sua empresa</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $10/mês</span>
+        </div>
+        <p>
+          O Notion já era a ferramenta favorita de empreendedores organizados. Com a camada de IA, ele ficou ainda
+          mais poderoso: resume reuniões, gera planos de projeto, responde perguntas sobre documentos internos e
+          ajuda a estruturar processos.
+        </p>
+        <p><strong>Para quem é:</strong> empreendedores que precisam organizar conhecimento e processos da empresa.</p>
+        <div class="dica"><strong>Dica prática:</strong> crie uma wiki interna da sua empresa e use o Notion AI para treinar novos funcionários.</div>
       </div>
-      <p>
-        O Notion já era a ferramenta favorita de empreendedores organizados. Com a camada de IA, ele ficou ainda
-        mais poderoso: resume reuniões, gera planos de projeto, responde perguntas sobre documentos internos e
-        ajuda a estruturar processos.
-      </p>
-      <p><strong>Para quem é:</strong> empreendedores que precisam organizar conhecimento e processos da empresa.</p>
-      <div class="dica"><strong>Dica prática:</strong> crie uma wiki interna da sua empresa e use o Notion AI para treinar novos funcionários.</div>
-    </div>
 
-    <div id="elevenlabs" class="tool-block">
-      <h2>4. ElevenLabs — Voz profissional sem estúdio</h2>
-      <div class="tag-row">
-        <span class="tag tag-green">Plano grátis</span>
-        <span class="tag tag-gray">A partir de $5/mês</span>
+      <div id="elevenlabs" class="tool-block">
+        <h2>4. ElevenLabs — Voz profissional sem estúdio</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-gray">A partir de $5/mês</span>
+        </div>
+        <p>
+          Precisa de narração para um vídeo institucional, treinamento da equipe ou podcast? O ElevenLabs gera
+          vozes em português com qualidade de estúdio em segundos. Você pode até clonar sua própria voz para criar
+          conteúdo em escala.
+        </p>
+        <p><strong>Para quem é:</strong> empresas que produzem conteúdo em vídeo ou áudio.</p>
+        <div class="dica"><strong>Dica prática:</strong> use para criar versões em áudio dos seus materiais de treinamento interno.</div>
       </div>
-      <p>
-        Precisa de narração para um vídeo institucional, treinamento da equipe ou podcast? O ElevenLabs gera
-        vozes em português com qualidade de estúdio em segundos. Você pode até clonar sua própria voz para criar
-        conteúdo em escala.
-      </p>
-      <p><strong>Para quem é:</strong> empresas que produzem conteúdo em vídeo ou áudio.</p>
-      <div class="dica"><strong>Dica prática:</strong> use para criar versões em áudio dos seus materiais de treinamento interno.</div>
-    </div>
 
-    <div id="fathom" class="tool-block">
-      <h2>5. Fathom — Nunca mais perca o que foi dito numa reunião</h2>
-      <div class="tag-row">
-        <span class="tag tag-green">Plano grátis</span>
-        <span class="tag tag-gray">A partir de $19/mês</span>
+      <div id="fathom" class="tool-block">
+        <h2>5. Fathom — Nunca mais perca o que foi dito numa reunião</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-gray">A partir de $19/mês</span>
+        </div>
+        <p>
+          Quantas boas ideias e decisões importantes já se perderam porque ninguém anotou? O Fathom entra nas suas
+          reuniões do Google Meet ou Zoom, transcreve tudo, resume os pontos principais e lista as próximas ações
+          — automaticamente. Você fica 100% presente na conversa enquanto ele cuida das anotações.
+        </p>
+        <p><strong>Para quem é:</strong> qualquer empreendedor que tem reuniões frequentes com clientes, sócios ou equipe.</p>
+        <div class="dica"><strong>Dica prática:</strong> use o resumo automático do Fathom para enviar o follow-up da reunião para o cliente em menos de 5 minutos.</div>
       </div>
-      <p>
-        Quantas boas ideias e decisões importantes já se perderam porque ninguém anotou? O Fathom entra nas suas
-        reuniões do Google Meet ou Zoom, transcreve tudo, resume os pontos principais e lista as próximas ações
-        — automaticamente. Você fica 100% presente na conversa enquanto ele cuida das anotações.
-      </p>
-      <p><strong>Para quem é:</strong> qualquer empreendedor que tem reuniões frequentes com clientes, sócios ou equipe.</p>
-      <div class="dica"><strong>Dica prática:</strong> use o resumo automático do Fathom para enviar o follow-up da reunião para o cliente em menos de 5 minutos.</div>
-    </div>
 
-    <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Por onde começar?</h2>
-    <p>
-      Não precisa implementar as 5 de uma vez. Escolha uma ferramenta que resolve o maior gargalo do seu negócio
-      hoje e comece por ela. Teste o plano gratuito, veja o impacto e só então expanda.
-    </p>
-    <p>
-      A IA não vai substituir o empreendedor — mas o empreendedor que usa IA vai deixar para trás quem não usa.
-    </p>
-
-    <div class="cta-box">
-      <h2>Explore mais de 60 ferramentas de IA para o mercado brasileiro</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Por onde começar?</h2>
       <p>
-        No Buskai você encontra essas e outras ferramentas de IA verificadas para o mercado brasileiro,
-        com informações sobre preço, suporte em português e compatibilidade com a realidade do seu negócio.
+        Não precisa implementar as 5 de uma vez. Escolha uma ferramenta que resolve o maior gargalo do seu negócio
+        hoje e comece por ela. Teste o plano gratuito, veja o impacto e só então expanda.
       </p>
-      <a href="/categories" class="cta-btn">Ver todas as categorias →</a>
-    </div>
-  </article>
+      <p>
+        A IA não vai substituir o empreendedor — mas o empreendedor que usa IA vai deixar para trás quem não usa.
+      </p>
+
+      <div class="cta-box">
+        <h2>Explore mais de 60 ferramentas de IA para o mercado brasileiro</h2>
+        <p>
+          No Buskai você encontra essas e outras ferramentas de IA verificadas para o mercado brasileiro,
+          com informações sobre preço, suporte em português e compatibilidade com a realidade do seu negócio.
+        </p>
+        <a href="/categories" class="cta-btn">Ver todas as categorias →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#chatgpt, #funnels, #notion-ai, #elevenlabs, #fathom');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+
+      // Track which sections are inside the active observation band
+      const visible = new Set();
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              visible.add(entry.target.id);
+            } else {
+              visible.delete(entry.target.id);
+            }
+          });
+
+          // Highlight topmost visible section (document order)
+          let active = null;
+          sections.forEach(function (s) {
+            if (visible.has(s.id) && !active) active = s.id;
+          });
+
+          navLinks.forEach(function (a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+          });
+        },
+        { rootMargin: '-10% 0px -70% 0px' }
+      );
+
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
 </Base>
