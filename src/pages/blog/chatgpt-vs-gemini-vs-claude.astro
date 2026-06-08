@@ -1,0 +1,305 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?',
+  description: 'Comparamos os três principais assistentes de IA para você escolher o melhor para o seu negócio. Veja pontos fortes, limitações e preços.',
+  date: '2026-06-08',
+  slug: 'chatgpt-vs-gemini-vs-claude',
+};
+---
+
+<Base
+  title="ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?"
+  description="Comparamos os três principais assistentes de IA para você escolher o melhor para o seu negócio. Veja pontos fortes, limitações e preços."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tool-block ul { margin: 4px 0 12px; padding-left: 18px; }
+    .tool-block ul li { font-size: 14px; color: #444; line-height: 1.65; margin-bottom: 4px; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue  { background: #E6F1FB; color: #185FA5; }
+    .tag-gray  { background: #f3f3f3; color: #555; }
+    .tag-purple { background: #f3f0ff; color: #6d28d9; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .section-block { scroll-margin-top: 24px; margin-bottom: 32px; }
+    .section-block h2 { font-size: 20px; font-weight: 700; margin-bottom: 14px; color: #1a1a1a; }
+    .compare-wrap { overflow-x: auto; border: 1px solid #eee; border-radius: 14px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+    .compare-table th { background: #f9f9f9; padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid #eee; }
+    .compare-table td { padding: 11px 16px; border-bottom: 1px solid #f5f5f5; color: #333; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { font-weight: 500; color: #666; }
+    .c-check { color: #0F6E56; font-weight: 600; }
+    .c-no    { color: #ccc; }
+    .c-best  { color: #1D9E75; font-weight: 700; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    ChatGPT vs Gemini vs Claude
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#em-comum">O que têm em comum</a></li>
+          <li><a href="#chatgpt">ChatGPT</a></li>
+          <li><a href="#gemini">Gemini</a></li>
+          <li><a href="#claude">Claude</a></li>
+          <li><a href="#comparativo">Comparativo rápido</a></li>
+          <li><a href="#qual-escolher">Qual escolher?</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?</h1>
+      <div class="meta">Publicado em junho de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#em-comum">O que têm em comum</a></li>
+          <li><a href="#chatgpt">ChatGPT — O mais popular, com razão</a></li>
+          <li><a href="#gemini">Gemini — A IA do Google</a></li>
+          <li><a href="#claude">Claude — O melhor para texto e análise</a></li>
+          <li><a href="#comparativo">Comparativo rápido</a></li>
+          <li><a href="#qual-escolher">Qual escolher?</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Todo mundo já ouviu falar de ChatGPT. Mas nos últimos meses, o Gemini do Google e o Claude da Anthropic
+        chegaram com força — e muitos empreendedores ficaram em dúvida: qual deles realmente vale a pena para o
+        meu negócio?
+      </p>
+      <p>
+        A resposta honesta é: depende do que você precisa. Cada um tem pontos fortes diferentes. Neste artigo
+        comparamos os três para você tomar a decisão certa.
+      </p>
+
+      <div id="em-comum" class="section-block">
+        <h2>O que eles têm em comum</h2>
+        <p>
+          Os três são modelos de linguagem avançados que conversam em português, escrevem textos, analisam
+          documentos, respondem perguntas e ajudam a resolver problemas do dia a dia. Todos têm plano gratuito
+          e plano pago. A diferença está nos detalhes — e é justamente aí que um pode ser muito melhor que o
+          outro para o seu caso.
+        </p>
+      </div>
+
+      <div id="chatgpt" class="tool-block">
+        <h2>ChatGPT — O mais popular, com razão</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">$20/mês (Plus)</span>
+        </div>
+        <p>
+          Criado pela OpenAI, o ChatGPT foi o primeiro a popularizar a IA conversacional e ainda é o mais usado
+          no mundo. A versão gratuita já é muito capaz, mas o plano Plus desbloqueia o GPT-4o, geração de imagens
+          com DALL-E e o modo de voz avançado.
+        </p>
+        <p><strong>Pontos fortes:</strong></p>
+        <ul>
+          <li>Ecossistema enorme de plugins e integrações</li>
+          <li>Geração de imagens integrada com DALL-E</li>
+          <li>Interface mais familiar para quem está começando</li>
+          <li>Ótimo para automações via API</li>
+        </ul>
+        <p><strong>Limitação:</strong> às vezes "alucina" informações — sempre confira dados importantes.</p>
+        <div class="dica"><strong>Ideal para:</strong> empreendedores que precisam de uma solução completa com imagens, automações e integrações.</div>
+      </div>
+
+      <div id="gemini" class="tool-block">
+        <h2>Gemini — A IA do Google, integrada ao seu dia a dia</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-blue">Google Workspace</span>
+          <span class="tag tag-gray">$19,99/mês</span>
+        </div>
+        <p>
+          O Gemini é a aposta do Google no mundo da IA. O grande diferencial é a integração nativa com Gmail,
+          Google Docs, Drive e Meet — se você já usa o Google Workspace, o Gemini está praticamente dentro das
+          ferramentas que você já usa.
+        </p>
+        <p><strong>Pontos fortes:</strong></p>
+        <ul>
+          <li>Integração nativa com Google Workspace</li>
+          <li>Acesso a informações atualizadas da internet em tempo real</li>
+          <li>Melhor para pesquisas que precisam de dados recentes</li>
+          <li>Geração de vídeos com o Veo</li>
+        </ul>
+        <p><strong>Limitação:</strong> respostas às vezes menos precisas em tarefas de raciocínio complexo.</p>
+        <div class="dica"><strong>Ideal para:</strong> empresas que já usam Google Workspace e querem IA integrada ao fluxo de trabalho existente.</div>
+      </div>
+
+      <div id="claude" class="tool-block">
+        <h2>Claude — O melhor para leitura, escrita e análise</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-purple">Menos alucinações</span>
+          <span class="tag tag-gray">$20/mês (Pro)</span>
+        </div>
+        <p>
+          Desenvolvido pela Anthropic, o Claude é o menos famoso dos três — mas entre quem usa profissionalmente,
+          é o favorito para tarefas que exigem leitura profunda e escrita de qualidade. Ele processa documentos
+          longos com facilidade e produz textos mais naturais e bem estruturados.
+        </p>
+        <p><strong>Pontos fortes:</strong></p>
+        <ul>
+          <li>Melhor para analisar documentos longos</li>
+          <li>Escrita mais natural e com menos "cara de IA"</li>
+          <li>Raciocínio mais cuidadoso e menos alucinações</li>
+          <li>Excelente para criar apresentações e artefatos visuais</li>
+        </ul>
+        <p><strong>Limitação:</strong> sem geração de imagens nativa e menos integrações que o ChatGPT.</p>
+        <div class="dica"><strong>Ideal para:</strong> empreendedores que trabalham com muito texto — propostas, contratos, relatórios, conteúdo.</div>
+      </div>
+
+      <div id="comparativo" class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Critério</th>
+              <th>ChatGPT</th>
+              <th>Gemini</th>
+              <th>Claude</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plano gratuito</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+            </tr>
+            <tr>
+              <td>Plano pago</td>
+              <td>$20/mês</td>
+              <td>$19,99/mês</td>
+              <td>$20/mês</td>
+            </tr>
+            <tr>
+              <td>Geração de imagens</td>
+              <td class="c-check">✓ DALL-E</td>
+              <td class="c-check">✓ Imagen</td>
+              <td class="c-no">✗ Não</td>
+            </tr>
+            <tr>
+              <td>Integração Google</td>
+              <td class="c-no">✗ Não</td>
+              <td class="c-check">✓ Nativa</td>
+              <td class="c-no">✗ Não</td>
+            </tr>
+            <tr>
+              <td>Análise de documentos</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-best">★ Melhor dos três</td>
+            </tr>
+            <tr>
+              <td>Qualidade de escrita</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-best">★ Melhor dos três</td>
+            </tr>
+            <tr>
+              <td>Dados em tempo real</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+              <td class="c-check">✓ Sim</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="qual-escolher" class="section-block">
+        <h2>Qual escolher?</h2>
+        <p>
+          Começa com qualquer um — os três têm plano gratuito. Teste por uma semana e veja qual flui melhor
+          para você.
+        </p>
+        <p>
+          Usa Google Workspace? <strong>Gemini.</strong> Precisa de imagens e automações? <strong>ChatGPT.</strong>
+          Trabalha muito com texto e documentos? <strong>Claude.</strong>
+        </p>
+        <p>
+          O ideal para empresas mais maduras é usar os três de forma complementar — cada um para o que faz melhor.
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h2>Compare assistentes de IA lado a lado</h2>
+        <p>
+          No Buskai você encontra esses e outros assistentes de IA comparados com informações sobre preço e
+          disponibilidade para o mercado brasileiro.
+        </p>
+        <a href="/categories" class="cta-btn">Ver todos os assistentes de IA →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#em-comum, #chatgpt, #gemini, #claude, #comparativo, #qual-escolher');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { visible.add(entry.target.id); }
+          else { visible.delete(entry.target.id); }
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+        });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

@@ -1,0 +1,261 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'IA para pequenas empresas: por onde começar sem gastar muito',
+  description: 'Guia prático para empreendedores brasileiros que querem usar IA sem complicação e sem investimento alto.',
+  date: '2026-06-08',
+  slug: 'ia-para-pequenas-empresas',
+};
+---
+
+<Base
+  title="IA para pequenas empresas: por onde começar sem gastar muito"
+  description="Guia prático para empreendedores brasileiros que querem usar IA sem complicação e sem investimento alto."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue  { background: #E6F1FB; color: #185FA5; }
+    .tag-gray  { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .section-block { scroll-margin-top: 24px; margin-bottom: 32px; }
+    .section-block h2 { font-size: 20px; font-weight: 700; margin-bottom: 14px; color: #1a1a1a; }
+    .erros-block { border: 1px solid #fee2e2; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; background: #fffbfb; }
+    .erros-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; }
+    .erro-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #fee2e2; }
+    .erro-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .erro-label { font-size: 12px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+    .erro-item p { font-size: 14px; color: #444; line-height: 1.65; margin: 0; }
+    .preco-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .preco-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 1px solid #eee; border-radius: 8px; font-size: 14px; }
+    .preco-row strong { color: #1a1a1a; }
+    .preco-value { font-weight: 500; }
+    .preco-free { color: #0F6E56; font-weight: 600; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+      .erros-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    IA para pequenas empresas
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#comunicacao">1. Comunicação</a></li>
+          <li><a href="#atendimento">2. Atendimento</a></li>
+          <li><a href="#organizacao">3. Organização</a></li>
+          <li><a href="#custo">Quanto vou gastar?</a></li>
+          <li><a href="#erros">Erros comuns</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>IA para pequenas empresas: por onde começar sem gastar muito</h1>
+      <div class="meta">Publicado em junho de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#comunicacao">1. Comunicação e textos</a></li>
+          <li><a href="#atendimento">2. Atendimento ao cliente</a></li>
+          <li><a href="#organizacao">3. Organização e processos</a></li>
+          <li><a href="#custo">Quanto vou gastar?</a></li>
+          <li><a href="#erros">Erros mais comuns</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        A inteligência artificial não é só para grandes empresas com time de tecnologia. Hoje, um restaurante,
+        uma clínica, uma loja ou um escritório de advocacia podem usar IA para economizar tempo e crescer —
+        sem precisar investir muito.
+      </p>
+      <p>
+        O problema é que a maioria dos conteúdos sobre IA fala em inglês, para empresas americanas, com
+        soluções caras e complexas. Aqui vai um guia prático para a realidade brasileira.
+      </p>
+
+      <p>
+        <strong>Primeiro: esqueça a ideia de que IA é complicada.</strong> Você não precisa saber programar.
+        Não precisa entender de algoritmos. As ferramentas de hoje funcionam em português, têm interfaces
+        simples e já vêm prontas para usar. Se você consegue usar WhatsApp, você consegue usar IA.
+      </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:8px 0 24px;color:#1a1a1a;">Por onde começar: as 3 áreas com maior retorno imediato</h2>
+
+      <div id="comunicacao" class="tool-block">
+        <h2>1. Comunicação e textos</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Gratuito para começar</span>
+          <span class="tag tag-blue">Suporte PT</span>
+        </div>
+        <p>
+          Escrever consome tempo enorme nas pequenas empresas — respostas para clientes, posts para redes
+          sociais, propostas comerciais, e-mails. A IA resolve isso em segundos.
+        </p>
+        <p>
+          <strong>Como começar:</strong> abra o ChatGPT (gratuito) e peça para ele escrever uma resposta
+          para um cliente, um post sobre seu produto ou uma proposta de serviço.
+        </p>
+        <div class="dica"><strong>Economia estimada:</strong> 1–2 horas por dia em tarefas de escrita.</div>
+      </div>
+
+      <div id="atendimento" class="tool-block">
+        <h2>2. Atendimento ao cliente</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">WhatsApp</span>
+          <span class="tag tag-gray">A partir de R$20/mês</span>
+        </div>
+        <p>
+          Responder as mesmas perguntas todos os dias é um dos maiores ladrões de tempo em pequenas empresas.
+          Um chatbot simples no WhatsApp ou no site resolve isso automaticamente.
+        </p>
+        <p>
+          <strong>Como começar:</strong> ferramentas como o Octadesk (brasileiro, a partir de R$20/mês)
+          permitem criar um assistente virtual sem programação. Configure com as 5 perguntas mais frequentes
+          dos seus clientes e ative.
+        </p>
+        <div class="dica"><strong>Economia estimada:</strong> 30–50% do tempo gasto em atendimento repetitivo.</div>
+      </div>
+
+      <div id="organizacao" class="tool-block">
+        <h2>3. Organização e processos</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano grátis</span>
+          <span class="tag tag-gray">A partir de $10/mês</span>
+        </div>
+        <p>
+          Reuniões sem ata, decisões que se perdem, processos que dependem de uma pessoa só — são problemas
+          comuns em pequenas empresas. A IA ajuda a organizar tudo isso.
+        </p>
+        <p>
+          <strong>Como começar:</strong> use o Fathom (gratuito) para transcrever suas reuniões
+          automaticamente. Use o Notion AI para criar checklists, SOPs e wikis da empresa.
+        </p>
+        <div class="dica"><strong>Economia estimada:</strong> horas perdidas relembrando o que foi decidido em reuniões.</div>
+      </div>
+
+      <div id="custo" class="section-block">
+        <h2>Quanto vou gastar?</h2>
+        <div class="preco-list">
+          <div class="preco-row">
+            <span><strong>ChatGPT</strong> — textos, respostas, análises</span>
+            <span class="preco-free">Gratuito</span>
+          </div>
+          <div class="preco-row">
+            <span><strong>Fathom</strong> — transcrição de reuniões</span>
+            <span class="preco-free">Gratuito</span>
+          </div>
+          <div class="preco-row">
+            <span><strong>Notion AI</strong> — organização e processos</span>
+            <span class="preco-value">A partir de $10/mês</span>
+          </div>
+          <div class="preco-row">
+            <span><strong>Octadesk</strong> — atendimento via WhatsApp</span>
+            <span class="preco-value">A partir de R$20/mês</span>
+          </div>
+        </div>
+        <p>Comece com as gratuitas. Só pague quando sentir que precisa de mais.</p>
+      </div>
+
+      <div id="erros" class="erros-block">
+        <h2>Os erros mais comuns de quem está começando</h2>
+        <div class="erro-item">
+          <div class="erro-label">Erro 1</div>
+          <p><strong>Tentar automatizar tudo de uma vez.</strong> Escolha um processo, automatize, veja o resultado, depois expanda.</p>
+        </div>
+        <div class="erro-item">
+          <div class="erro-label">Erro 2</div>
+          <p><strong>Abandonar na primeira tentativa ruim.</strong> A IA precisa de contexto. Quanto mais você explica o que quer, melhor o resultado.</p>
+        </div>
+        <div class="erro-item">
+          <div class="erro-label">Erro 3</div>
+          <p><strong>Achar que a IA vai fazer tudo sozinha.</strong> Ela é uma ferramenta. Quem dirige o negócio continua sendo você.</p>
+        </div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:8px 0 16px;color:#1a1a1a;">Seu próximo passo</h2>
+      <p>
+        Escolha uma das três áreas acima — comunicação, atendimento ou organização — e teste uma ferramenta
+        gratuita esta semana. Só uma. Veja o impacto no seu dia a dia antes de ir para a próxima.
+      </p>
+      <p>
+        A diferença entre empresas que crescem e empresas que ficam no mesmo lugar vai ser cada vez mais a
+        capacidade de usar IA de forma inteligente. E o melhor momento para começar é agora.
+      </p>
+
+      <div class="cta-box">
+        <h2>Ferramentas de IA verificadas para o mercado brasileiro</h2>
+        <p>
+          No Buskai você encontra todas as ferramentas mencionadas neste artigo e muito mais — com preços
+          e suporte em português.
+        </p>
+        <a href="/categories" class="cta-btn">Explorar ferramentas de IA →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#comunicacao, #atendimento, #organizacao, #custo, #erros');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { visible.add(entry.target.id); }
+          else { visible.delete(entry.target.id); }
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+        });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

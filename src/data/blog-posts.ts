@@ -13,4 +13,22 @@ export const posts: BlogPost[] = [
     date: '2026-06-08',
     slug: '5-ferramentas-ia-empreendedor-brasileiro',
   },
+  {
+    title: 'ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?',
+    description: 'Comparamos os três principais assistentes de IA para você escolher o melhor para o seu negócio. Veja pontos fortes, limitações e preços.',
+    date: '2026-06-08',
+    slug: 'chatgpt-vs-gemini-vs-claude',
+  },
+  {
+    title: 'Como usar IA para atender clientes sem contratar mais pessoas',
+    description: 'Descubra como usar IA no atendimento ao cliente da sua empresa — reduzindo tempo, custos e melhorando a experiência sem aumentar o time.',
+    date: '2026-06-08',
+    slug: 'ia-para-atendimento-ao-cliente',
+  },
+  {
+    title: 'IA para pequenas empresas: por onde começar sem gastar muito',
+    description: 'Guia prático para empreendedores brasileiros que querem usar IA sem complicação e sem investimento alto.',
+    date: '2026-06-08',
+    slug: 'ia-para-pequenas-empresas',
+  },
 ];

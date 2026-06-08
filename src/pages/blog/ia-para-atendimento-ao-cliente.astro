@@ -1,0 +1,235 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'Como usar IA para atender clientes sem contratar mais pessoas',
+  description: 'Descubra como usar IA no atendimento ao cliente da sua empresa — reduzindo tempo, custos e melhorando a experiência sem aumentar o time.',
+  date: '2026-06-08',
+  slug: 'ia-para-atendimento-ao-cliente',
+};
+---
+
+<Base
+  title="Como usar IA para atender clientes sem contratar mais pessoas"
+  description="Descubra como usar IA no atendimento ao cliente da sua empresa — reduzindo tempo, custos e melhorando a experiência sem aumentar o time."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue  { background: #E6F1FB; color: #185FA5; }
+    .tag-gray  { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .section-block { scroll-margin-top: 24px; margin-bottom: 32px; }
+    .section-block h2 { font-size: 20px; font-weight: 700; margin-bottom: 14px; color: #1a1a1a; }
+    .section-block ul { padding-left: 20px; margin: 0; }
+    .section-block ul li { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 10px; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    IA para atendimento ao cliente
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#por-que">Por que o atendimento?</a></li>
+          <li><a href="#chatbot">1. Chatbot</a></li>
+          <li><a href="#triagem">2. Triagem e roteamento</a></li>
+          <li><a href="#assistente">3. Assistente para o time</a></li>
+          <li><a href="#comecar">Como começar</a></li>
+          <li><a href="#custo">Quanto custa?</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>Como usar IA para atender clientes sem contratar mais pessoas</h1>
+      <div class="meta">Publicado em junho de 2026 · 5 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#por-que">Por que começar pelo atendimento?</a></li>
+          <li><a href="#chatbot">1. Chatbot no site ou WhatsApp</a></li>
+          <li><a href="#triagem">2. IA para triagem e roteamento</a></li>
+          <li><a href="#assistente">3. Assistente para o time</a></li>
+          <li><a href="#comecar">O que você precisa para começar</a></li>
+          <li><a href="#custo">Quanto isso custa?</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Atender bem o cliente é um dos maiores desafios de qualquer empresa em crescimento. Chega um momento em
+        que o volume de dúvidas, pedidos e reclamações supera a capacidade do time — e a solução óbvia parece
+        ser contratar mais gente.
+      </p>
+      <p>
+        Mas existe uma alternativa mais inteligente: usar IA para resolver a maioria dos atendimentos de forma
+        automática, deixando sua equipe livre para cuidar apenas dos casos que realmente precisam de um humano.
+      </p>
+
+      <div id="por-que" class="section-block">
+        <h2>Por que o atendimento ao cliente é o primeiro lugar para aplicar IA</h2>
+        <p>
+          Atendimento tem uma característica única: a maioria das perguntas se repete. "Qual o prazo de
+          entrega?", "Como cancelo minha assinatura?", "Meu pedido está onde?" — são questões que qualquer IA
+          bem configurada responde melhor e mais rápido que um atendente humano.
+        </p>
+        <p>
+          Enquanto o humano demora minutos ou horas para responder, a IA responde em segundos. E ao contrário
+          do humano, ela não cansa, não fica de mau humor e atende às 3 da manhã.
+        </p>
+      </div>
+
+      <div id="chatbot" class="tool-block">
+        <h2>1. Chatbot no site ou WhatsApp</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Mais comum</span>
+          <span class="tag tag-green">Sem programação</span>
+          <span class="tag tag-gray">A partir de R$20/mês</span>
+        </div>
+        <p>
+          A forma mais comum e acessível. Você configura um agente de IA com as informações da sua empresa —
+          produtos, preços, políticas, FAQs — e ele atende automaticamente via chat no site ou WhatsApp.
+          Ferramentas como Octadesk e Movidesk (brasileiras, com suporte em PT) permitem criar esses fluxos
+          sem precisar saber programar.
+        </p>
+        <p><strong>Para quem é:</strong> qualquer empresa com volume repetitivo de atendimento.</p>
+        <div class="dica"><strong>Resultado prático:</strong> redução de 40–60% no volume de tickets que chegam para o time humano.</div>
+      </div>
+
+      <div id="triagem" class="tool-block">
+        <h2>2. IA para triagem e roteamento</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Automação de fluxo</span>
+          <span class="tag tag-gray">Sem interação manual</span>
+        </div>
+        <p>
+          Nem todo atendimento pode ser resolvido por IA — mas ela pode identificar o tipo de problema e
+          encaminhar para a pessoa certa automaticamente. Um cliente com problema de cobrança vai para o
+          financeiro. Um cliente com dúvida técnica vai para o suporte especializado.
+        </p>
+        <p>
+          Isso elimina o tempo perdido em transferências e reduz a frustração do cliente.
+        </p>
+        <p><strong>Para quem é:</strong> empresas com mais de uma área de atendimento especializado.</p>
+        <div class="dica"><strong>Dica prática:</strong> configure categorias claras (cobrança, suporte técnico, cancelamento, elogio) e deixe a IA fazer o roteamento automático desde o primeiro contato.</div>
+      </div>
+
+      <div id="assistente" class="tool-block">
+        <h2>3. Assistente para o time de atendimento</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Produtividade</span>
+          <span class="tag tag-blue">Humano no controle</span>
+        </div>
+        <p>
+          Em vez de substituir o atendente, a IA trabalha ao lado dele — sugerindo respostas, buscando
+          informações no histórico do cliente e resumindo conversas longas. O atendente humano valida e envia,
+          mas em metade do tempo.
+        </p>
+        <p><strong>Para quem é:</strong> equipes de atendimento que precisam aumentar produtividade sem abrir mão do toque humano.</p>
+        <div class="dica"><strong>Dica prática:</strong> ferramentas como Zendesk AI e Freshdesk já oferecem sugestões de resposta automáticas integradas à interface do atendente.</div>
+      </div>
+
+      <div id="comecar" class="section-block">
+        <h2>O que você precisa para começar</h2>
+        <ul>
+          <li>Mapeie as <strong>10 perguntas mais frequentes</strong> dos seus clientes — essas serão a base do seu chatbot.</li>
+          <li>Escolha uma ferramenta compatível com o canal que seus clientes usam (site, WhatsApp, e-mail).</li>
+          <li>Configure e teste com situações reais antes de publicar.</li>
+          <li>Defina quando escalar para humano — toda boa solução de IA tem um ponto de saída para atendimento humano.</li>
+        </ul>
+      </div>
+
+      <div id="custo" class="section-block">
+        <h2>Quanto isso custa?</h2>
+        <p>
+          Menos do que você imagina. Ferramentas como Freshdesk e Zendesk têm planos gratuitos para começar.
+          As brasileiras como Octadesk começam a partir de R$20/mês por usuário. Compare com o custo de um
+          atendente CLT — salário, encargos, treinamento — e o retorno é imediato.
+        </p>
+        <p>
+          Não precisa automatizar tudo de uma vez. Comece com as 3 perguntas mais frequentes no WhatsApp da
+          sua empresa. Em uma semana você já vai ver a diferença no tempo que seu time gasta em atendimento
+          repetitivo.
+        </p>
+        <p>
+          A IA não substitui o atendimento humano de qualidade — ela libera seu time para oferecer exatamente
+          isso nos momentos que importam.
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h2>Ferramentas de atendimento com IA para o mercado brasileiro</h2>
+        <p>
+          No Buskai você encontra as melhores ferramentas de atendimento com IA verificadas para o mercado
+          brasileiro, com preços e suporte em português.
+        </p>
+        <a href="/category/customer-support" class="cta-btn">Ver ferramentas de atendimento →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#por-que, #chatbot, #triagem, #assistente, #comecar, #custo');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { visible.add(entry.target.id); }
+          else { visible.delete(entry.target.id); }
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+        });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>
