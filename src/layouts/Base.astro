@@ -1,5 +1,5 @@
 ---
-const { title = "Buskai.net — Encontre e compare AI tools para LATAM" } = Astro.props;
+const { title = "Buskai.net — Encontre e compare AI tools para LATAM", description = "" } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,6 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
     <style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body { font-family: system-ui, sans-serif; color: #1a1a1a; }
