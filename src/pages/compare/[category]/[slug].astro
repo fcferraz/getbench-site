@@ -10,7 +10,7 @@ const slugA = slug.substring(0, vsIndex);
 const slugB = slug.substring(vsIndex + 4);
 
 const tools = await getTools();
-const toolsBySlug = Object.fromEntries(tools.map(t => [t.Slug, t]));
+const toolsBySlug = Object.fromEntries(tools.map(t => [t.slug, t]));
 
 const toolA = toolsBySlug[slugA];
 const toolB = toolsBySlug[slugB];
