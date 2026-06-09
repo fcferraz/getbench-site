@@ -1,7 +1,22 @@
 ---
 const { currentSlug, currentTags = [] } = Astro.props;
 
-const allPosts = await Astro.glob('../pages/blog/*.astro');
+const allPosts = [
+  { title: '5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026', slug: '5-ferramentas-ia-empreendedor-brasileiro', date: '2026-06-08', tags: ['brasil', 'ia-generativa', 'produtividade'] },
+  { title: 'ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?', slug: 'chatgpt-vs-gemini-vs-claude', date: '2026-06-08', tags: ['assistentes', 'ia-generativa', 'brasil'] },
+  { title: 'Como usar IA para atender clientes sem contratar mais pessoas', slug: 'ia-atendimento-clientes', date: '2026-06-08', tags: ['atendimento', 'automacao', 'brasil'] },
+  { title: 'IA para pequenas empresas: por onde começar sem gastar muito', slug: 'ia-pequenas-empresas', date: '2026-06-08', tags: ['brasil', 'produtividade', 'ia-generativa'] },
+  { title: 'Melhores CRMs para pequenas empresas brasileiras em 2026', slug: 'melhores-crms-para-pequenas-empresas-brasileiras', date: '2026-05-12', tags: ['crm', 'vendas', 'brasil'] },
+  { title: 'Como automatizar o atendimento no WhatsApp com IA em 2026', slug: 'como-automatizar-atendimento-whatsapp-ia', date: '2026-05-19', tags: ['whatsapp', 'atendimento', 'automacao'] },
+  { title: 'Ferramentas de IA para criadores de conteúdo brasileiros em 2026', slug: 'ferramentas-ia-criadores-conteudo-brasil', date: '2026-05-26', tags: ['conteudo', 'criadores', 'video'] },
+  { title: 'Como usar IA para gerar leads B2B no Brasil em 2026', slug: 'como-usar-ia-gerar-leads-b2b-brasil', date: '2026-06-02', tags: ['leads', 'vendas', 'b2b'] },
+  { title: 'Melhores ferramentas de IA para RH e recrutamento no Brasil em 2026', slug: 'melhores-ferramentas-ia-rh-recrutamento-brasil', date: '2026-06-05', tags: ['rh', 'recrutamento', 'brasil'] },
+  { title: 'IA para e-commerce brasileiro: ferramentas para vender mais em 2026', slug: 'ia-para-ecommerce-brasileiro', date: '2026-06-08', tags: ['ecommerce', 'marketing', 'brasil'] },
+  { title: 'Como escolher o melhor assistente de IA para sua empresa em 2026', slug: 'como-escolher-assistente-ia-para-sua-empresa', date: '2026-06-10', tags: ['assistentes', 'ia-generativa', 'brasil'] },
+  { title: 'Ferramentas de IA para reuniões e produtividade em equipe em 2026', slug: 'ferramentas-ia-reunioes-produtividade', date: '2026-06-11', tags: ['produtividade', 'reunioes', 'equipe'] },
+  { title: 'Como criar vídeos com IA sem ser designer em 2026', slug: 'como-criar-videos-com-ia-sem-ser-designer', date: '2026-06-12', tags: ['video', 'conteudo', 'criadores'] },
+  { title: 'IA para vendas: como times B2B brasileiros estão usando em 2026', slug: 'ia-para-vendas-times-b2b-brasileiros', date: '2026-06-13', tags: ['vendas', 'b2b', 'crm'] },
+];
 
 const formatDate = (dateStr) => {
   const d = new Date(dateStr + 'T00:00:00');
@@ -9,13 +24,7 @@ const formatDate = (dateStr) => {
 };
 
 const posts = allPosts
-  .filter(p => p.frontmatter?.slug && p.frontmatter.slug !== currentSlug)
-  .map(p => ({
-    title: p.frontmatter.title,
-    slug: p.frontmatter.slug,
-    date: p.frontmatter.date,
-    tags: p.frontmatter.tags || [],
-  }))
+  .filter(p => p.slug !== currentSlug)
   .sort((a, b) => new Date(b.date) - new Date(a.date));
 
 const recentPosts = posts.slice(0, 3);
