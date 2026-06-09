@@ -1,0 +1,234 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'Como usar IA para gerar leads B2B no Brasil em 2026',
+  description: 'Estratégias e ferramentas de IA para geração de leads B2B no mercado brasileiro. Do enriquecimento de dados ao outreach automatizado.',
+  date: '2026-06-02',
+  slug: 'como-usar-ia-gerar-leads-b2b-brasil',
+};
+---
+
+<Base
+  title="Como usar IA para gerar leads B2B no Brasil em 2026"
+  description="Estratégias e ferramentas de IA para geração de leads B2B no mercado brasileiro. Do enriquecimento de dados ao outreach automatizado."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue { background: #E6F1FB; color: #185FA5; }
+    .tag-gray { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    IA para geração de leads B2B no Brasil
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#apollo-io">1. Apollo.io</a></li>
+          <li><a href="#clay">2. Clay</a></li>
+          <li><a href="#kaspr">3. Kaspr</a></li>
+          <li><a href="#lemlist">4. Lemlist</a></li>
+          <li><a href="#instantly">5. Instantly</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>Como usar IA para gerar leads B2B no Brasil em 2026</h1>
+      <div class="meta">Publicado em junho de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#apollo-io">1. Apollo.io — Banco de dados B2B com prospecção integrada</a></li>
+          <li><a href="#clay">2. Clay — Enriquecimento de dados com IA em escala</a></li>
+          <li><a href="#kaspr">3. Kaspr — Captura de contatos direto do LinkedIn</a></li>
+          <li><a href="#lemlist">4. Lemlist — Outreach personalizado que não parece spam</a></li>
+          <li><a href="#instantly">5. Instantly — Disparos de e-mail em volume com IA</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Geração de leads B2B no Brasil tem um desafio específico: a maioria das ferramentas de prospecção foi construída para o mercado americano, com bases de dados que cobrem mal o Brasil e integração inexistente com as plataformas locais. O resultado é SDR gastando horas pesquisando manualmente o que deveria ser automatizado.
+      </p>
+      <p>
+        Com IA, é possível construir listas de prospects qualificados, enriquecer contatos com dados de e-mail e LinkedIn, e personalizar o outreach em escala — tudo de forma automatizada. Veja as ferramentas que times B2B brasileiros estão usando para prospectar melhor em 2026.
+      </p>
+
+      <div id="apollo-io" class="tool-block">
+        <h2>1. Apollo.io — Banco de dados B2B com prospecção integrada</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Dados LATAM</span>
+          <span class="tag tag-gray">A partir de $49/mês</span>
+        </div>
+        <p>
+          O Apollo.io tem um dos maiores bancos de dados B2B do mundo — mais de 275 milhões de contatos — e uma cobertura crescente da América Latina. Para prospectar empresas brasileiras, você filtra por cargo, setor, porte da empresa, localização e faturamento estimado, e o sistema retorna uma lista de contatos verificados com e-mail e LinkedIn.
+        </p>
+        <p>
+          A IA do Apollo analisa seu ICP (Ideal Customer Profile) e sugere prospects similares aos seus melhores clientes atuais. As sequências de outreach automatizadas enviam e-mails e tarefas de LinkedIn seguindo o comportamento do lead — mais rápido se houve abertura de e-mail, mais espaçado se não houve resposta.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de SDR que precisam de volume de prospects qualificados rapidamente e querem combinar banco de dados com automação de outreach em uma única plataforma.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> no Apollo, filtre por empresas brasileiras que contrataram profissionais de "vendas" ou "marketing" nos últimos 90 dias — isso indica crescimento e maior predisposição a adotar novas ferramentas.</div>
+      </div>
+
+      <div id="clay" class="tool-block">
+        <h2>2. Clay — Enriquecimento de dados com IA em escala</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-gray">A partir de $149/mês</span>
+        </div>
+        <p>
+          O Clay é a ferramenta favorita dos melhores times de outreach do mundo — e por um bom motivo. Ele combina mais de 75 fontes de dados (LinkedIn, Apollo, Clearbit, dados públicos) em uma planilha inteligente com IA. Você monta o fluxo de enriquecimento uma vez e o Clay preenche automaticamente e-mail, cargo, notícias recentes e até o tom ideal para abordagem.
+        </p>
+        <p>
+          O poder real do Clay está no agente de IA: você descreve o que quer pesquisar sobre cada lead — "encontre o maior desafio de crescimento dessa empresa" — e o sistema varre o site, blog e redes sociais para gerar um contexto personalizado para cada e-mail. O resultado é outreach que parece totalmente manual, mas funciona em escala de centenas de contatos por dia.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de vendas que fazem outreach personalizado e querem escalar sem perder a qualidade da abordagem — ideal para empresas que vendem ticket alto no mercado B2B brasileiro.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Clay para pesquisar notícias recentes de cada empresa prospect brasileira — rodada de investimento, expansão, novo produto — e mencione isso no primeiro e-mail. A taxa de resposta sobe significativamente quando o prospect percebe que você fez lição de casa.</div>
+      </div>
+
+      <div id="kaspr" class="tool-block">
+        <h2>3. Kaspr — Captura de contatos direto do LinkedIn</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Dados LATAM</span>
+          <span class="tag tag-gray">A partir de $49/mês</span>
+        </div>
+        <p>
+          O Kaspr é uma extensão de Chrome que captura e-mail e telefone de qualquer perfil no LinkedIn com um clique. Para SDRs que prospectam no LinkedIn Sales Navigator, elimina o processo manual de copiar dados e buscar contatos em outras ferramentas — o Kaspr faz tudo isso em segundos e exporta direto para o CRM.
+        </p>
+        <p>
+          A base de dados do Kaspr tem cobertura razoável do Brasil e boa cobertura de executivos em grandes empresas. A ferramenta verifica os e-mails em tempo real antes de exportar, reduzindo o bounce rate das campanhas. A integração nativa com HubSpot, Salesforce e Pipedrive sincroniza os contatos automaticamente, sem copiar e colar.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> SDRs que prospectam ativamente no LinkedIn e precisam capturar contatos de forma rápida e confiável sem interromper o fluxo de trabalho.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Kaspr para capturar contatos de participantes de eventos do setor no Brasil — a maioria atualiza o LinkedIn após conferências e mencionam o evento na bio, o que facilita a personalização da abordagem inicial.</div>
+      </div>
+
+      <div id="lemlist" class="tool-block">
+        <h2>4. Lemlist — Outreach personalizado que não parece spam</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Funciona em PT</span>
+          <span class="tag tag-gray">A partir de $39/mês</span>
+        </div>
+        <p>
+          O Lemlist é referência em outreach de e-mail personalizado. A IA gera variações do texto para cada destinatário — adaptando o tom, o exemplo usado e a chamada para ação com base no perfil do lead. O resultado são e-mails que parecem escritos individualmente, mesmo enviados em massa.
+        </p>
+        <p>
+          Para o mercado brasileiro, o Lemlist funciona muito bem em sequências multicanal: primeiro e-mail, mensagem no LinkedIn, segundo e-mail e tarefa de ligação — tudo coordenado com base no comportamento do lead. A função de aquecimento de e-mail (warm-up) garante que os disparos cheguem na caixa de entrada, não no spam.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times que fazem outreach por e-mail e LinkedIn e querem taxa de resposta acima da média sem gastar horas personalizando cada mensagem manualmente.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> no Brasil, e-mails de prospecção com assunto curto (menos de 6 palavras) e que fazem uma pergunta direta têm taxas de abertura maiores. Use o Lemlist para testar diferentes assuntos por segmento e descubra o que funciona para o seu ICP local.</div>
+      </div>
+
+      <div id="instantly" class="tool-block">
+        <h2>5. Instantly — Disparos de e-mail em volume com IA</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-gray">A partir de $37/mês</span>
+        </div>
+        <p>
+          O Instantly é a escolha de times que precisam de volume: a plataforma suporta envio de milhares de e-mails por dia com múltiplas caixas de entrada rotacionadas automaticamente — o que mantém a reputação de domínio alta e garante entregabilidade. A IA analisa os dados de abertura e resposta e otimiza os horários de envio automaticamente.
+        </p>
+        <p>
+          O sistema de aquecimento automático de caixas de entrada é um dos melhores do mercado. Você adiciona uma conta nova de e-mail e o Instantly a aquece durante 2 semanas antes de começar os disparos reais, evitando que seus e-mails caiam no spam desde o primeiro dia.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de outreach que trabalham com volume alto de prospecção por e-mail e precisam de infraestrutura confiável para escalar sem comprometer a entregabilidade.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use domínios secundários para prospecção no Brasil — nunca use o domínio principal da empresa para disparos em massa. O Instantly facilita isso com suporte a múltiplos domínios, protegendo a reputação do e-mail corporativo.</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Montando seu stack de prospecção B2B</h2>
+      <p>
+        A combinação mais eficiente para o mercado brasileiro é Apollo.io (para listas) + Clay (para enriquecimento e personalização) + Lemlist ou Instantly (para disparo). Com esse trio, um SDR consegue trabalhar com volume de prospects que antes exigiria uma equipe inteira — e com qualidade de personalização que mantém as taxas de resposta altas.
+      </p>
+
+      <div class="cta-box">
+        <h2>Compare as melhores ferramentas de prospecção B2B</h2>
+        <p>
+          No Buskai você encontra comparações detalhadas entre ferramentas de outreach, enriquecimento de dados e prospecção — com avaliações específicas para o mercado brasileiro e LATAM.
+        </p>
+        <a href="/categories" class="cta-btn">Ver ferramentas de prospecção B2B →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#apollo-io, #clay, #kaspr, #lemlist, #instantly');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + active); });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

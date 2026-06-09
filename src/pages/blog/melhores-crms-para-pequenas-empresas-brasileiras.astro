@@ -1,0 +1,239 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'Melhores CRMs para pequenas empresas brasileiras em 2026',
+  description: 'Compare os melhores CRMs para PMEs brasileiras: HubSpot, Pipedrive, RD Station, Moskit e Agendor. Preços, funcionalidades e qual escolher.',
+  date: '2026-05-12',
+  slug: 'melhores-crms-para-pequenas-empresas-brasileiras',
+};
+---
+
+<Base
+  title="Melhores CRMs para pequenas empresas brasileiras em 2026"
+  description="Compare os melhores CRMs para PMEs brasileiras: HubSpot, Pipedrive, RD Station, Moskit e Agendor. Preços, funcionalidades e qual escolher."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue { background: #E6F1FB; color: #185FA5; }
+    .tag-gray { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    Melhores CRMs para PMEs brasileiras
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#hubspot-crm">1. HubSpot CRM</a></li>
+          <li><a href="#pipedrive">2. Pipedrive</a></li>
+          <li><a href="#rd-station-crm">3. RD Station CRM</a></li>
+          <li><a href="#moskit">4. Moskit</a></li>
+          <li><a href="#agendor">5. Agendor</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>Melhores CRMs para pequenas empresas brasileiras em 2026</h1>
+      <div class="meta">Publicado em maio de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#hubspot-crm">1. HubSpot CRM — Completo e gratuito para começar</a></li>
+          <li><a href="#pipedrive">2. Pipedrive — Foco total no pipeline de vendas</a></li>
+          <li><a href="#rd-station-crm">3. RD Station CRM — Feito para o mercado brasileiro</a></li>
+          <li><a href="#moskit">4. Moskit — CRM com WhatsApp nativo</a></li>
+          <li><a href="#agendor">5. Agendor — Simples e poderoso para times B2B</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Perder negócio por falta de acompanhamento é um dos erros mais comuns em pequenas empresas brasileiras. Um CRM resolve exatamente isso: organiza seus contatos, registra cada interação com clientes e mostra onde cada negociação está no funil de vendas.
+      </p>
+      <p>
+        O problema é escolher entre tantas opções. Alguns CRMs são poderosos demais e complexos para times pequenos. Outros são simples, mas limitados quando a empresa cresce. Listamos os 5 que melhor se encaixam na realidade das PMEs brasileiras — considerando preço, suporte em português e integração com ferramentas do dia a dia como WhatsApp e Nota Fiscal.
+      </p>
+
+      <div id="hubspot-crm" class="tool-block">
+        <h2>1. HubSpot CRM — Completo e gratuito para começar</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $15/mês</span>
+        </div>
+        <p>
+          O HubSpot CRM é uma das melhores opções para quem está começando a estruturar vendas. O plano gratuito já oferece gestão de contatos, pipeline visual, e-mail integrado e histórico de interações — tudo sem limite de usuários. Para um time de 3 a 10 pessoas, é o suficiente para organizar o processo comercial sem gastar nada.
+        </p>
+        <p>
+          Quando a empresa cresce, os planos pagos adicionam automações de marketing, relatórios avançados e integrações com sistemas de ERP. O HubSpot tem interface em português e suporte dedicado para a América Latina, o que facilita muito a adoção pela equipe.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas que querem um CRM robusto sem custo inicial e que planejam crescer para automação de marketing no futuro.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> integre o HubSpot com o WhatsApp Business via Zapier para registrar automaticamente as conversas de vendas no histórico do cliente — sem depender de anotações manuais.</div>
+      </div>
+
+      <div id="pipedrive" class="tool-block">
+        <h2>2. Pipedrive — Foco total no pipeline de vendas</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $14/mês</span>
+        </div>
+        <p>
+          O Pipedrive foi construído por vendedores para vendedores. Sua interface em estilo Kanban deixa claro em que etapa do funil cada negociação está, e o sistema automaticamente lembra o vendedor de fazer follow-up antes que o negócio esfrie. É o CRM com a menor curva de aprendizado entre os cinco desta lista.
+        </p>
+        <p>
+          A IA do Pipedrive analisa o histórico de negociações e aponta quais deals têm mais chance de fechar — ajudando o time a priorizar energia onde tem mais retorno. O sistema também envia alertas quando uma negociação fica parada tempo demais, evitando que oportunidades caiam no esquecimento.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de vendas B2B que precisam de visibilidade clara do pipeline e querem adotar o CRM rapidamente sem treinamento extenso.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use os campos personalizados do Pipedrive para registrar se o cliente aceita pagamento em BRL ou precisa de nota fiscal — informações críticas para vendas no Brasil que os CRMs internacionais geralmente ignoram.</div>
+      </div>
+
+      <div id="rd-station-crm" class="tool-block">
+        <h2>3. RD Station CRM — Feito para o mercado brasileiro</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">100% em PT</span>
+          <span class="tag tag-gray">A partir de R$50/mês</span>
+        </div>
+        <p>
+          O RD Station CRM é desenvolvido pela Resultados Digitais, empresa catarinense que entende profundamente o mercado brasileiro. O sistema cobra em reais, tem suporte em português com equipe no Brasil e se integra nativamente com o RD Station Marketing — formando uma plataforma completa de geração e gestão de leads para PMEs.
+        </p>
+        <p>
+          O plano gratuito inclui pipeline ilimitado, histórico de atividades e aplicativo mobile. Para quem já usa o ecossistema RD, a integração entre marketing e CRM elimina o trabalho manual de transferir leads qualificados para o time de vendas. As previsões de receita com IA ajudam o gestor a planejar metas com mais precisão.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas brasileiras que fazem inbound marketing e querem que os leads do blog ou landing page cheguem automaticamente no CRM sem configuração técnica.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> configure as etapas do funil no RD Station CRM usando termos do seu setor — "Proposta enviada", "Aguardando NF" — para que o time comercial fale a mesma língua que o cliente brasileiro espera.</div>
+      </div>
+
+      <div id="moskit" class="tool-block">
+        <h2>4. Moskit — CRM com WhatsApp nativo</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">WhatsApp integrado</span>
+          <span class="tag tag-blue">100% em PT</span>
+          <span class="tag tag-gray">A partir de R$69/usuário/mês</span>
+        </div>
+        <p>
+          O Moskit é um CRM brasileiro que entende que no Brasil as vendas acontecem no WhatsApp. Diferente de outros sistemas que precisam de integrações externas, o Moskit permite enviar mensagens pelo WhatsApp diretamente do CRM e registra toda a conversa no histórico do cliente automaticamente. Para times comerciais que vivem no WhatsApp, isso muda tudo.
+        </p>
+        <p>
+          Além da integração com WhatsApp, o Moskit oferece automações de follow-up, relatórios de desempenho por vendedor e gestão de múltiplos funis. A plataforma tem interface totalmente em português e suporte humano via chat — algo que faz diferença quando o time precisa de ajuda às 17h de uma sexta-feira.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de vendas brasileiros onde o WhatsApp é o principal canal de comunicação com clientes e o gestor precisa de visibilidade sobre essas conversas.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use os templates de mensagem do Moskit para padronizar o primeiro contato pelo WhatsApp — o time envia mais rápido e você garante que a abordagem seja consistente com a identidade da empresa.</div>
+      </div>
+
+      <div id="agendor" class="tool-block">
+        <h2>5. Agendor — Simples e poderoso para times B2B</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">100% em PT</span>
+          <span class="tag tag-gray">A partir de R$53/usuário/mês</span>
+        </div>
+        <p>
+          O Agendor nasceu em São Paulo com uma proposta clara: ser o CRM que o vendedor brasileiro realmente usa. A interface é limpa, o aplicativo mobile funciona offline — útil para vendedores externos que visitam clientes em locais sem sinal — e o sistema envia lembretes automáticos de follow-up por WhatsApp e e-mail.
+        </p>
+        <p>
+          Os relatórios do Agendor mostram taxa de conversão por etapa do funil, tempo médio de fechamento e desempenho individual de cada vendedor. Com esses dados, o gestor sabe exatamente onde o processo comercial está travando e pode agir antes de perder negócios.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas B2B com times de vendas externas que precisam de um CRM que funcione bem no mobile e registre visitas presenciais a clientes.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use a função de check-in de visitas do Agendor quando o vendedor chegar ao cliente — o sistema registra a localização e hora automaticamente, eliminando a necessidade de relatórios manuais de visitas.</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Qual CRM escolher?</h2>
+      <p>
+        Para empresas que estão começando sem orçamento, o HubSpot CRM ou o RD Station CRM gratuito são o ponto de partida natural. Se o WhatsApp é o coração das suas vendas, o Moskit é a escolha óbvia. Para times B2B com vendedores externos, o Agendor entrega a melhor experiência mobile. E se sua prioridade é simplicidade e velocidade de adoção, o Pipedrive vence.
+      </p>
+      <p>
+        O melhor CRM é o que sua equipe vai realmente usar. Comece com o plano gratuito de dois ou três opções, envolva o time comercial no teste e decida com base na adoção — não apenas nas funcionalidades do papel.
+      </p>
+
+      <div class="cta-box">
+        <h2>Compare CRMs lado a lado no Buskai</h2>
+        <p>
+          No Buskai você encontra comparações detalhadas entre os principais CRMs para o mercado brasileiro — com preços em reais, avaliação de suporte em português e compatibilidade com WhatsApp.
+        </p>
+        <a href="/categories" class="cta-btn">Ver comparações de CRM →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#hubspot-crm, #pipedrive, #rd-station-crm, #moskit, #agendor');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + active); });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

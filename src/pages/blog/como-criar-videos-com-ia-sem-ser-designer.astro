@@ -1,0 +1,237 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'Como criar vídeos com IA sem ser designer em 2026',
+  description: 'Aprenda a criar vídeos profissionais com IA sem precisar de experiência em design ou edição. As melhores ferramentas para o criador brasileiro.',
+  date: '2026-06-12',
+  slug: 'como-criar-videos-com-ia-sem-ser-designer',
+};
+---
+
+<Base
+  title="Como criar vídeos com IA sem ser designer em 2026"
+  description="Aprenda a criar vídeos profissionais com IA sem precisar de experiência em design ou edição. As melhores ferramentas para o criador brasileiro."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue { background: #E6F1FB; color: #185FA5; }
+    .tag-gray { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    Como criar vídeos com IA sem ser designer
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#heygen">1. HeyGen</a></li>
+          <li><a href="#runway">2. Runway</a></li>
+          <li><a href="#opus-clip">3. OpusClip</a></li>
+          <li><a href="#veed">4. VEED</a></li>
+          <li><a href="#pika">5. Pika</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>Como criar vídeos com IA sem ser designer em 2026</h1>
+      <div class="meta">Publicado em junho de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#heygen">1. HeyGen — Avatar de IA que fala por você</a></li>
+          <li><a href="#runway">2. Runway — Edição de vídeo com comandos de texto</a></li>
+          <li><a href="#opus-clip">3. OpusClip — Clipes virais a partir de vídeos longos</a></li>
+          <li><a href="#veed">4. VEED — Edição online completa com IA</a></li>
+          <li><a href="#pika">5. Pika — Geração de vídeo a partir de texto e imagem</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Até poucos anos atrás, produzir um vídeo profissional exigia câmera, iluminação, microfone, editor de vídeo e horas de trabalho. Hoje, com IA, qualquer pessoa consegue criar conteúdo de vídeo de qualidade — usando apenas o computador, sem câmera na frente e sem saber usar Premiere ou After Effects.
+      </p>
+      <p>
+        Para o criador brasileiro, isso abre possibilidades enormes: criar conteúdo para o LinkedIn, apresentar produtos sem aparecer na câmera, transformar artigos em vídeos ou gerar imagens animadas para campanhas. Veja as ferramentas que estão tornando isso possível em 2026.
+      </p>
+
+      <div id="heygen" class="tool-block">
+        <h2>1. HeyGen — Avatar de IA que fala por você</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $29/mês</span>
+        </div>
+        <p>
+          O HeyGen cria vídeos com avatares realistas que falam o texto que você digita — em português, com voz natural e movimentos de lábios sincronizados. Para empresas que precisam de vídeos de apresentação, onboarding ou treinamento mas não querem (ou não podem) gravar com câmera, é a solução mais polida do mercado.
+        </p>
+        <p>
+          Você pode usar um dos avatares prontos do HeyGen ou criar um clone do seu próprio rosto gravando 2 minutos de vídeo. O avatar gerado fala qualquer texto com a sua aparência e voz — incluindo traduções automáticas para inglês, espanhol ou outros idiomas, com sincronização labial perfeita. Para empresas brasileiras que precisam de conteúdo multilíngue, isso elimina a necessidade de regravar em cada idioma.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas e profissionais que precisam de vídeos profissionais frequentemente mas não querem aparecer na câmera ou contratar um produtor de vídeo.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o HeyGen para criar vídeos de apresentação de produto em português para o site e em inglês para parceiros internacionais a partir do mesmo roteiro — sem gravar duas vezes, mantendo consistência visual e de mensagem.</div>
+      </div>
+
+      <div id="runway" class="tool-block">
+        <h2>2. Runway — Edição de vídeo com comandos de texto</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Funciona em PT</span>
+          <span class="tag tag-gray">A partir de $15/mês</span>
+        </div>
+        <p>
+          O Runway é a ferramenta de edição de vídeo com IA mais avançada do mercado. Você descreve o que quer em linguagem natural — "remova o fundo", "coloque chuva nessa cena", "estenda esse vídeo por mais 3 segundos" — e a IA executa. Para tarefas que exigiriam horas no Premiere, o Runway entrega em minutos.
+        </p>
+        <p>
+          Além da edição, o Runway gera vídeos completos a partir de texto ou imagem. Você descreve uma cena, carrega uma foto de produto e o Runway cria um clipe animado de 4 a 16 segundos com qualidade cinematográfica. Para posts de produto no Instagram ou LinkedIn, é possível criar conteúdo visual diferenciado sem equipe de produção.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> criadores que querem explorar efeitos visuais avançados, remover fundos ou gerar clipes curtos de produto sem dominar softwares de edição profissional.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Runway para remover o fundo de vídeos gravados em casa e substituir por um fundo neutro ou corporativo — transforma um vídeo gravado no quarto em algo que parece produzido em estúdio, sem custo adicional.</div>
+      </div>
+
+      <div id="opus-clip" class="tool-block">
+        <h2>3. OpusClip — Clipes virais a partir de vídeos longos</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $15/mês</span>
+        </div>
+        <p>
+          O OpusClip analisa vídeos longos — podcasts, lives, webinars, palestras — e extrai automaticamente os melhores momentos, recorta, formata para vertical (9:16) e adiciona legendas em português. O que seria um trabalho de 2 a 3 horas de edição manual vira 5 minutos de processamento automático.
+        </p>
+        <p>
+          A IA do OpusClip não escolhe os cortes aleatoriamente — ela identifica os momentos com maior potencial de engajamento com base em análise de conteúdo: perguntas retóricas, declarações impactantes, momentos de humor ou revelações. Para criadores que já produzem conteúdo longo, é um multiplicador de distribuição imediato.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> podcasters, youtubers e profissionais que fazem lives e querem distribuir esse conteúdo nos formatos curtos das redes sociais sem trabalho de edição adicional.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> conecte o canal do YouTube ao OpusClip e configure para processar automaticamente cada novo vídeo publicado — assim, toda vez que você publica uma aula ou palestra longa, os clipes para Reels e TikTok já ficam prontos sem nenhuma ação adicional.</div>
+      </div>
+
+      <div id="veed" class="tool-block">
+        <h2>4. VEED — Edição online completa com IA</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Interface em PT</span>
+          <span class="tag tag-gray">A partir de $18/mês</span>
+        </div>
+        <p>
+          O VEED é o editor de vídeo online mais completo para quem não quer instalar software. Tudo acontece no navegador: você carrega o vídeo, adiciona legendas automáticas em português, insere textos, músicas e efeitos, e exporta em alta resolução — sem precisar de computador potente ou espaço em disco. A IA remove silêncios, transcreve automaticamente e sugere cortes para manter o ritmo.
+        </p>
+        <p>
+          Para pequenas empresas brasileiras que precisam de vídeos para redes sociais, o VEED resolve sem curva de aprendizado. A interface é intuitiva o suficiente para qualquer membro do time criar vídeos apresentáveis em menos de 30 minutos — mesmo sem experiência em edição.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> equipes que precisam de edição de vídeo rápida e simples para conteúdo de redes sociais, sem depender de um editor profissional ou software instalado.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o VEED para criar depoimentos de clientes em vídeo com qualidade — peça ao cliente para gravar um vídeo simples no celular, envie para o VEED, adicione legendas automáticas, logo da empresa e música de fundo. Em 15 minutos você tem um social proof profissional para usar no site e no Instagram.</div>
+      </div>
+
+      <div id="pika" class="tool-block">
+        <h2>5. Pika — Geração de vídeo a partir de texto e imagem</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Funciona em PT</span>
+          <span class="tag tag-gray">A partir de $8/mês</span>
+        </div>
+        <p>
+          O Pika permite gerar vídeos curtos a partir de uma descrição de texto ou de uma imagem estática. Você descreve a cena que imagina — "uma xícara de café fumegando sobre uma mesa de madeira, câmera lenta" — e o Pika gera um clipe de 3 a 5 segundos com qualidade surpreendente. Para criadores que precisam de imagens de produto animadas ou cenas de abertura para vídeos, é um diferenciador criativo.
+        </p>
+        <p>
+          Outra função poderosa é a animação de fotos estáticas: você carrega uma imagem de produto ou pessoa e pede para o Pika animar — a xícara vai fumegar, o produto vai girar, a pessoa vai piscar. Para e-commerces brasileiros que têm fotos profissionais de produto mas querem conteúdo em vídeo para o Instagram sem nova sessão de fotos, é uma solução elegante e barata.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> criadores e empresas que querem conteúdo visual em vídeo para redes sociais sem produção adicional — especialmente para animar fotos de produto ou criar aberturas criativas.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Pika para animar as fotos de produto do seu e-commerce e postar como Reels no Instagram — vídeos de produto têm alcance orgânico até 3x maior que fotos estáticas na plataforma, e com o Pika você cria em minutos a partir de fotos que já tem.</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Monte seu fluxo de produção de vídeo com IA</h2>
+      <p>
+        Uma combinação eficiente para criadores brasileiros: use o HeyGen para vídeos com apresentador, o OpusClip para reciclar conteúdo longo, o VEED para edição rápida e o Pika para animações criativas. Com esse conjunto, é possível manter uma presença consistente em vídeo nas redes sociais sem precisar de câmera, estúdio ou editor.
+      </p>
+
+      <div class="cta-box">
+        <h2>Explore todas as ferramentas de criação de vídeo com IA</h2>
+        <p>
+          No Buskai você compara as melhores ferramentas de vídeo com IA disponíveis no Brasil — com avaliações de qualidade em português, preços e casos de uso para criadores e empresas.
+        </p>
+        <a href="/categories" class="cta-btn">Ver ferramentas de vídeo com IA →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#heygen, #runway, #opus-clip, #veed, #pika');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + active); });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

@@ -1,0 +1,237 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'Melhores ferramentas de IA para RH e recrutamento no Brasil em 2026',
+  description: 'Compare as melhores ferramentas de IA para RH e recrutamento no Brasil: Gupy, Kenoby, Taqe, Factorial HR e Sólides. Qual escolher para sua empresa?',
+  date: '2026-06-05',
+  slug: 'melhores-ferramentas-ia-rh-recrutamento-brasil',
+};
+---
+
+<Base
+  title="Melhores ferramentas de IA para RH e recrutamento no Brasil em 2026"
+  description="Compare as melhores ferramentas de IA para RH e recrutamento no Brasil: Gupy, Kenoby, Taqe, Factorial HR e Sólides. Qual escolher para sua empresa?"
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue { background: #E6F1FB; color: #185FA5; }
+    .tag-gray { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    IA para RH e recrutamento no Brasil
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#gupy">1. Gupy</a></li>
+          <li><a href="#kenoby">2. Kenoby</a></li>
+          <li><a href="#taqe">3. Taqe</a></li>
+          <li><a href="#solides">4. Sólides</a></li>
+          <li><a href="#factorial-hr">5. Factorial HR</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>Melhores ferramentas de IA para RH e recrutamento no Brasil em 2026</h1>
+      <div class="meta">Publicado em junho de 2026 · 6 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#gupy">1. Gupy — ATS líder no Brasil com triagem por IA</a></li>
+          <li><a href="#kenoby">2. Kenoby — Para empresas com alto volume de contratação</a></li>
+          <li><a href="#taqe">3. Taqe — Gamificação para recrutamento em massa</a></li>
+          <li><a href="#solides">4. Sólides — Gestão de pessoas além do recrutamento</a></li>
+          <li><a href="#factorial-hr">5. Factorial HR — RH completo para PMEs</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        O mercado de trabalho brasileiro tem características únicas: alta rotatividade em setores como varejo e logística, legislação trabalhista complexa com CLT e eSocial, e um volume imenso de candidatos para funções operacionais. Ferramentas de RH genéricas, feitas para o mercado americano, frequentemente não dão conta dessas especificidades.
+      </p>
+      <p>
+        A boa notícia é que o Brasil tem um ecossistema de HR tech bastante maduro, com soluções locais que entendem CTPS, PIS, FGTS e as particularidades do recrutamento nacional. Veja as principais ferramentas de IA para RH e recrutamento que estão transformando as áreas de pessoas nas empresas brasileiras.
+      </p>
+
+      <div id="gupy" class="tool-block">
+        <h2>1. Gupy — ATS líder no Brasil com triagem por IA</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">100% brasileiro</span>
+          <span class="tag tag-blue">Integra com eSocial</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          A Gupy é o ATS (Applicant Tracking System) mais usado por grandes empresas brasileiras — com clientes como Ambev, Natura e Grupo Boticário. A IA da plataforma analisa currículos e classifica candidatos automaticamente com base nos critérios definidos pelo recrutador, reduzindo o tempo de triagem de dias para horas em processos com centenas de inscrições.
+        </p>
+        <p>
+          A plataforma gerencia todo o funil de recrutamento: divulgação da vaga, triagem, testes, entrevistas e proposta. A IA identifica os candidatos com maior probabilidade de sucesso na função com base em dados históricos de contratações anteriores da empresa — tornando o processo mais objetivo e reduzindo vieses inconscientes.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> médias e grandes empresas brasileiras com volume constante de contratação que precisam de um processo estruturado e auditável.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use a função de banco de talentos da Gupy para manter candidatos que não foram aprovados desta vez mas têm potencial — em média, 30% das vagas futuras podem ser preenchidas por candidatos que já passaram pelo processo, reduzindo o custo de aquisição de talentos.</div>
+      </div>
+
+      <div id="kenoby" class="tool-block">
+        <h2>2. Kenoby — Para empresas com alto volume de contratação</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">100% brasileiro</span>
+          <span class="tag tag-blue">Suporte em PT</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          O Kenoby é especializado em recrutamento de alto volume — perfeito para empresas de varejo, logística e serviços que contratam dezenas ou centenas de pessoas por mês. A IA do Kenoby faz triagem automática de currículos, aplica questionários de qualificação e agenda entrevistas automaticamente, sem intervenção do recrutador nas primeiras etapas.
+        </p>
+        <p>
+          A plataforma tem integração nativa com as principais job boards brasileiras (Catho, InfoJobs, LinkedIn) e publica vagas em todas de uma só vez, centralizando os candidatos em um único lugar. O dashboard de analytics mostra o custo por contratação, tempo médio de preenchimento de vaga e qualidade das fontes de candidatos.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas com alta rotatividade e necessidade de contratar rapidamente em volume, como redes de varejo, empresas de logística e call centers.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> configure no Kenoby um fluxo automatizado para vagas recorrentes — quando a mesma posição abre novamente, o sistema reutiliza os critérios e testes da última seleção, economizando horas de configuração a cada novo processo.</div>
+      </div>
+
+      <div id="taqe" class="tool-block">
+        <h2>3. Taqe — Gamificação para recrutamento em massa</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">100% brasileiro</span>
+          <span class="tag tag-blue">Foco em jovens talentos</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          O Taqe usa gamificação e avaliações comportamentais para atrair e qualificar candidatos de perfil operacional — especialmente jovens em busca do primeiro emprego ou em transição de carreira. O candidato passa por mini-games que avaliam raciocínio lógico, atenção e perfil comportamental de forma engajante, sem perceber que está sendo avaliado.
+        </p>
+        <p>
+          Para empresas que recrutam em cidades do interior do Brasil ou para posições que recebem candidatos com pouca experiência em processos seletivos formais, a abordagem lúdica do Taqe aumenta a taxa de conclusão das etapas em até 3x comparado a formulários tradicionais. A IA classifica os candidatos por fit cultural e competências técnicas automaticamente.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas que recrutam em grande volume para funções operacionais, especialmente aquelas que buscam atrair a geração Z e candidatos com pouca familiaridade com processos seletivos digitais.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Taqe para processos seletivos em cidades do interior brasileiro onde há menor oferta de talentos qualificados — a plataforma mobile-first alcança candidatos que não têm acesso fácil a computador, ampliando muito o pool de candidatos disponível.</div>
+      </div>
+
+      <div id="solides" class="tool-block">
+        <h2>4. Sólides — Gestão de pessoas além do recrutamento</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">100% brasileiro</span>
+          <span class="tag tag-blue">Metodologia DISC</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          A Sólides vai além do recrutamento: é uma plataforma completa de gestão de pessoas que inclui mapeamento de perfil comportamental (DISC), avaliação de desempenho, PDI (Plano de Desenvolvimento Individual) e people analytics. A IA cruza dados de perfil, desempenho e engajamento para prever quais colaboradores têm risco de saída — permitindo ação preventiva antes de perder talentos.
+        </p>
+        <p>
+          O diferencial da Sólides para o mercado brasileiro é a integração entre recrutamento e gestão: o perfil comportamental mapeado na seleção acompanha o colaborador durante toda a jornada, permitindo decisões de desenvolvimento mais certeiras. As empresas que usam a plataforma reportam redução de 25% a 40% no turnover.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas brasileiras que querem ir além da seleção e usar dados comportamentais para desenvolvimento, retenção e promoção interna de talentos.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use a análise de perfil DISC da Sólides para formar times com perfis complementares — no Brasil, times com diversidade comportamental têm desempenho até 35% melhor em projetos de inovação, segundo dados da própria plataforma.</div>
+      </div>
+
+      <div id="factorial-hr" class="tool-block">
+        <h2>5. Factorial HR — RH completo para PMEs</h2>
+        <div class="tag-row">
+          <span class="tag tag-green">Plano gratuito</span>
+          <span class="tag tag-blue">Suporte em PT</span>
+          <span class="tag tag-gray">A partir de R$8/funcionário/mês</span>
+        </div>
+        <p>
+          O Factorial HR é uma das plataformas de RH mais completas para pequenas e médias empresas — e tem adaptado suas funcionalidades para o mercado brasileiro, incluindo controle de ponto eletrônico (atendendo à legislação da CLT), gestão de férias, banco de horas e documentos digitais. Para um RH de 1 ou 2 pessoas gerenciando dezenas de colaboradores, centraliza tudo que antes era feito em planilhas.
+        </p>
+        <p>
+          A IA do Factorial analisa dados de absenteísmo, horas extras e satisfação dos colaboradores, alertando o gestor sobre tendências preocupantes antes que virem problemas. O módulo de recrutamento integrado permite criar vagas, receber candidaturas e fazer o processo seletivo dentro da mesma plataforma que gerencia os colaboradores ativos.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> PMEs brasileiras que precisam digitalizar o RH sem contratar uma solução separada para cada processo — ponto, férias, seleção e desempenho em uma plataforma só.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Factorial para digitalizar o controle de ponto desde o primeiro dia — além de cumprir a obrigação legal da CLT para empresas com mais de 10 funcionários, os dados de presença alimentam automaticamente o cálculo de horas extras e banco de horas, eliminando um trabalho manual significativo do RH.</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Como escolher a ferramenta certa para o seu RH</h2>
+      <p>
+        Para grandes empresas com alto volume de contratação, Gupy e Kenoby são as referências. Para empresas que buscam reduzir turnover com dados comportamentais, a Sólides tem profundidade única no mercado brasileiro. Para PMEs que precisam digitalizar o RH inteiro com orçamento limitado, o Factorial HR é o ponto de partida ideal. E para recrutamento em massa de perfil operacional, o Taqe é imbatível.
+      </p>
+
+      <div class="cta-box">
+        <h2>Compare as melhores plataformas de RH para o Brasil</h2>
+        <p>
+          No Buskai você encontra comparações detalhadas entre ferramentas de RH e recrutamento adaptadas ao mercado brasileiro — com análise de conformidade com CLT, eSocial e suporte em português.
+        </p>
+        <a href="/categories" class="cta-btn">Ver ferramentas de RH →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#gupy, #kenoby, #taqe, #solides, #factorial-hr');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + active); });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>

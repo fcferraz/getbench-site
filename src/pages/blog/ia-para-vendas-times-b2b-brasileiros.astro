@@ -1,0 +1,239 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export const frontmatter = {
+  title: 'IA para vendas: como times B2B brasileiros estão usando em 2026',
+  description: 'Como equipes de vendas B2B no Brasil estão usando IA para prospectar, qualificar e fechar mais negócios. Ferramentas, estratégias e casos reais.',
+  date: '2026-06-13',
+  slug: 'ia-para-vendas-times-b2b-brasileiros',
+};
+---
+
+<Base
+  title="IA para vendas: como times B2B brasileiros estão usando em 2026"
+  description="Como equipes de vendas B2B no Brasil estão usando IA para prospectar, qualificar e fechar mais negócios. Ferramentas, estratégias e casos reais."
+>
+  <style>
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+
+    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
+    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
+    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
+    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .tool-block p { margin-bottom: 10px; }
+    .tool-block p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .tag-green { background: #E1F5EE; color: #0F6E56; }
+    .tag-blue { background: #E6F1FB; color: #185FA5; }
+    .tag-gray { background: #f3f3f3; color: #555; }
+    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: #1D9E75; }
+    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
+    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: #178f68; }
+
+    .sumario-mobile { display: none; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
+    .sumario-mobile li { margin-bottom: 6px; }
+    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { display: none; }
+      .sumario-mobile { display: block; }
+      .article h1 { font-size: 24px; }
+      .tool-block { padding: 20px; }
+    }
+  </style>
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <a href="/blog">Blog</a><span>›</span>
+    IA para vendas B2B brasileiras
+  </div>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Neste artigo</div>
+      <nav class="sidebar-nav" aria-label="Sumário">
+        <ol>
+          <li><a href="#hubspot-sales">1. HubSpot Sales</a></li>
+          <li><a href="#pipedrive-sales">2. Pipedrive</a></li>
+          <li><a href="#gong">3. Gong</a></li>
+          <li><a href="#salesloft">4. Salesloft</a></li>
+          <li><a href="#funnels-sales">5. Funnels</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="article">
+      <h1>IA para vendas: como times B2B brasileiros estão usando em 2026</h1>
+      <div class="meta">Publicado em junho de 2026 · 7 min de leitura</div>
+
+      <nav class="sumario-mobile" aria-label="Sumário">
+        <h2>Neste artigo</h2>
+        <ol>
+          <li><a href="#hubspot-sales">1. HubSpot Sales — CRM com IA para toda a jornada</a></li>
+          <li><a href="#pipedrive-sales">2. Pipedrive — Pipeline visual com previsão de fechamento</a></li>
+          <li><a href="#gong">3. Gong — Inteligência de receita baseada em dados reais</a></li>
+          <li><a href="#salesloft">4. Salesloft — Plataforma de engajamento de vendas</a></li>
+          <li><a href="#funnels-sales">5. Funnels — IA para automação do processo comercial</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Os times de vendas B2B brasileiros enfrentam um paradoxo: precisam fazer mais com menos, mas os processos manuais — atualizar CRM, escrever follow-ups, preparar propostas, analisar chamadas — consomem horas que deveriam ser usadas em negociação. A IA está mudando isso de forma concreta.
+      </p>
+      <p>
+        Não estamos falando de automação que substitui o vendedor — mas de ferramentas que eliminam o trabalho administrativo e dão ao profissional de vendas mais tempo e melhores informações para tomar decisões. Veja como os melhores times B2B brasileiros estão usando IA em 2026.
+      </p>
+
+      <div id="hubspot-sales">
+        <div class="tool-block">
+          <h2>1. HubSpot Sales — CRM com IA para toda a jornada</h2>
+          <div class="tag-row">
+            <span class="tag tag-green">Plano gratuito</span>
+            <span class="tag tag-blue">Suporte PT</span>
+            <span class="tag tag-gray">A partir de $15/mês</span>
+          </div>
+          <p>
+            O HubSpot Sales Hub integra CRM, sequências de e-mail, agendamento de reuniões e previsão de receita em uma plataforma com IA que aprende com o comportamento do time. O assistente de IA sugere o próximo passo para cada negociação com base no histórico — quando ligar, o que enviar, como personalizar a abordagem — reduzindo o tempo que o vendedor passa pensando sobre logística e aumentando o tempo em negociação.
+          </p>
+          <p>
+            A função de previsão de receita usa IA para analisar o pipeline e estimar com maior precisão quais negócios vão fechar no mês — levando em conta fatores como tempo no estágio atual, histórico de engajamento do lead e sazonalidade. Para gestores de vendas brasileiros que precisam apresentar forecast para a diretoria, é um diferencial real.
+          </p>
+          <p>
+            <strong>Para quem é:</strong> times de vendas B2B de médio porte que querem uma plataforma all-in-one com CRM, automação e analytics em português.
+          </p>
+          <div class="dica"><strong>Dica prática:</strong> configure as sequências do HubSpot para enviar follow-ups automáticos após propostas enviadas — no Brasil, a maioria das vendas B2B fecha após o 4º ou 5º contato, mas muitos vendedores desistem no 2º. A sequência automática garante a persistência sem depender da memória do vendedor.</div>
+        </div>
+      </div>
+
+      <div id="pipedrive-sales" class="tool-block">
+        <h2>2. Pipedrive — Pipeline visual com previsão de fechamento</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Suporte PT</span>
+          <span class="tag tag-gray">A partir de $14/mês</span>
+        </div>
+        <p>
+          O Pipedrive se destaca pela clareza visual do pipeline e pela IA que identifica deals em risco antes que o vendedor perceba. O sistema analisa o comportamento de cada negociação — tempo parado em uma etapa, frequência de contato, engajamento do lead — e alerta o vendedor sobre oportunidades que estão esfriando, antes que seja tarde demais para agir.
+        </p>
+        <p>
+          A IA do Pipedrive também automatiza tarefas repetitivas: atualização de campos após uma ligação, criação de atividades de follow-up, envio de e-mails de proposta com campos personalizados. O vendedor faz a ligação, encerra e o CRM já está atualizado — sem precisar de 15 minutos de registro manual.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times B2B que querem visibilidade clara do pipeline e alertas inteligentes sobre deals que precisam de atenção, com o mínimo de trabalho de CRM.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o campo de "probabilidade de fechamento" do Pipedrive em conjunto com o valor da negociação para calcular a receita esperada do mês — filtre as negociações com mais de 60% de probabilidade e foque as energias do time nesses deals na última semana do mês.</div>
+      </div>
+
+      <div id="gong" class="tool-block">
+        <h2>3. Gong — Inteligência de receita baseada em dados reais</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Dados de calls</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          O Gong é a plataforma de revenue intelligence mais sofisticada do mercado: grava e analisa todas as chamadas de vendas com IA, identificando padrões que diferenciam os deals que fecham dos que não fecham. Para diretores comerciais brasileiros, é como ter acesso ao "playbook" de cada vendedor sênior — e replicar essas práticas para todo o time.
+        </p>
+        <p>
+          A IA do Gong analisa o ratio de fala e escuta de cada vendedor, as objeções mais comuns levantadas pelos prospects brasileiros, os tópicos que aumentam ou diminuem a probabilidade de fechamento e os momentos da conversa onde o interesse do lead cresce ou declina. Com esses dados, o gestor sabe exatamente onde treinar cada vendedor.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas B2B com times de vendas maiores (10+ vendedores) que querem usar dados de chamadas para coaching e para melhorar a previsibilidade de receita.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> use o Gong para identificar as 3 objeções mais frequentes dos prospects brasileiros do seu setor — crie materiais de suporte específicos para cada uma e treine o time a respondê-las com dados. No Brasil, objeções sobre preço em dólar e prazo de implementação são as mais comuns em vendas B2B de software.</div>
+      </div>
+
+      <div id="salesloft" class="tool-block">
+        <h2>4. Salesloft — Plataforma de engajamento de vendas</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Funciona no BR</span>
+          <span class="tag tag-gray">Sob consulta</span>
+        </div>
+        <p>
+          O Salesloft é uma das plataformas de sales engagement mais usadas por times B2B enterprise no mundo, e está crescendo no Brasil. Combina cadências de outreach (e-mail, ligação, LinkedIn), análise de conversas com IA e forecasting em uma plataforma integrada. O diferencial é a profundidade das análises de engajamento — o sistema sabe exatamente quais elementos de cada e-mail geram mais respostas do ICP.
+        </p>
+        <p>
+          Para times que vendem para grandes empresas brasileiras com ciclos longos de 3 a 6 meses, o Salesloft mantém o engajamento consistente ao longo do tempo com cadências automatizadas que não parecem automáticas. A IA ajusta o timing e o conteúdo dos contatos com base no comportamento do prospect, garantindo relevância em cada ponto da jornada.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> times de vendas enterprise que trabalham com ciclos longos e múltiplos stakeholders e precisam manter engajamento consistente sem perder o toque personalizado.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> no Brasil, o processo de compra em grandes empresas envolve múltiplos decisores — use o Salesloft para mapear e engajar cada stakeholder com conteúdo específico para seu papel (financeiro recebe análise de ROI, TI recebe documentação técnica, operações recebe casos de uso). Chegar em apenas um contato é o principal motivo de perda em vendas B2B enterprise.</div>
+      </div>
+
+      <div id="funnels-sales" class="tool-block">
+        <h2>5. Funnels — IA para automação do processo comercial</h2>
+        <div class="tag-row">
+          <span class="tag tag-blue">Focado no Brasil</span>
+          <span class="tag tag-blue">WhatsApp integrado</span>
+          <span class="tag tag-gray">A partir de R$497/mês</span>
+        </div>
+        <p>
+          O Funnels foi construído com o mercado brasileiro em mente: integra CRM, automação de marketing, agentes de IA e WhatsApp em uma plataforma que entende como as vendas B2B acontecem no Brasil — com muito relacionamento, ciclos que passam por WhatsApp e reuniões presenciais, e decisores que respondem melhor a abordagens consultivas do que a scripts americanos.
+        </p>
+        <p>
+          Os agentes de IA do Funnels fazem a qualificação inicial dos leads — respondendo perguntas, entendendo o contexto da empresa e agendando reuniões com os vendedores humanos — de forma fluida no WhatsApp. Para times brasileiros onde o pré-vendas manual consome horas, é uma solução que escala o SDR sem aumentar o headcount.
+        </p>
+        <p>
+          <strong>Para quem é:</strong> empresas brasileiras de médio porte que querem escalar vendas B2B com IA sem abrir mão da abordagem consultiva e do relacionamento que caracterizam as vendas no Brasil.
+        </p>
+        <div class="dica"><strong>Dica prática:</strong> configure o agente de IA do Funnels para identificar o porte e setor de cada lead no primeiro contato — isso permite que o vendedor humano entre na conversa já sabendo se está falando com uma PME ou enterprise, ajustando o discurso e a proposta de valor antes mesmo da primeira reunião.</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Onde a IA realmente faz diferença em vendas B2B</h2>
+      <p>
+        Times B2B brasileiros que adotaram IA reportam consistentemente três ganhos principais: menos tempo em trabalho administrativo (20 a 30% de economia), melhor qualidade de dados no CRM (porque o registro é automático, não manual) e maior taxa de follow-up consistente (porque as sequências não dependem da memória do vendedor).
+      </p>
+      <p>
+        O que IA não substitui — e provavelmente não vai substituir no Brasil — é a capacidade de construir relacionamento genuíno com o decisor. No mercado brasileiro, o "jogo longo" do relacionamento ainda determina muitos contratos. A IA cuida do processo para que o vendedor tenha mais tempo para o que realmente importa: estar presente onde o cliente está.
+      </p>
+
+      <div class="cta-box">
+        <h2>Compare as melhores ferramentas de vendas para o mercado brasileiro</h2>
+        <p>
+          No Buskai você encontra comparações detalhadas entre plataformas de CRM, sales engagement e automação de vendas — com análise de adequação ao mercado B2B brasileiro e suporte em português.
+        </p>
+        <a href="/categories" class="cta-btn">Ver ferramentas de vendas B2B →</a>
+      </div>
+    </article>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const sections = document.querySelectorAll('#hubspot-sales, #pipedrive-sales, #gong, #salesloft, #funnels-sales');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      if (!sections.length || !navLinks.length) return;
+      const visible = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        let active = null;
+        sections.forEach(function (s) { if (visible.has(s.id) && !active) active = s.id; });
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + active); });
+      }, { rootMargin: '-10% 0px -70% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+</Base>
