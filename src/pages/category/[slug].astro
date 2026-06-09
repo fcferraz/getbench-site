@@ -33,19 +33,34 @@ const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
   <p style="font-size:15px;color:#555;margin-bottom:12px;max-width:600px;line-height:1.6;">
     {category.description_en || 'Compare as melhores AI tools desta categoria, curadas para LATAM.'}
   </p>
-  <p style="font-size:13px;color:#888;margin-bottom:20px;" id="tools-count">{tools.length} tools encontradas</p>
+  <p style="font-size:13px;color:#888;margin-bottom:20px;" id="tools-count">{tools.length} ferramentas encontradas</p>
 
-  <div style="display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;" id="filters">
-    <button onclick="toggleFilter(this, 'all')" style="padding:6px 14px;border:1px solid #1D9E75;border-radius:20px;font-size:12px;cursor:pointer;background:#1D9E75;color:#fff;">Todas</button>
-    <button onclick="toggleFilter(this, 'paid-free')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Gratuito</button>
-    <button onclick="toggleFilter(this, 'paid-freemium')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Freemium</button>
-    <button onclick="toggleFilter(this, 'paid-paid')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Pago</button>
-    <button onclick="toggleFilter(this, 'free')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Plano grátis</button>
-    <button onclick="toggleFilter(this, 'br')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Funciona no BR</button>
-    <button onclick="toggleFilter(this, 'brl')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Aceita BRL</button>
-    <button onclick="toggleFilter(this, 'pt')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">Suporte PT</button>
-    <button onclick="toggleFilter(this, 'ainative')" style="padding:6px 14px;border:1px solid #ddd;border-radius:20px;font-size:12px;cursor:pointer;background:#fff;color:#555;">AI Native 🤖</button>
+  <div id="filter-bar" style="display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap;">
+    <select id="filter-price" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
+      <option value="all">💰 Preço — Todos</option>
+      <option value="free">Gratuito</option>
+      <option value="freemium">Freemium</option>
+      <option value="paid">Pago</option>
+    </select>
+    <select id="filter-location" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
+      <option value="all">🌎 Localização — Todos</option>
+      <option value="br">Funciona no BR</option>
+      <option value="brl">Aceita BRL</option>
+      <option value="pt">Suporte em PT</option>
+    </select>
+    <select id="filter-type" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
+      <option value="all">🤖 Tipo — Todos</option>
+      <option value="ainative">AI Native</option>
+    </select>
+    <button id="clear-filters" onclick="clearFilters()" style="display:none;padding:8px 14px;border:1px solid #e55;border-radius:8px;font-size:13px;color:#e55;background:#fff;cursor:pointer;">✕ Limpar filtros</button>
   </div>
+
+  <style>
+    @media (max-width: 640px) {
+      #filter-bar { flex-direction: column; align-items: stretch; }
+      #filter-bar select, #filter-bar button { width: 100%; }
+    }
+  </style>
 
   {tools.length === 0 ? (
     <div style="padding:40px;background:#f9f9f9;border-radius:12px;text-align:center;color:#888;">
@@ -58,8 +73,7 @@ const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
           <div style="flex:1;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
               <a href={`/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">{tool.Name}</a>
-              {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
-              {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
+              {tool.starting_price_usd === 0 ? <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Gratuito</span> : tool.has_free_plan ? <span style="font-size:11px;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:20px;">Freemium</span> : tool.starting_price_usd ? <span style="font-size:11px;padding:2px 8px;background:#F3F4F6;color:#374151;border-radius:20px;">Pago</span> : null}
               {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
             </div>
             <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_pt || tool.tagline_en}</p>
@@ -82,31 +96,39 @@ const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
   )}
 
   <script is:inline>
-    function toggleFilter(btn, filter) {
-      document.querySelectorAll('#filters button').forEach(b => {
-        b.style.background = '#fff';
-        b.style.color = '#555';
-        b.style.borderColor = '#ddd';
-      });
-      btn.style.background = '#1D9E75';
-      btn.style.color = '#fff';
-      btn.style.borderColor = '#1D9E75';
+    function applyFilters() {
+      const price    = document.getElementById('filter-price').value;
+      const location = document.getElementById('filter-location').value;
+      const type     = document.getElementById('filter-type').value;
+
+      const isFiltered = price !== 'all' || location !== 'all' || type !== 'all';
+      document.getElementById('clear-filters').style.display = isFiltered ? 'inline-block' : 'none';
+
       const cards = document.querySelectorAll('.tool-card');
       let visible = 0;
       cards.forEach(card => {
         let show = true;
-        if (filter === 'free') show = card.dataset.free === '1';
-        if (filter === 'br') show = card.dataset.br === '1';
-        if (filter === 'brl') show = card.dataset.brl === '1';
-        if (filter === 'pt') show = card.dataset.pt === '1';
-        if (filter === 'ainative') show = card.dataset.ainative === '1';
-        if (filter === 'paid-free') show = card.dataset.pricing === 'free';
-        if (filter === 'paid-freemium') show = card.dataset.pricing === 'freemium';
-        if (filter === 'paid-paid') show = card.dataset.pricing === 'paid';
+        if (price === 'free')      show = show && card.dataset.pricing === 'free';
+        if (price === 'freemium')  show = show && card.dataset.pricing === 'freemium';
+        if (price === 'paid')      show = show && card.dataset.pricing === 'paid';
+        if (location === 'br')     show = show && card.dataset.br === '1';
+        if (location === 'brl')    show = show && card.dataset.brl === '1';
+        if (location === 'pt')     show = show && card.dataset.pt === '1';
+        if (type === 'ainative')   show = show && card.dataset.ainative === '1';
         card.style.display = show ? 'flex' : 'none';
         if (show) visible++;
       });
-      document.getElementById('tools-count').textContent = visible + ' tools encontradas';
+      document.getElementById('tools-count').textContent = visible + ' ferramentas encontradas';
+    }
+
+    function clearFilters() {
+      document.getElementById('filter-price').value    = 'all';
+      document.getElementById('filter-location').value = 'all';
+      document.getElementById('filter-type').value     = 'all';
+      document.getElementById('clear-filters').style.display = 'none';
+      document.querySelectorAll('.tool-card').forEach(c => c.style.display = 'flex');
+      document.getElementById('tools-count').textContent =
+        document.querySelectorAll('.tool-card').length + ' ferramentas encontradas';
     }
   </script>
 </Base>
