@@ -21,6 +21,10 @@ function formatValue(tool, criterion) {
   const val = tool[criterion.key];
   if (criterion.type === 'boolean') return val ? 'Sim' : 'Não';
   if (criterion.type === 'price') return val === 0 ? 'Plano gratuito disponível' : val ? '$' + val + '/mês' : '-';
+  if (criterion.key === 'pricing_model') {
+    const map = { per_month: 'Mensal', per_user: 'Por usuário', custom: 'Sob consulta' };
+    return map[val] || val || '-';
+  }
   return val || '-';
 }
 
