@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import BlogSidebar from '../../components/BlogSidebar.astro';
 
 export const frontmatter = {
   title: '5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026',
@@ -23,7 +24,7 @@ export const frontmatter = {
     /* ── Page layout ── */
     .page-layout {
       display: grid;
-      grid-template-columns: 180px 1fr;
+      grid-template-columns: 200px 1fr 240px;
       gap: 32px;
       align-items: start;
     }
@@ -95,6 +96,7 @@ export const frontmatter = {
     @media (max-width: 768px) {
       .page-layout { grid-template-columns: 1fr; gap: 0; }
       .sidebar { display: none; }
+      .right-sidebar { display: none; }
       .sumario-mobile { display: block; }
       .article h1 { font-size: 24px; }
       .tool-block { padding: 20px; }
@@ -246,6 +248,10 @@ export const frontmatter = {
         <a href="/categories" class="cta-btn">Ver todas as categorias →</a>
       </div>
     </article>
+
+    <aside class="right-sidebar">
+      <BlogSidebar currentSlug={frontmatter.slug} currentTags={frontmatter.tags} />
+    </aside>
   </div>
 
   <script is:inline>
