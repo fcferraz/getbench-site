@@ -18,6 +18,60 @@ if (!tool) {
 const firstCategory = tool.categories?.[0];
 const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
 const sym = currencySymbol(tool.currency);
+const pricingLabels = { per_month: 'Mensal', per_user: 'Por usuário', custom: 'Sob consulta' };
+const seoDescription = tool.description_pt
+  ? tool.description_pt.slice(0, 160)
+  : (tool.tagline_pt || tool.tagline_en || '');
+
+const compareMap = {
+  'hubspot-crm':          { cat: 'crm-automation',       others: ['pipedrive', 'rd-station-crm'] },
+  'hubspot-sales':        { cat: 'crm-automation',       others: ['pipedrive', 'rd-station-crm'] },
+  'pipedrive':            { cat: 'crm-automation',       others: ['hubspot-sales', 'rd-station-crm'] },
+  'rd-station-crm':      { cat: 'crm-automation',       others: ['pipedrive', 'hubspot-sales'] },
+  'moskit':               { cat: 'crm-automation',       others: ['pipedrive', 'rd-station-crm'] },
+  'agendor':              { cat: 'crm-automation',       others: ['pipedrive', 'moskit'] },
+  'apollo-io':            { cat: 'sales-outreach',       others: ['clay', 'lemlist'] },
+  'clay':                 { cat: 'sales-outreach',       others: ['apollo-io', 'instantly'] },
+  'lemlist':              { cat: 'sales-outreach',       others: ['instantly', 'apollo-io'] },
+  'instantly':            { cat: 'sales-outreach',       others: ['lemlist', 'apollo-io'] },
+  'kaspr':                { cat: 'sales-outreach',       others: ['apollo-io', 'clay'] },
+  'octadesk':             { cat: 'customer-support',     others: ['tidio', 'chatbase'] },
+  'tidio':                { cat: 'customer-support',     others: ['octadesk', 'chatbase'] },
+  'reply-chat':           { cat: 'customer-support',     others: ['tidio', 'octadesk'] },
+  'chatbase':             { cat: 'customer-support',     others: ['tidio', 'octadesk'] },
+  'activecampaign':       { cat: 'marketing-automation', others: ['klaviyo', 'rd-station-marketing'] },
+  'klaviyo':              { cat: 'marketing-automation', others: ['activecampaign', 'rd-station-marketing'] },
+  'rd-station-marketing': { cat: 'marketing-automation', others: ['activecampaign', 'klaviyo'] },
+  'beehiiv':              { cat: 'marketing-automation', others: ['activecampaign', 'klaviyo'] },
+  'chatgpt':              { cat: 'assistentes-de-ia',    others: ['claude', 'gemini'] },
+  'claude':               { cat: 'assistentes-de-ia',    others: ['chatgpt', 'gemini'] },
+  'gemini':               { cat: 'assistentes-de-ia',    others: ['chatgpt', 'claude'] },
+  'microsoft-copilot':    { cat: 'assistentes-de-ia',    others: ['chatgpt', 'claude'] },
+  'meta-ai':              { cat: 'assistentes-de-ia',    others: ['chatgpt', 'gemini'] },
+  'gupy':                 { cat: 'hr-automation',        others: ['kenoby', 'factorial-hr'] },
+  'kenoby':               { cat: 'hr-automation',        others: ['gupy', 'factorial-hr'] },
+  'taqe':                 { cat: 'hr-automation',        others: ['gupy', 'kenoby'] },
+  'solides':              { cat: 'hr-automation',        others: ['factorial-hr', 'gupy'] },
+  'factorial-hr':         { cat: 'hr-automation',        others: ['gupy', 'solides'] },
+  'canva':                { cat: 'design-com-ia',        others: ['adcreative', 'heygen'] },
+  'adcreative':           { cat: 'design-com-ia',        others: ['canva', 'heygen'] },
+  'opusclip':             { cat: 'criacao-de-video',     others: ['submagic', 'heygen'] },
+  'heygen':               { cat: 'criacao-de-video',     others: ['runway', 'veed'] },
+  'runway':               { cat: 'criacao-de-video',     others: ['heygen', 'veed'] },
+  'veed':                 { cat: 'criacao-de-video',     others: ['heygen', 'runway'] },
+  'pika':                 { cat: 'criacao-de-video',     others: ['runway', 'heygen'] },
+  'submagic':             { cat: 'criacao-de-video',     others: ['opusclip', 'veed'] },
+  'elevenlabs':           { cat: 'voz-e-texto',          others: ['chatgpt', 'heygen'] },
+  'fireflies':            { cat: 'reunioes-com-ia',      others: ['tldv', 'bluedot'] },
+  'tldv':                 { cat: 'reunioes-com-ia',      others: ['fireflies', 'bluedot'] },
+  'bluedot':              { cat: 'reunioes-com-ia',      others: ['fireflies', 'tldv'] },
+  'noty':                 { cat: 'reunioes-com-ia',      others: ['fireflies', 'tldv'] },
+  'notion-ai':            { cat: 'produtividade-com-ia', others: ['chatgpt', 'fireflies'] },
+  'gong':                 { cat: 'revenue-operations',   others: ['salesloft', 'hubspot-sales'] },
+  'salesloft':            { cat: 'revenue-operations',   others: ['gong', 'hubspot-sales'] },
+  'funnels':              { cat: 'vendas-com-ia',        others: ['hubspot-sales', 'pipedrive'] },
+};
+const compareEntry = compareMap[slug];
 ---
 
 <style>
@@ -33,7 +87,7 @@ const sym = currencySymbol(tool.currency);
   }
 </style>
 
-<Base title={`${tool.Name} — Buskai.net`}>
+<Base title={`${tool.Name} — Buskai.net`} description={seoDescription}>
   <div class="breadcrumb">
     <a href="/">Início</a><span>›</span>
     {firstCategory && <><a href={`/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categorias'}</a><span>›</span></>}
@@ -48,7 +102,7 @@ const sym = currencySymbol(tool.currency);
         {tool.has_free_plan && <span style="font-size:11px;padding:3px 10px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
         {tool.ai_native === true && <span style="font-size:11px;padding:3px 10px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
       </div>
-      <p style="font-size:16px;color:#555;max-width:600px;">{tool.tagline_en}</p>
+      <p style="font-size:16px;color:#555;max-width:600px;">{tool.tagline_pt || tool.tagline_en}</p>
     </div>
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:20px;font-weight:600;margin-bottom:8px;">
@@ -82,7 +136,7 @@ const sym = currencySymbol(tool.currency);
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px;">
           <span style="color:#555;">Cobrança</span>
-          <span style="font-weight:500;">{tool.pricing_model || 'Mensal'}</span>
+          <span style="font-weight:500;">{pricingLabels[tool.pricing_model] || tool.pricing_model || 'Mensal'}</span>
         </div>
       </div>
     </div>
@@ -128,4 +182,18 @@ const sym = currencySymbol(tool.currency);
       Começar com {tool.Name} →
     </a>
   </div>
+
+  {compareEntry && (
+    <div style="margin-top:32px;padding:24px;border:1px solid #eee;border-radius:12px;">
+      <h2 style="font-size:14px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;">Comparar com outras ferramentas</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        {compareEntry.others.map((other) => (
+          <a href={`/compare/${compareEntry.cat}/${slug}-vs-${other}`}
+            style="display:flex;align-items:center;gap:8px;font-size:14px;color:#1D9E75;text-decoration:none;padding:10px 14px;border:1px solid #e8f5f0;border-radius:8px;background:#f9fdfb;transition:background 0.15s;">
+            {tool.Name} vs {other.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')} →
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
 </Base>
