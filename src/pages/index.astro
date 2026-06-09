@@ -41,11 +41,12 @@ const categories = await getCategories();
         onfocus="this.style.borderColor='#1D9E75'"
         onblur="this.style.borderColor='#e0e0e0'"
         onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
+        oninput="debounceHomeSearch(this.value)"
       />
       <button
         onclick="handleHomeSearch(document.getElementById('home-search').value)"
-        style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#1D9E75;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;color:#fff;font-size:14px;">
-        🔍
+        style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#1D9E75;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;color:#fff;display:flex;align-items:center;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </button>
     </div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
@@ -146,6 +147,16 @@ const categories = await getCategories();
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeOnboardingDirect();
     });
+    let homeSearchTimer;
+
+    function debounceHomeSearch(query) {
+      clearTimeout(homeSearchTimer);
+      if (!query.trim()) return;
+      homeSearchTimer = setTimeout(() => {
+        handleHomeSearch(query);
+      }, 400);
+    }
+
     function handleHomeSearch(query) {
       if (!query.trim()) return;
       openSearch();
