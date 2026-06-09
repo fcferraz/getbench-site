@@ -72,6 +72,34 @@ const compareMap = {
   'funnels':              { cat: 'vendas-com-ia',        others: ['hubspot-sales', 'pipedrive'] },
 };
 const compareEntry = compareMap[slug];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": tool.Name,
+  "description": tool.description_pt || tool.tagline_pt || tool.tagline_en || '',
+  "url": tool.website || '',
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  ...(tool.starting_price_usd === 0 ? {
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  } : tool.starting_price_usd ? {
+    "offers": {
+      "@type": "Offer",
+      "price": String(tool.starting_price_usd),
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "billingDuration": "P1M"
+      }
+    }
+  } : {}),
+  ...(tool.works_in_brazil ? { "availableOnDevice": "Web", "countriesSupported": "BR" } : {}),
+};
 ---
 
 <style>
@@ -88,6 +116,7 @@ const compareEntry = compareMap[slug];
 </style>
 
 <Base title={`${tool.Name} — Buskai.net`} description={seoDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <div class="breadcrumb">
     <a href="/">Início</a><span>›</span>
     {firstCategory && <><a href={`/category/${firstCategory.slug || 'sales-outreach'}`}>{firstCategory.name || 'Categorias'}</a><span>›</span></>}
