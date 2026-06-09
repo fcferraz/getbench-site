@@ -148,7 +148,14 @@ const categories = await getCategories();
     });
     function handleHomeSearch(query) {
       if (!query.trim()) return;
-      window.location.href = '/categories?q=' + encodeURIComponent(query.trim());
+      openSearch();
+      setTimeout(() => {
+        const modalInput = document.getElementById('modal-query');
+        if (modalInput) {
+          modalInput.value = query;
+          runModalSearch();
+        }
+      }, 50);
     }
   </script>
   </div>
