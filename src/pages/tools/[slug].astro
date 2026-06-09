@@ -15,8 +15,6 @@ if (!tool) {
   return Astro.redirect('/categories');
 }
 
-console.log('[debug] why_we_chose_pt:', tool?.why_we_chose_pt?.slice(0, 50));
-
 const firstCategory = tool.categories?.[0];
 const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
 const sym = currencySymbol(tool.currency);
