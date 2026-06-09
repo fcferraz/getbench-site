@@ -1,11 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
+import BlogSidebar from '../../components/BlogSidebar.astro';
 
 export const frontmatter = {
   title: 'Ferramentas de IA para reuniões e produtividade em equipe em 2026',
   description: 'As melhores ferramentas de IA para transcrever, resumir e organizar reuniões. Aumente a produtividade da sua equipe com IA.',
   date: '2026-06-11',
   slug: 'ferramentas-ia-reunioes-produtividade',
+  tags: ['produtividade', 'reunioes', 'equipe'],
 };
 ---
 
@@ -19,7 +21,7 @@ export const frontmatter = {
     .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
     .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
 
-    .page-layout { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: start; }
+    .page-layout { display: grid; grid-template-columns: 200px 1fr 240px; gap: 32px; align-items: start; }
 
     .sidebar { position: sticky; top: 80px; }
     .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
@@ -58,6 +60,7 @@ export const frontmatter = {
     @media (max-width: 768px) {
       .page-layout { grid-template-columns: 1fr; gap: 0; }
       .sidebar { display: none; }
+      .right-sidebar { display: none; }
       .sumario-mobile { display: block; }
       .article h1 { font-size: 24px; }
       .tool-block { padding: 20px; }
@@ -214,6 +217,10 @@ export const frontmatter = {
         <a href="/categories" class="cta-btn">Ver ferramentas de produtividade →</a>
       </div>
     </article>
+
+    <aside class="right-sidebar">
+      <BlogSidebar currentSlug={frontmatter.slug} currentTags={frontmatter.tags} />
+    </aside>
   </div>
 
   <script is:inline>

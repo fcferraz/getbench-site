@@ -1,0 +1,119 @@
+---
+const { currentSlug, currentTags = [] } = Astro.props;
+
+const allPosts = await Astro.glob('../pages/blog/*.astro');
+
+const formatDate = (dateStr) => {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' });
+};
+
+const posts = allPosts
+  .filter(p => p.frontmatter?.slug && p.frontmatter.slug !== currentSlug)
+  .map(p => ({
+    title: p.frontmatter.title,
+    slug: p.frontmatter.slug,
+    date: p.frontmatter.date,
+    tags: p.frontmatter.tags || [],
+  }))
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const recentPosts = posts.slice(0, 3);
+const recentSlugs = new Set(recentPosts.map(p => p.slug));
+
+const relatedPosts = posts
+  .filter(p => !recentSlugs.has(p.slug))
+  .map(p => ({
+    ...p,
+    matchCount: p.tags.filter(t => currentTags.includes(t)).length,
+  }))
+  .filter(p => p.matchCount > 0)
+  .sort((a, b) => b.matchCount - a.matchCount)
+  .slice(0, 3);
+---
+
+<div class="blog-sidebar">
+  <div class="sidebar-section">
+    <div class="section-title">Recentes</div>
+    {recentPosts.map(post => (
+      <a href={`/blog/${post.slug}`} class="post-card">
+        <span class="post-title">{post.title}</span>
+        <span class="post-date">{formatDate(post.date)}</span>
+      </a>
+    ))}
+  </div>
+
+  {relatedPosts.length > 0 && (
+    <div class="sidebar-section">
+      <div class="section-title">Relacionados</div>
+      {relatedPosts.map(post => (
+        <a href={`/blog/${post.slug}`} class="post-card">
+          <span class="post-title">{post.title}</span>
+          <span class="post-meta">{post.matchCount} {post.matchCount === 1 ? 'tag em comum' : 'tags em comum'}</span>
+        </a>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .blog-sidebar {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+    margin-bottom: 4px;
+  }
+
+  .post-card:hover {
+    background: #f0faf6;
+  }
+
+  .post-title {
+    font-size: 13px;
+    color: #222;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  .post-card:hover .post-title {
+    color: #1D9E75;
+  }
+
+  .post-date,
+  .post-meta {
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  .post-meta {
+    color: #1D9E75;
+    font-weight: 500;
+  }
+</style>
