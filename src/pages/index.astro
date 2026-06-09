@@ -32,9 +32,25 @@ const categories = await getCategories();
       Milhares de AI tools existem. Poucas funcionam de verdade.<br/>
       Separamos as que funcionam.
     </p>
+    <div style="max-width:560px;margin:0 auto 28px;position:relative;">
+      <input
+        id="home-search"
+        type="text"
+        placeholder="Busque por ferramenta ou objetivo (ex: automação de CRM, criar vídeos...)"
+        style="width:100%;padding:14px 56px 14px 20px;border:2px solid #e0e0e0;border-radius:12px;font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s;"
+        onfocus="this.style.borderColor='#1D9E75'"
+        onblur="this.style.borderColor='#e0e0e0'"
+        onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
+      />
+      <button
+        onclick="handleHomeSearch(document.getElementById('home-search').value)"
+        style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#1D9E75;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;color:#fff;font-size:14px;">
+        🔍
+      </button>
+    </div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
-      <a href="/en/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Explorar categorias</a>
-      <a href="/en/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Comparar ferramentas</a>
+      <a href="/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Explorar categorias</a>
+      <a href="/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Comparar ferramentas</a>
       <button onclick="startTour()" style="background:none;border:none;cursor:pointer;font-size:14px;color:#1D9E75;text-decoration:underline;padding:10px 4px;">Como funciona →</button>
     </div>
 
@@ -130,14 +146,17 @@ const categories = await getCategories();
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeOnboardingDirect();
     });
+    function handleHomeSearch(query) {
+      if (!query.trim()) return;
+      window.location.href = '/categories?q=' + encodeURIComponent(query.trim());
+    }
   </script>
   </div>
 
   <div class="cat-grid">
     {categories.map(cat => (
-      <a href={'/en/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
-        <div style="font-size:13px;font-weight:500;margin-bottom:4px;">{cat.Name}</div>
-        <div style="font-size:12px;color:#888;">{cat.title_pt}</div>
+      <a href={'/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
+        <div style="font-size:13px;font-weight:500;">{cat.Name}</div>
       </a>
     ))}
   </div>
