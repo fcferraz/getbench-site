@@ -125,45 +125,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         if (e.key === 'Enter') runModalSearch();
       });
     });
-    async function runModalSearch() {
-      const query = document.getElementById('modal-query').value.trim();
+    function elWithStyle(tag, style, text) {
+      var el = document.createElement(tag);
+      if (style) el.setAttribute('style', style);
+      if (text != null) el.textContent = String(text);
+      return el;
+    }
+    function safeSlug(slug) {
+      // allow only slug-safe characters for the internal tool link
+      return String(slug || '').replace(/[^a-zA-Z0-9_-]/g, '');
+    }
+    function runModalSearch() {
+      var query = document.getElementById('modal-query').value.trim();
       if (!query) return;
-      document.getElementById('modal-results').innerHTML = '';
+      var resultsEl = document.getElementById('modal-results');
+      resultsEl.innerHTML = '';
       document.getElementById('modal-loading').style.display = 'block';
       document.getElementById('modal-btn').disabled = true;
-      try {
-        const res = await fetch('/api/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query })
+      fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      }).then(function(res) {
+        return res.json();
+      }).then(function(data) {
+        document.getElementById('modal-loading').style.display = 'none';
+        if (!data || !Array.isArray(data.tools)) throw new Error('bad response');
+        resultsEl.innerHTML = '';
+
+        resultsEl.appendChild(elWithStyle('div',
+          'padding:12px 20px;font-size:11px;color:#5d6662;font-family:monospace;',
+          data.tools.length + ' tools para "' + query + '"'));
+        resultsEl.appendChild(elWithStyle('div',
+          'font-size:13px;color:#8b938f;line-height:1.5;padding:8px 20px;',
+          data.reasoning || ''));
+
+        data.tools.forEach(function(tool, i) {
+          var a = document.createElement('a');
+          a.setAttribute('href', '/tools/' + safeSlug(tool.slug));
+          a.setAttribute('onclick', 'closeSearchDirect()');
+          a.setAttribute('style', 'display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);');
+
+          var left = document.createElement('div');
+          var titleRow = elWithStyle('div', 'display:flex;align-items:center;gap:8px;margin-bottom:4px;');
+          titleRow.appendChild(elWithStyle('span', 'font-size:11px;color:#3ddc84;font-family:monospace;', '#' + (i + 1)));
+          titleRow.appendChild(elWithStyle('span', 'font-size:14px;font-weight:600;color:#e9ecea;', tool.name));
+          if (tool.works_in_brazil) {
+            titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;', 'BR'));
+          }
+          if (tool.has_free_plan) {
+            titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;', 'Grátis'));
+          }
+          left.appendChild(titleRow);
+          left.appendChild(elWithStyle('div', 'font-size:12px;color:#5d6662;font-style:italic;', tool.reason));
+          a.appendChild(left);
+
+          a.appendChild(elWithStyle('div', 'font-size:13px;font-weight:600;color:#e9ecea;margin-left:16px;flex-shrink:0;', tool.price));
+          resultsEl.appendChild(a);
         });
-        const data = await res.json();
+
+        var footer = elWithStyle('div', 'padding:12px 20px;border-top:1px solid rgba(255,255,255,.05);text-align:center;');
+        var fullLink = elWithStyle('a', 'font-size:12px;color:#3ddc84;text-decoration:none;', 'Ver página completa →');
+        fullLink.setAttribute('href', '/search?q=' + encodeURIComponent(query));
+        footer.appendChild(fullLink);
+        resultsEl.appendChild(footer);
+
+        document.getElementById('modal-btn').disabled = false;
+      }).catch(function(e) {
         document.getElementById('modal-loading').style.display = 'none';
-        document.getElementById('modal-results').innerHTML =
-          '<div style="padding:12px 20px;font-size:11px;color:#5d6662;font-family:monospace;">' + data.tools.length + ' tools para "' + query + '"</div>' +
-          '<div style="padding:0 12px 8px;font-size:13px;color:#8b938f;line-height:1.5;padding:8px 20px;">' + data.reasoning + '</div>' +
-          data.tools.map(function(tool, i) {
-            return '<a href="/tools/' + tool.slug + '" onclick="closeSearchDirect()" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);">' +
-              '<div>' +
-                '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
-                  '<span style="font-size:11px;color:#3ddc84;font-family:monospace;">#' + (i+1) + '</span>' +
-                  '<span style="font-size:14px;font-weight:600;color:#e9ecea;">' + tool.name + '</span>' +
-                  (tool.works_in_brazil ? '<span style="font-size:10px;padding:1px 6px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">BR</span>' : '') +
-                  (tool.has_free_plan ? '<span style="font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Grátis</span>' : '') +
-                '</div>' +
-                '<div style="font-size:12px;color:#5d6662;font-style:italic;">' + tool.reason + '</div>' +
-              '</div>' +
-              '<div style="font-size:13px;font-weight:600;color:#e9ecea;margin-left:16px;flex-shrink:0;">' + tool.price + '</div>' +
-            '</a>';
-          }).join('') +
-          '<div style="padding:12px 20px;border-top:1px solid rgba(255,255,255,.05);text-align:center;">' +
-            '<a href="/search?q=' + encodeURIComponent(query) + '" style="font-size:12px;color:#3ddc84;text-decoration:none;">Ver página completa →</a>' +
-          '</div>';
-      } catch(e) {
-        document.getElementById('modal-loading').style.display = 'none';
-        document.getElementById('modal-results').innerHTML = '<div style="padding:20px;text-align:center;color:#ff6a5b;font-size:13px;">Erro ao buscar. Tente novamente.</div>';
-      }
-      document.getElementById('modal-btn').disabled = false;
+        resultsEl.innerHTML = '';
+        resultsEl.appendChild(elWithStyle('div', 'padding:20px;text-align:center;color:#ff6a5b;font-size:13px;', 'Erro ao buscar. Tente novamente.'));
+        document.getElementById('modal-btn').disabled = false;
+      });
     }
   </script>
 </body>

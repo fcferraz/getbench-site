@@ -62,7 +62,6 @@ Selecione as 3 a 5 tools mais relevantes para essa busca. Responda APENAS com JS
   });
 
   const ai = await response.json();
-  console.log('Anthropic response:', JSON.stringify(ai));
   if (!ai.content || !ai.content[0]) {
     return new Response(JSON.stringify({ error: ai.error || ai }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }

@@ -35,13 +35,15 @@ export async function getTools() {
 }
 
 export async function getToolsByCategory(categoryName) {
+  const safeName = String(categoryName).replace(/"/g, '\\"');
   return fetchFromAirtable('Tools',
-    `filterByFormula=AND(FIND("${categoryName}",ARRAYJOIN({categories})),{status}="published")`
+    `filterByFormula=AND(FIND("${safeName}",ARRAYJOIN({categories})),{status}="published")`
   );
 }
 
 export async function getToolBySlug(slug) {
+  const safeSlug = String(slug).replace(/"/g, '\\"');
   const records = await fetchFromAirtable('Tools',
-    `filterByFormula=AND({slug}="${slug}",{status}="published")`);
+    `filterByFormula=AND({slug}="${safeSlug}",{status}="published")`);
   return records[0] ?? null;
 }
