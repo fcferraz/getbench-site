@@ -1,0 +1,15 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools } from '../lib/airtable.js';
+
+const tools = (await getTools()).filter(t => t.accepts_brl === true);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA que Aceitam Pagamento em Reais (BRL) em 2026"
+  description="Pague em reais pelas melhores ferramentas de IA. Sem IOF, sem variação cambial. Ferramentas verificadas que aceitam BRL."
+  breadcrumb="Aceita BRL"
+  heading="Ferramentas de IA com pagamento em reais"
+  intro="Pagar em dólar custa caro para empresas brasileiras: IOF, spread do câmbio e uma fatura que muda de valor todo mês. As ferramentas desta lista aceitam pagamento em reais (BRL), eliminando a variação cambial e o imposto sobre operações internacionais. Você sabe exatamente quanto vai pagar — em reais, todo mês."
+  tools={tools}
+/>

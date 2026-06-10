@@ -1,0 +1,15 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools } from '../lib/airtable.js';
+
+const tools = (await getTools()).filter(t => t.has_free_plan === true);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA Gratuitas para Empresas Brasileiras em 2026"
+  description="As melhores ferramentas de IA com plano gratuito disponível para empresas brasileiras. Compare recursos, limitações e quando vale a pena assinar."
+  breadcrumb="Gratuitas"
+  heading="Ferramentas de IA gratuitas para empresas"
+  intro="Nem toda ferramenta de IA exige um cartão de crédito para começar. Reunimos aqui as opções com plano gratuito de verdade — ideais para empresas brasileiras testarem antes de investir. Em cada ficha você vê os limites do plano free e quando faz sentido migrar para o pago."
+  tools={tools}
+/>

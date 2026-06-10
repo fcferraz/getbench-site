@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['sales-outreach', 'vendas-com-ia'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.works_in_brazil === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="Ferramentas de Vendas com IA que Funcionam no Brasil em 2026"
+  description="As melhores ferramentas de IA para vendas e prospecção verificadas para o mercado brasileiro. Acelere seu time comercial com tecnologia que funciona aqui."
+  breadcrumb="Vendas com IA no Brasil"
+  heading="Ferramentas de vendas com IA para o Brasil"
+  intro="Prospecção e vendas no Brasil têm regras próprias — do ciclo de decisão local à conformidade com a LGPD ao abordar leads. Reunimos as ferramentas de vendas com IA que verificamos funcionar no mercado brasileiro, da geração de listas à automação de follow-up. São opções em que seu time comercial pode confiar para vender mais, sem esbarrar em limitações de mercado estrangeiro."
+  tools={tools}
+/>

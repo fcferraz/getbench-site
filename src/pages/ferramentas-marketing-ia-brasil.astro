@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['marketing-automation', 'marketing-com-ia'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.works_in_brazil === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="Ferramentas de Marketing com IA que Funcionam no Brasil em 2026"
+  description="As melhores ferramentas de marketing com inteligência artificial verificadas para o mercado brasileiro — automação, conteúdo e campanhas com suporte local."
+  breadcrumb="Marketing com IA no Brasil"
+  heading="Ferramentas de marketing com IA para o Brasil"
+  intro="Marketing no Brasil tem suas particularidades — do WhatsApp como canal principal à conformidade com a LGPD nas campanhas. Reunimos as ferramentas de marketing com IA que verificamos funcionar no mercado brasileiro, com automação de campanhas, geração de conteúdo e suporte que entende a realidade local."
+  tools={tools}
+/>

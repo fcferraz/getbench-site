@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['produtividade-com-ia'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.works_in_brazil === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="Ferramentas de Produtividade com IA para o Brasil em 2026"
+  description="As melhores ferramentas de produtividade com IA verificadas para profissionais e equipes brasileiras. Faça mais em menos tempo, com tecnologia que funciona aqui."
+  breadcrumb="Produtividade com IA no Brasil"
+  heading="Ferramentas de produtividade com IA para o Brasil"
+  intro="Ganhar tempo no dia a dia é o que separa equipes que escalam das que ficam presas no operacional. Selecionamos as ferramentas de produtividade com IA que verificamos funcionar no Brasil — para escrever, organizar tarefas, resumir reuniões e automatizar rotinas. Soluções prontas para profissionais e times brasileiros produzirem mais, sem fricção de mercado estrangeiro."
+  tools={tools}
+/>

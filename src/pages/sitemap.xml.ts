@@ -20,6 +20,17 @@ export async function GET({ request }: APIContext) {
     { loc: '/compare',       priority: '0.7', changefreq: 'weekly'  },
     { loc: '/blog',          priority: '0.7', changefreq: 'weekly'  },
     { loc: '/submit',        priority: '0.5', changefreq: 'monthly' },
+    // Programmatic SEO landing pages
+    { loc: '/ferramentas-ia-gratuitas',          priority: '0.7', changefreq: 'weekly' },
+    { loc: '/ferramentas-ia-brasil',             priority: '0.7', changefreq: 'weekly' },
+    { loc: '/ferramentas-ia-em-portugues',       priority: '0.7', changefreq: 'weekly' },
+    { loc: '/ferramentas-ia-aceita-reais',       priority: '0.7', changefreq: 'weekly' },
+    { loc: '/ferramentas-crm-ia-gratis',         priority: '0.6', changefreq: 'weekly' },
+    { loc: '/ferramentas-marketing-ia-brasil',   priority: '0.6', changefreq: 'weekly' },
+    { loc: '/ferramentas-vendas-ia-brasil',      priority: '0.6', changefreq: 'weekly' },
+    { loc: '/ferramentas-suporte-ia-brasil',     priority: '0.6', changefreq: 'weekly' },
+    { loc: '/ferramentas-rh-ia-brasil',          priority: '0.6', changefreq: 'weekly' },
+    { loc: '/ferramentas-produtividade-ia-brasil', priority: '0.6', changefreq: 'weekly' },
   ];
 
   const categoryUrls = categories

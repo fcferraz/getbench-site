@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['hr-automation'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.works_in_brazil === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA para RH e Recrutamento no Brasil em 2026"
+  description="As melhores ferramentas de IA para RH e recrutamento verificadas para o mercado brasileiro — triagem de currículos, ATS e gestão de pessoas com suporte local."
+  breadcrumb="RH com IA no Brasil"
+  heading="Ferramentas de IA para RH no Brasil"
+  intro="Recrutar e gerir pessoas no Brasil envolve CLT, eSocial e um mercado de talentos único — ferramentas genéricas raramente dão conta. Selecionamos as soluções de RH com IA que verificamos funcionar no contexto brasileiro, da triagem inteligente de currículos ao onboarding, com conformidade com a LGPD e suporte que entende a legislação local."
+  tools={tools}
+/>

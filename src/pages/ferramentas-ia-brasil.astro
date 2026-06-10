@@ -1,0 +1,15 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools } from '../lib/airtable.js';
+
+const tools = (await getTools()).filter(t => t.works_in_brazil === true);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA que Funcionam no Brasil em 2026"
+  description="Diretório completo de ferramentas de IA verificadas para o mercado brasileiro. Suporte local, preços em BRL e conformidade com a LGPD."
+  breadcrumb="Funciona no Brasil"
+  heading="Ferramentas de IA verificadas para o Brasil"
+  intro="Muitas ferramentas de IA prometem funcionar globalmente, mas tropeçam na realidade brasileira — LGPD, dados locais e suporte no fuso certo. Esta lista reúne apenas as que verificamos funcionar no Brasil: com atenção à conformidade com a LGPD, suporte acessível para times locais e, quando disponível, cobrança em reais. São as opções em que sua empresa pode confiar sem surpresas."
+  tools={tools}
+/>

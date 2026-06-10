@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+
+const { title, description, heading, intro, breadcrumb, tools = [] } = Astro.props;
+
+const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
+const siteUrl = new URL(Astro.url).origin;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": title,
+  "description": description,
+  "numberOfItems": tools.length,
+  "itemListElement": tools.map((t, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `${siteUrl}/tools/${t.slug}`,
+    "name": t.Name,
+  })),
+};
+---
+
+<style>
+  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
+  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+  .latam-note {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<Base title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <div class="breadcrumb">
+    <a href="/">Início</a><span>›</span>
+    <span style="color:#999;">Ferramentas de IA</span><span>›</span>
+    {breadcrumb}
+  </div>
+
+  <h1 style="font-size:28px;font-weight:600;margin-bottom:12px;">{heading}</h1>
+  <p style="font-size:15px;color:#555;margin-bottom:12px;max-width:640px;line-height:1.65;">{intro}</p>
+  <p style="font-size:13px;color:#888;margin-bottom:24px;">{tools.length} ferramentas encontradas</p>
+
+  {tools.length === 0 ? (
+    <div style="padding:40px;background:#f9f9f9;border-radius:12px;text-align:center;color:#888;">
+      Nenhuma ferramenta encontrada nesta seleção no momento.
+    </div>
+  ) : (
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      {tools.map(tool => (
+        <div style="padding:24px;border:1px solid #eee;border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+              <a href={`/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">{tool.Name}</a>
+              {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:#E6F1FB;color:#185FA5;border-radius:20px;">Funciona no BR</span>}
+              {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Plano grátis</span>}
+              {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
+            </div>
+            <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_pt || tool.tagline_en}</p>
+            {tool.latam_note_pt && (
+              <p class="latam-note" style="font-size:11px;color:#0F6E56;background:#E1F5EE;padding:4px 10px;border-radius:6px;display:inline-block;">{tool.latam_note_pt}</p>
+            )}
+          </div>
+          <div style="text-align:right;margin-left:24px;flex-shrink:0;">
+            <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
+              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de ${currencySymbol(tool.currency)}${tool.starting_price_usd}/mês` : 'Consultar preço'}
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
+              <a href={`/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Detalhes</a>
+              <a href={tool.affiliate_url || tool.website} target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:6px 16px;background:#1D9E75;color:#fff;border-radius:6px;text-decoration:none;font-size:12px;">Visitar →</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  <div style="margin-top:40px;padding-top:24px;border-top:1px solid #eee;">
+    <a href="/categories" style="font-size:14px;color:#1D9E75;font-weight:500;text-decoration:none;">Ver todas as categorias →</a>
+  </div>
+</Base>

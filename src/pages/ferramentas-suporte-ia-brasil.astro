@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['customer-support', 'suporte-com-ia'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.works_in_brazil === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA para Atendimento ao Cliente no Brasil em 2026"
+  description="As melhores ferramentas de IA para suporte e atendimento ao cliente verificadas para o Brasil — chatbots, helpdesk e automação com suporte local."
+  breadcrumb="Suporte com IA no Brasil"
+  heading="Ferramentas de IA para atendimento no Brasil"
+  intro="Atender bem o cliente brasileiro exige IA que entenda o WhatsApp, o português e o jeito local de se comunicar. Reunimos as ferramentas de suporte com IA que verificamos funcionar no Brasil — de chatbots a helpdesks inteligentes — com atenção à LGPD e suporte que não te deixa na mão em fuso estrangeiro."
+  tools={tools}
+/>

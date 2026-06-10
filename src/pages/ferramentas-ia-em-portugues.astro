@@ -1,0 +1,15 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools } from '../lib/airtable.js';
+
+const tools = (await getTools()).filter(t => t.has_pt_support === true);
+---
+
+<PSeoToolList
+  title="Ferramentas de IA com Suporte em Português em 2026"
+  description="Ferramentas de IA com interface e suporte em português brasileiro. Sem barreira de idioma para sua equipe."
+  breadcrumb="Suporte em PT"
+  heading="Ferramentas de IA em português para sua empresa"
+  intro="A barreira do idioma trava a adoção de IA em muitas equipes brasileiras — documentação só em inglês, suporte que não entende seu contexto e interfaces confusas. Aqui você encontra ferramentas com suporte e interface em português brasileiro, para que todo o time consiga usar sem fricção, do estagiário à diretoria."
+  tools={tools}
+/>

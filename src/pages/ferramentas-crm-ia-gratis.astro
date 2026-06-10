@@ -1,0 +1,21 @@
+---
+import PSeoToolList from '../components/PSeoToolList.astro';
+import { getTools, getCategories } from '../lib/airtable.js';
+
+const targetSlugs = ['crm-automation', 'crm'];
+const [cats, allTools] = await Promise.all([getCategories(), getTools()]);
+const catIds = cats.filter(c => targetSlugs.includes(c.Slug)).map(c => c.id);
+const tools = allTools.filter(t =>
+  t.has_free_plan === true &&
+  Array.isArray(t.categories) && t.categories.some(id => catIds.includes(id))
+);
+---
+
+<PSeoToolList
+  title="CRMs com IA Gratuitos para Empresas Brasileiras em 2026"
+  description="Os melhores CRMs com inteligência artificial e plano gratuito para empresas brasileiras. Organize vendas e relacionamento sem custo inicial."
+  breadcrumb="CRM com IA grátis"
+  heading="CRMs com IA gratuitos para sua empresa"
+  intro="Um bom CRM é a espinha dorsal do time de vendas — e você não precisa pagar para começar. Selecionamos os CRMs com IA que oferecem plano gratuito de verdade, com automação de pipeline e enriquecimento de leads. Perfeito para PMEs brasileiras estruturarem o comercial antes de escalar para um plano pago."
+  tools={tools}
+/>
