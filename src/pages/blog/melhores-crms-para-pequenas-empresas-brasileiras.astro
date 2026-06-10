@@ -35,45 +35,45 @@ export const frontmatter = {
   })} />
 
   <style>
-    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+    .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
     .page-layout { display: grid; grid-template-columns: 200px 1fr 240px; gap: 32px; align-items: start; }
 
     .sidebar { position: sticky; top: 80px; }
-    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: var(--text-dimmer); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
-    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
-    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
-    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .sidebar-nav a { display: block; font-size: 13px; color: var(--text-dim); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: var(--accent); border-left-color: var(--line-2); }
+    .sidebar-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 
-    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
-    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
-    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
-    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--text); }
+    .article .meta { font-size: 13px; color: var(--text-dimmer); margin-bottom: 36px; }
+    .article p { font-size: 15px; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue { background: #E6F1FB; color: #185FA5; }
-    .tag-gray { background: #f3f3f3; color: #555; }
-    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
-    .dica strong { color: #1D9E75; }
-    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
-    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
-    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
-    .cta-btn:hover { background: #178f68; }
+    .tag-green { background: var(--accent-glow); color: var(--accent); }
+    .tag-blue { background: rgba(74,134,255,.12); color: #4a86ff; }
+    .tag-gray { background: var(--bg-2); color: var(--text-dim); }
+    .dica { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: var(--accent); }
+    .cta-box { background: color-mix(in oklab, var(--accent-glow) 45%, transparent); border: 1px solid var(--line-2); border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-2); }
 
     .sumario-mobile { display: none; }
-    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
     .sumario-mobile li { margin-bottom: 6px; }
-    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
@@ -129,7 +129,7 @@ export const frontmatter = {
       </p>
 
       <div id="hubspot-crm" class="tool-block">
-        <h2>1. <a href="/tools/hubspot-crm" style="color:#1D9E75;text-decoration:underline;font-weight:500;">HubSpot CRM</a> — Completo e gratuito para começar</h2>
+        <h2>1. <a href="/tools/hubspot-crm" style="color:var(--accent);text-decoration:underline;font-weight:500;">HubSpot CRM</a> — Completo e gratuito para começar</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Suporte PT</span>
@@ -138,7 +138,7 @@ export const frontmatter = {
         <p>
           O HubSpot CRM é uma das melhores opções para quem está começando a estruturar vendas. O plano gratuito já oferece gestão de contatos, pipeline visual, e-mail integrado e histórico de interações — tudo sem limite de usuários. Para um time de 3 a 10 pessoas, é o suficiente para organizar o processo comercial sem gastar nada.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/hubspot-crm" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/hubspot-crm" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Quando a empresa cresce, os planos pagos adicionam automações de marketing, relatórios avançados e integrações com sistemas de ERP. O HubSpot tem interface em português e suporte dedicado para a América Latina, o que facilita muito a adoção pela equipe.
         </p>
@@ -149,7 +149,7 @@ export const frontmatter = {
       </div>
 
       <div id="pipedrive" class="tool-block">
-        <h2>2. <a href="/tools/pipedrive" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Pipedrive</a> — Foco total no pipeline de vendas</h2>
+        <h2>2. <a href="/tools/pipedrive" style="color:var(--accent);text-decoration:underline;font-weight:500;">Pipedrive</a> — Foco total no pipeline de vendas</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Suporte PT</span>
           <span class="tag tag-gray">A partir de $14/mês</span>
@@ -157,7 +157,7 @@ export const frontmatter = {
         <p>
           O Pipedrive foi construído por vendedores para vendedores. Sua interface em estilo Kanban deixa claro em que etapa do funil cada negociação está, e o sistema automaticamente lembra o vendedor de fazer follow-up antes que o negócio esfrie. É o CRM com a menor curva de aprendizado entre os cinco desta lista.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/pipedrive" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/pipedrive" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA do Pipedrive analisa o histórico de negociações e aponta quais deals têm mais chance de fechar — ajudando o time a priorizar energia onde tem mais retorno. O sistema também envia alertas quando uma negociação fica parada tempo demais, evitando que oportunidades caiam no esquecimento.
         </p>
@@ -168,16 +168,16 @@ export const frontmatter = {
       </div>
 
       <div id="rd-station-crm" class="tool-block">
-        <h2>3. <a href="/tools/rd-station-crm" style="color:#1D9E75;text-decoration:underline;font-weight:500;">RD Station CRM</a> — Feito para o mercado brasileiro</h2>
+        <h2>3. <a href="/tools/rd-station-crm" style="color:var(--accent);text-decoration:underline;font-weight:500;">RD Station CRM</a> — Feito para o mercado brasileiro</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">100% em PT</span>
           <span class="tag tag-gray">A partir de R$50/mês</span>
         </div>
         <p>
-          O RD Station CRM é desenvolvido pela Resultados Digitais, empresa catarinense que entende profundamente o mercado brasileiro. O sistema cobra em reais, tem suporte em português com equipe no Brasil e se integra nativamente com o <a href="/tools/rd-station-marketing" style="color:#1D9E75;text-decoration:underline;font-weight:500;">RD Station Marketing</a> — formando uma plataforma completa de geração e gestão de leads para PMEs.
+          O RD Station CRM é desenvolvido pela Resultados Digitais, empresa catarinense que entende profundamente o mercado brasileiro. O sistema cobra em reais, tem suporte em português com equipe no Brasil e se integra nativamente com o <a href="/tools/rd-station-marketing" style="color:var(--accent);text-decoration:underline;font-weight:500;">RD Station Marketing</a> — formando uma plataforma completa de geração e gestão de leads para PMEs.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/rd-station-crm" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/rd-station-crm" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           O plano gratuito inclui pipeline ilimitado, histórico de atividades e aplicativo mobile. Para quem já usa o ecossistema RD, a integração entre marketing e CRM elimina o trabalho manual de transferir leads qualificados para o time de vendas. As previsões de receita com IA ajudam o gestor a planejar metas com mais precisão.
         </p>
@@ -188,7 +188,7 @@ export const frontmatter = {
       </div>
 
       <div id="moskit" class="tool-block">
-        <h2>4. <a href="/tools/moskit" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Moskit</a> — CRM com WhatsApp nativo</h2>
+        <h2>4. <a href="/tools/moskit" style="color:var(--accent);text-decoration:underline;font-weight:500;">Moskit</a> — CRM com WhatsApp nativo</h2>
         <div class="tag-row">
           <span class="tag tag-blue">WhatsApp integrado</span>
           <span class="tag tag-blue">100% em PT</span>
@@ -197,7 +197,7 @@ export const frontmatter = {
         <p>
           O Moskit é um CRM brasileiro que entende que no Brasil as vendas acontecem no WhatsApp. Diferente de outros sistemas que precisam de integrações externas, o Moskit permite enviar mensagens pelo WhatsApp diretamente do CRM e registra toda a conversa no histórico do cliente automaticamente. Para times comerciais que vivem no WhatsApp, isso muda tudo.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/moskit" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/moskit" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Além da integração com WhatsApp, o Moskit oferece automações de follow-up, relatórios de desempenho por vendedor e gestão de múltiplos funis. A plataforma tem interface totalmente em português e suporte humano via chat — algo que faz diferença quando o time precisa de ajuda às 17h de uma sexta-feira.
         </p>
@@ -208,7 +208,7 @@ export const frontmatter = {
       </div>
 
       <div id="agendor" class="tool-block">
-        <h2>5. <a href="/tools/agendor" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Agendor</a> — Simples e poderoso para times B2B</h2>
+        <h2>5. <a href="/tools/agendor" style="color:var(--accent);text-decoration:underline;font-weight:500;">Agendor</a> — Simples e poderoso para times B2B</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">100% em PT</span>
@@ -217,7 +217,7 @@ export const frontmatter = {
         <p>
           O Agendor nasceu em São Paulo com uma proposta clara: ser o CRM que o vendedor brasileiro realmente usa. A interface é limpa, o aplicativo mobile funciona offline — útil para vendedores externos que visitam clientes em locais sem sinal — e o sistema envia lembretes automáticos de follow-up por WhatsApp e e-mail.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/agendor" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/agendor" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Os relatórios do Agendor mostram taxa de conversão por etapa do funil, tempo médio de fechamento e desempenho individual de cada vendedor. Com esses dados, o gestor sabe exatamente onde o processo comercial está travando e pode agir antes de perder negócios.
         </p>
@@ -227,7 +227,7 @@ export const frontmatter = {
         <div class="dica"><strong>Dica prática:</strong> use a função de check-in de visitas do Agendor quando o vendedor chegar ao cliente — o sistema registra a localização e hora automaticamente, eliminando a necessidade de relatórios manuais de visitas.</div>
       </div>
 
-      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Qual CRM escolher?</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Qual CRM escolher?</h2>
       <p>
         Para empresas que estão começando sem orçamento, o HubSpot CRM ou o RD Station CRM gratuito são o ponto de partida natural. Se o WhatsApp é o coração das suas vendas, o Moskit é a escolha óbvia. Para times B2B com vendedores externos, o Agendor entrega a melhor experiência mobile. E se sua prioridade é simplicidade e velocidade de adoção, o Pipedrive vence.
       </p>

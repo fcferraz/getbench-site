@@ -35,45 +35,45 @@ export const frontmatter = {
   })} />
 
   <style>
-    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+    .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
     .page-layout { display: grid; grid-template-columns: 200px 1fr 240px; gap: 32px; align-items: start; }
 
     .sidebar { position: sticky; top: 80px; }
-    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: var(--text-dimmer); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
-    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
-    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
-    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .sidebar-nav a { display: block; font-size: 13px; color: var(--text-dim); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: var(--accent); border-left-color: var(--line-2); }
+    .sidebar-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 
-    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
-    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
-    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
-    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--text); }
+    .article .meta { font-size: 13px; color: var(--text-dimmer); margin-bottom: 36px; }
+    .article p { font-size: 15px; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue { background: #E6F1FB; color: #185FA5; }
-    .tag-gray { background: #f3f3f3; color: #555; }
-    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
-    .dica strong { color: #1D9E75; }
-    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
-    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
-    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
-    .cta-btn:hover { background: #178f68; }
+    .tag-green { background: var(--accent-glow); color: var(--accent); }
+    .tag-blue { background: rgba(74,134,255,.12); color: #4a86ff; }
+    .tag-gray { background: var(--bg-2); color: var(--text-dim); }
+    .dica { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: var(--accent); }
+    .cta-box { background: color-mix(in oklab, var(--accent-glow) 45%, transparent); border: 1px solid var(--line-2); border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-2); }
 
     .sumario-mobile { display: none; }
-    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
     .sumario-mobile li { margin-bottom: 6px; }
-    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
@@ -129,7 +129,7 @@ export const frontmatter = {
       </p>
 
       <div id="heygen" class="tool-block">
-        <h2>1. <a href="/tools/heygen" style="color:#1D9E75;text-decoration:underline;font-weight:500;">HeyGen</a> — Avatar de IA que fala por você</h2>
+        <h2>1. <a href="/tools/heygen" style="color:var(--accent);text-decoration:underline;font-weight:500;">HeyGen</a> — Avatar de IA que fala por você</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Suporte PT</span>
@@ -138,7 +138,7 @@ export const frontmatter = {
         <p>
           O HeyGen cria vídeos com avatares realistas que falam o texto que você digita — em português, com voz natural e movimentos de lábios sincronizados. Para empresas que precisam de vídeos de apresentação, onboarding ou treinamento mas não querem (ou não podem) gravar com câmera, é a solução mais polida do mercado.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/heygen" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/heygen" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Você pode usar um dos avatares prontos do HeyGen ou criar um clone do seu próprio rosto gravando 2 minutos de vídeo. O avatar gerado fala qualquer texto com a sua aparência e voz — incluindo traduções automáticas para inglês, espanhol ou outros idiomas, com sincronização labial perfeita. Para empresas brasileiras que precisam de conteúdo multilíngue, isso elimina a necessidade de regravar em cada idioma.
         </p>
@@ -149,7 +149,7 @@ export const frontmatter = {
       </div>
 
       <div id="runway" class="tool-block">
-        <h2>2. <a href="/tools/runway" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Runway</a> — Edição de vídeo com comandos de texto</h2>
+        <h2>2. <a href="/tools/runway" style="color:var(--accent);text-decoration:underline;font-weight:500;">Runway</a> — Edição de vídeo com comandos de texto</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Funciona em PT</span>
@@ -158,7 +158,7 @@ export const frontmatter = {
         <p>
           O Runway é a ferramenta de edição de vídeo com IA mais avançada do mercado. Você descreve o que quer em linguagem natural — "remova o fundo", "coloque chuva nessa cena", "estenda esse vídeo por mais 3 segundos" — e a IA executa. Para tarefas que exigiriam horas no Premiere, o Runway entrega em minutos.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/runway" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/runway" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Além da edição, o Runway gera vídeos completos a partir de texto ou imagem. Você descreve uma cena, carrega uma foto de produto e o Runway cria um clipe animado de 4 a 16 segundos com qualidade cinematográfica. Para posts de produto no Instagram ou LinkedIn, é possível criar conteúdo visual diferenciado sem equipe de produção.
         </p>
@@ -169,7 +169,7 @@ export const frontmatter = {
       </div>
 
       <div id="opus-clip" class="tool-block">
-        <h2>3. <a href="/tools/opusclip" style="color:#1D9E75;text-decoration:underline;font-weight:500;">OpusClip</a> — Clipes virais a partir de vídeos longos</h2>
+        <h2>3. <a href="/tools/opusclip" style="color:var(--accent);text-decoration:underline;font-weight:500;">OpusClip</a> — Clipes virais a partir de vídeos longos</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Suporte PT</span>
@@ -178,7 +178,7 @@ export const frontmatter = {
         <p>
           O OpusClip analisa vídeos longos — podcasts, lives, webinars, palestras — e extrai automaticamente os melhores momentos, recorta, formata para vertical (9:16) e adiciona legendas em português. O que seria um trabalho de 2 a 3 horas de edição manual vira 5 minutos de processamento automático.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/opusclip" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/opusclip" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA do OpusClip não escolhe os cortes aleatoriamente — ela identifica os momentos com maior potencial de engajamento com base em análise de conteúdo: perguntas retóricas, declarações impactantes, momentos de humor ou revelações. Para criadores que já produzem conteúdo longo, é um multiplicador de distribuição imediato.
         </p>
@@ -189,7 +189,7 @@ export const frontmatter = {
       </div>
 
       <div id="veed" class="tool-block">
-        <h2>4. <a href="/tools/veed" style="color:#1D9E75;text-decoration:underline;font-weight:500;">VEED</a> — Edição online completa com IA</h2>
+        <h2>4. <a href="/tools/veed" style="color:var(--accent);text-decoration:underline;font-weight:500;">VEED</a> — Edição online completa com IA</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Interface em PT</span>
@@ -198,7 +198,7 @@ export const frontmatter = {
         <p>
           O VEED é o editor de vídeo online mais completo para quem não quer instalar software. Tudo acontece no navegador: você carrega o vídeo, adiciona legendas automáticas em português, insere textos, músicas e efeitos, e exporta em alta resolução — sem precisar de computador potente ou espaço em disco. A IA remove silêncios, transcreve automaticamente e sugere cortes para manter o ritmo.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/veed" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/veed" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Para pequenas empresas brasileiras que precisam de vídeos para redes sociais, o VEED resolve sem curva de aprendizado. A interface é intuitiva o suficiente para qualquer membro do time criar vídeos apresentáveis em menos de 30 minutos — mesmo sem experiência em edição.
         </p>
@@ -209,7 +209,7 @@ export const frontmatter = {
       </div>
 
       <div id="pika" class="tool-block">
-        <h2>5. <a href="/tools/pika" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Pika</a> — Geração de vídeo a partir de texto e imagem</h2>
+        <h2>5. <a href="/tools/pika" style="color:var(--accent);text-decoration:underline;font-weight:500;">Pika</a> — Geração de vídeo a partir de texto e imagem</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Funciona em PT</span>
@@ -218,7 +218,7 @@ export const frontmatter = {
         <p>
           O Pika permite gerar vídeos curtos a partir de uma descrição de texto ou de uma imagem estática. Você descreve a cena que imagina — "uma xícara de café fumegando sobre uma mesa de madeira, câmera lenta" — e o Pika gera um clipe de 3 a 5 segundos com qualidade surpreendente. Para criadores que precisam de imagens de produto animadas ou cenas de abertura para vídeos, é um diferenciador criativo.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/pika" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/pika" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Outra função poderosa é a animação de fotos estáticas: você carrega uma imagem de produto ou pessoa e pede para o Pika animar — a xícara vai fumegar, o produto vai girar, a pessoa vai piscar. Para e-commerces brasileiros que têm fotos profissionais de produto mas querem conteúdo em vídeo para o Instagram sem nova sessão de fotos, é uma solução elegante e barata.
         </p>
@@ -228,7 +228,7 @@ export const frontmatter = {
         <div class="dica"><strong>Dica prática:</strong> use o Pika para animar as fotos de produto do seu e-commerce e postar como Reels no Instagram — vídeos de produto têm alcance orgânico até 3x maior que fotos estáticas na plataforma, e com o Pika você cria em minutos a partir de fotos que já tem.</div>
       </div>
 
-      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Monte seu fluxo de produção de vídeo com IA</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Monte seu fluxo de produção de vídeo com IA</h2>
       <p>
         Uma combinação eficiente para criadores brasileiros: use o HeyGen para vídeos com apresentador, o OpusClip para reciclar conteúdo longo, o VEED para edição rápida e o Pika para animações criativas. Com esse conjunto, é possível manter uma presença consistente em vídeo nas redes sociais sem precisar de câmera, estúdio ou editor.
       </p>

@@ -35,45 +35,45 @@ export const frontmatter = {
   })} />
 
   <style>
-    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+    .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
     .page-layout { display: grid; grid-template-columns: 200px 1fr 240px; gap: 32px; align-items: start; }
 
     .sidebar { position: sticky; top: 80px; }
-    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: var(--text-dimmer); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
-    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
-    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
-    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .sidebar-nav a { display: block; font-size: 13px; color: var(--text-dim); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: var(--accent); border-left-color: var(--line-2); }
+    .sidebar-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 
-    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
-    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
-    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
-    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--text); }
+    .article .meta { font-size: 13px; color: var(--text-dimmer); margin-bottom: 36px; }
+    .article p { font-size: 15px; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue { background: #E6F1FB; color: #185FA5; }
-    .tag-gray { background: #f3f3f3; color: #555; }
-    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
-    .dica strong { color: #1D9E75; }
-    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
-    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
-    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
-    .cta-btn:hover { background: #178f68; }
+    .tag-green { background: var(--accent-glow); color: var(--accent); }
+    .tag-blue { background: rgba(74,134,255,.12); color: #4a86ff; }
+    .tag-gray { background: var(--bg-2); color: var(--text-dim); }
+    .dica { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: var(--accent); }
+    .cta-box { background: color-mix(in oklab, var(--accent-glow) 45%, transparent); border: 1px solid var(--line-2); border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-2); }
 
     .sumario-mobile { display: none; }
-    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
     .sumario-mobile li { margin-bottom: 6px; }
-    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
@@ -130,7 +130,7 @@ export const frontmatter = {
 
       <div id="hubspot-sales">
         <div class="tool-block">
-          <h2>1. <a href="/tools/hubspot-sales" style="color:#1D9E75;text-decoration:underline;font-weight:500;">HubSpot Sales</a> — CRM com IA para toda a jornada</h2>
+          <h2>1. <a href="/tools/hubspot-sales" style="color:var(--accent);text-decoration:underline;font-weight:500;">HubSpot Sales</a> — CRM com IA para toda a jornada</h2>
           <div class="tag-row">
             <span class="tag tag-green">Plano gratuito</span>
             <span class="tag tag-blue">Suporte PT</span>
@@ -150,7 +150,7 @@ export const frontmatter = {
       </div>
 
       <div id="pipedrive-sales" class="tool-block">
-        <h2>2. <a href="/tools/pipedrive" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Pipedrive</a> — Pipeline visual com previsão de fechamento</h2>
+        <h2>2. <a href="/tools/pipedrive" style="color:var(--accent);text-decoration:underline;font-weight:500;">Pipedrive</a> — Pipeline visual com previsão de fechamento</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Suporte PT</span>
           <span class="tag tag-gray">A partir de $14/mês</span>
@@ -158,7 +158,7 @@ export const frontmatter = {
         <p>
           O Pipedrive se destaca pela clareza visual do pipeline e pela IA que identifica deals em risco antes que o vendedor perceba. O sistema analisa o comportamento de cada negociação — tempo parado em uma etapa, frequência de contato, engajamento do lead — e alerta o vendedor sobre oportunidades que estão esfriando, antes que seja tarde demais para agir.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/pipedrive" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/pipedrive" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA do Pipedrive também automatiza tarefas repetitivas: atualização de campos após uma ligação, criação de atividades de follow-up, envio de e-mails de proposta com campos personalizados. O vendedor faz a ligação, encerra e o CRM já está atualizado — sem precisar de 15 minutos de registro manual.
         </p>
@@ -169,7 +169,7 @@ export const frontmatter = {
       </div>
 
       <div id="gong" class="tool-block">
-        <h2>3. <a href="/tools/gong" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Gong</a> — Inteligência de receita baseada em dados reais</h2>
+        <h2>3. <a href="/tools/gong" style="color:var(--accent);text-decoration:underline;font-weight:500;">Gong</a> — Inteligência de receita baseada em dados reais</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Dados de calls</span>
           <span class="tag tag-gray">Sob consulta</span>
@@ -177,7 +177,7 @@ export const frontmatter = {
         <p>
           O Gong é a plataforma de revenue intelligence mais sofisticada do mercado: grava e analisa todas as chamadas de vendas com IA, identificando padrões que diferenciam os deals que fecham dos que não fecham. Para diretores comerciais brasileiros, é como ter acesso ao "playbook" de cada vendedor sênior — e replicar essas práticas para todo o time.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/gong" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/gong" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA do Gong analisa o ratio de fala e escuta de cada vendedor, as objeções mais comuns levantadas pelos prospects brasileiros, os tópicos que aumentam ou diminuem a probabilidade de fechamento e os momentos da conversa onde o interesse do lead cresce ou declina. Com esses dados, o gestor sabe exatamente onde treinar cada vendedor.
         </p>
@@ -188,7 +188,7 @@ export const frontmatter = {
       </div>
 
       <div id="salesloft" class="tool-block">
-        <h2>4. <a href="/tools/salesloft" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Salesloft</a> — Plataforma de engajamento de vendas</h2>
+        <h2>4. <a href="/tools/salesloft" style="color:var(--accent);text-decoration:underline;font-weight:500;">Salesloft</a> — Plataforma de engajamento de vendas</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Funciona no BR</span>
           <span class="tag tag-gray">Sob consulta</span>
@@ -196,7 +196,7 @@ export const frontmatter = {
         <p>
           O Salesloft é uma das plataformas de sales engagement mais usadas por times B2B enterprise no mundo, e está crescendo no Brasil. Combina cadências de outreach (e-mail, ligação, LinkedIn), análise de conversas com IA e forecasting em uma plataforma integrada. O diferencial é a profundidade das análises de engajamento — o sistema sabe exatamente quais elementos de cada e-mail geram mais respostas do ICP.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/salesloft" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/salesloft" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Para times que vendem para grandes empresas brasileiras com ciclos longos de 3 a 6 meses, o Salesloft mantém o engajamento consistente ao longo do tempo com cadências automatizadas que não parecem automáticas. A IA ajusta o timing e o conteúdo dos contatos com base no comportamento do prospect, garantindo relevância em cada ponto da jornada.
         </p>
@@ -207,7 +207,7 @@ export const frontmatter = {
       </div>
 
       <div id="funnels-sales" class="tool-block">
-        <h2>5. <a href="/tools/funnels" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Funnels</a> — IA para automação do processo comercial</h2>
+        <h2>5. <a href="/tools/funnels" style="color:var(--accent);text-decoration:underline;font-weight:500;">Funnels</a> — IA para automação do processo comercial</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Focado no Brasil</span>
           <span class="tag tag-blue">WhatsApp integrado</span>
@@ -216,7 +216,7 @@ export const frontmatter = {
         <p>
           O Funnels foi construído com o mercado brasileiro em mente: integra CRM, automação de marketing, agentes de IA e WhatsApp em uma plataforma que entende como as vendas B2B acontecem no Brasil — com muito relacionamento, ciclos que passam por WhatsApp e reuniões presenciais, e decisores que respondem melhor a abordagens consultivas do que a scripts americanos.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/funnels" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/funnels" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Os agentes de IA do Funnels fazem a qualificação inicial dos leads — respondendo perguntas, entendendo o contexto da empresa e agendando reuniões com os vendedores humanos — de forma fluida no WhatsApp. Para times brasileiros onde o pré-vendas manual consome horas, é uma solução que escala o SDR sem aumentar o headcount.
         </p>
@@ -226,7 +226,7 @@ export const frontmatter = {
         <div class="dica"><strong>Dica prática:</strong> configure o agente de IA do Funnels para identificar o porte e setor de cada lead no primeiro contato — isso permite que o vendedor humano entre na conversa já sabendo se está falando com uma PME ou enterprise, ajustando o discurso e a proposta de valor antes mesmo da primeira reunião.</div>
       </div>
 
-      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Onde a IA realmente faz diferença em vendas B2B</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Onde a IA realmente faz diferença em vendas B2B</h2>
       <p>
         Times B2B brasileiros que adotaram IA reportam consistentemente três ganhos principais: menos tempo em trabalho administrativo (20 a 30% de economia), melhor qualidade de dados no CRM (porque o registro é automático, não manual) e maior taxa de follow-up consistente (porque as sequências não dependem da memória do vendedor).
       </p>

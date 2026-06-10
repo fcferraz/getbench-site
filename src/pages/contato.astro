@@ -6,30 +6,30 @@ import Base from '../layouts/Base.astro';
   <div style="max-width:640px;margin:0 auto;">
 
     <div style="margin-bottom:40px;">
-      <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
+      <div style="display:inline-block;font-size:12px;padding:4px 12px;background:var(--accent-glow);color:var(--accent);border-radius:20px;margin-bottom:20px;">
         Fale conosco
       </div>
       <h1 style="font-size:36px;font-weight:700;line-height:1.2;margin-bottom:16px;">Contato</h1>
-      <p style="font-size:16px;color:#555;line-height:1.6;">
+      <p style="font-size:16px;color:var(--text-dim);line-height:1.6;">
         Sugestões, parcerias, reporte de erros ou qualquer outro assunto — resposta em até 2 dias úteis.
       </p>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:48px;">
-      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+      <div style="padding:20px;border:1px solid var(--line);border-radius:12px;text-align:center;">
         <div style="font-size:22px;margin-bottom:8px;">🛠</div>
         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Sugestão de ferramenta</div>
-        <div style="font-size:12px;color:#888;">Use o botão "Enviar ferramenta" no menu</div>
+        <div style="font-size:12px;color:var(--text-dim);">Use o botão "Enviar ferramenta" no menu</div>
       </div>
-      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+      <div style="padding:20px;border:1px solid var(--line);border-radius:12px;text-align:center;">
         <div style="font-size:22px;margin-bottom:8px;">🤝</div>
         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Parcerias</div>
-        <div style="font-size:12px;color:#888;">Conteúdo, distribuição ou integração</div>
+        <div style="font-size:12px;color:var(--text-dim);">Conteúdo, distribuição ou integração</div>
       </div>
-      <div style="padding:20px;border:1px solid #eee;border-radius:12px;text-align:center;">
+      <div style="padding:20px;border:1px solid var(--line);border-radius:12px;text-align:center;">
         <div style="font-size:22px;margin-bottom:8px;">🐛</div>
         <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Erro ou problema</div>
-        <div style="font-size:12px;color:#888;">Informação incorreta ou bug no site</div>
+        <div style="font-size:12px;color:var(--text-dim);">Informação incorreta ou bug no site</div>
       </div>
     </div>
 
@@ -40,42 +40,42 @@ import Base from '../layouts/Base.astro';
     >
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <label for="name" style="font-size:13px;font-weight:500;color:#333;">Nome</label>
+          <label for="name" style="font-size:13px;font-weight:500;color:var(--text);">Nome</label>
           <input
             id="name"
             name="name"
             type="text"
             required
             placeholder="Seu nome"
-            style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
-            onfocus="this.style.borderColor='#1D9E75'"
-            onblur="this.style.borderColor='#ddd'"
+            style="padding:10px 14px;border:1px solid var(--line-2);border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
+            onfocus="this.style.borderColor='var(--accent)'"
+            onblur="this.style.borderColor='var(--line-2)'"
           />
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <label for="email" style="font-size:13px;font-weight:500;color:#333;">E-mail</label>
+          <label for="email" style="font-size:13px;font-weight:500;color:var(--text);">E-mail</label>
           <input
             id="email"
             name="email"
             type="email"
             required
             placeholder="seu@email.com"
-            style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
-            onfocus="this.style.borderColor='#1D9E75'"
-            onblur="this.style.borderColor='#ddd'"
+            style="padding:10px 14px;border:1px solid var(--line-2);border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;"
+            onfocus="this.style.borderColor='var(--accent)'"
+            onblur="this.style.borderColor='var(--line-2)'"
           />
         </div>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <label for="subject" style="font-size:13px;font-weight:500;color:#333;">Assunto</label>
+        <label for="subject" style="font-size:13px;font-weight:500;color:var(--text);">Assunto</label>
         <select
           id="subject"
           name="subject"
           required
-          style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;background:#fff;color:#333;"
-          onfocus="this.style.borderColor='#1D9E75'"
-          onblur="this.style.borderColor='#ddd'"
+          style="padding:10px 14px;border:1px solid var(--line-2);border-radius:8px;font-size:14px;outline:none;font-family:system-ui,sans-serif;background:var(--bg-2);color:var(--text);"
+          onfocus="this.style.borderColor='var(--accent)'"
+          onblur="this.style.borderColor='var(--line-2)'"
         >
           <option value="" disabled selected>Selecione um assunto</option>
           <option value="parceria">Parceria comercial</option>
@@ -87,16 +87,16 @@ import Base from '../layouts/Base.astro';
       </div>
 
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <label for="message" style="font-size:13px;font-weight:500;color:#333;">Mensagem</label>
+        <label for="message" style="font-size:13px;font-weight:500;color:var(--text);">Mensagem</label>
         <textarea
           id="message"
           name="message"
           required
           rows="5"
           placeholder="Descreva sua dúvida, sugestão ou proposta..."
-          style="padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;resize:vertical;font-family:system-ui,sans-serif;line-height:1.5;"
-          onfocus="this.style.borderColor='#1D9E75'"
-          onblur="this.style.borderColor='#ddd'"
+          style="padding:10px 14px;border:1px solid var(--line-2);border-radius:8px;font-size:14px;outline:none;resize:vertical;font-family:system-ui,sans-serif;line-height:1.5;"
+          onfocus="this.style.borderColor='var(--accent)'"
+          onblur="this.style.borderColor='var(--line-2)'"
         ></textarea>
       </div>
 
@@ -104,16 +104,16 @@ import Base from '../layouts/Base.astro';
         <button
           type="submit"
           id="submit-btn"
-          style="padding:12px 28px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;"
+          style="padding:12px 28px;background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;"
         >
           Enviar mensagem
         </button>
       </div>
 
-      <div id="form-success" style="display:none;padding:16px 20px;background:#E1F5EE;color:#0F6E56;border-radius:8px;font-size:14px;font-weight:500;">
+      <div id="form-success" style="display:none;padding:16px 20px;background:var(--accent-glow);color:var(--accent);border-radius:8px;font-size:14px;font-weight:500;">
         Mensagem enviada! Responderemos em até 2 dias úteis.
       </div>
-      <div id="form-error" style="display:none;padding:16px 20px;background:#FEF2F2;color:#B91C1C;border-radius:8px;font-size:14px;">
+      <div id="form-error" style="display:none;padding:16px 20px;background:rgba(240,80,110,.10);color:var(--red);border-radius:8px;font-size:14px;">
         Ocorreu um erro. Por favor, tente novamente ou envie um e-mail diretamente.
       </div>
     </form>

@@ -2,59 +2,92 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Buscar AI tools para LATAM — Buskai.net">
-  <style>
-    html, body { background: #0b0d0b !important; --logo-color: #e9ecea; --logo-accent: #3ddc84; }
-    main { padding: 0 !important; max-width: 100% !important; background: #0b0d0b !important; }
-    nav { background: rgba(11,13,11,0.95) !important; border-bottom: 1px solid rgba(255,255,255,.1) !important; }
-    .logo { color: #e9ecea !important; }
-    .logo span { color: #3ddc84 !important; }
-    .nav-links a { color: #8b938f !important; }
-    .nav-links a:hover { color: #e9ecea !important; }
-    .nav-submit { border-color: rgba(255,255,255,.2) !important; color: #e9ecea !important; }
-    footer { background: #0b0d0b !important; border-color: rgba(255,255,255,.1) !important; color: #5d6662 !important; }
-  </style>
-  <div style="min-height:100vh;background:#0b0d0b;color:#e9ecea;font-family:'Inter Tight',system-ui,sans-serif;position:relative;overflow:hidden;margin:-40px -32px;padding:80px 28px 120px;">
+<style>
+  .search-hero { max-width: 760px; margin: 0 auto; padding: 56px 0 40px; text-align: center; }
+  .search-hero h1 {
+    font-size: clamp(44px, 7vw, 76px); font-weight: 700; line-height: 1.02;
+    letter-spacing: -.035em; margin: 0 0 16px;
+  }
+  .search-hero h1 .accent {
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .search-hero p {
+    color: var(--text-dim); font-size: 17px; max-width: 520px;
+    margin: 0 auto 36px; line-height: 1.5;
+  }
+  .sbox {
+    border: 1px solid var(--line-2); border-radius: 16px;
+    background: color-mix(in oklab, var(--bg-2) 90%, transparent);
+    box-shadow: 0 0 0 6px var(--accent-glow), 0 30px 60px -30px rgba(40,30,90,.3);
+    overflow: hidden; backdrop-filter: blur(10px); text-align: left;
+  }
+  .sbox .row { display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 20px; }
+  .sbox svg { color: var(--text-dim); flex: none; }
+  .sbox input {
+    flex: 1; background: transparent; border: 0; outline: 0;
+    color: var(--text); font-size: 17px; font-family: var(--sans); min-width: 0;
+  }
+  .sbox input::placeholder { color: var(--text-dimmer); }
+  .sbox .go {
+    background: var(--accent); color: var(--on-accent); border: 0;
+    padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    cursor: pointer; white-space: nowrap;
+  }
+  .sbox .go:hover { background: var(--accent-2); }
+  .sbox .chips { padding: 0 14px 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .sbox .chips button {
+    background: transparent; border: 1px solid var(--line);
+    color: var(--text-dim); padding: 5px 12px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font-family: var(--mono);
+  }
+  .sbox .chips button:hover { color: var(--text); border-color: var(--line-2); }
+  .results-wrap { max-width: 760px; margin: 0 auto; }
+  #loading { display: none; text-align: center; padding: 60px 0; }
+  #loading .inner {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--text-dim); font-family: var(--mono); font-size: 13px;
+  }
+  #loading .spin {
+    width: 16px; height: 16px; border: 2px solid var(--accent-glow);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
 
-    <div style="position:fixed;inset:0;pointer-events:none;background:radial-gradient(1200px 600px at 15% -5%,rgba(61,220,132,.18),transparent 55%);"></div>
-    <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:48px;">
-        <a href="/" style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d6662;text-decoration:none;margin-bottom:32px;">← Buskai.net</a>
-        <h1 style="font-size:clamp(44px,7vw,76px);font-weight:700;line-height:1.02;letter-spacing:-.035em;margin:0 0 16px;">
-          Ache a AI tool certa.<br/>
-          <span style="background:linear-gradient(180deg,#3ddc84,#2bb86c);-webkit-background-clip:text;background-clip:text;color:transparent;">Em 10 segundos.</span>
-        </h1>
-        <p style="color:#8b938f;font-size:17px;max-width:520px;margin:0 auto 36px;line-height:1.5;">
-          Descreva o que voce precisa — devolvemos um shortlist com preco em R$, suporte PT/ES e postura LGPD.
-        </p>
-        <div id="search-box" style="border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(15,18,15,.9);box-shadow:0 0 0 6px rgba(61,220,132,.12),0 30px 60px -30px rgba(0,0,0,.7);overflow:hidden;">
-          <div style="display:flex;align-items:center;gap:12px;padding:14px 14px 14px 20px;">
-            <svg width="20" height="20" fill="none" stroke="#8b938f" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input id="query" type="text" placeholder="bot de WhatsApp para clinica em Sao Paulo..." style="flex:1;background:transparent;border:0;outline:0;color:#e9ecea;font-size:17px;font-family:inherit;"/>
-            <button id="search-btn" onclick="runSearch()" style="background:#3ddc84;color:#0b0d0b;border:0;padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;">Buscar →</button>
-          </div>
-          <div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">
-            <button onclick="setQuery('SDR em PT-BR')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">SDR em PT-BR</button>
-            <button onclick="setQuery('Copiloto de CRM')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Copiloto de CRM</button>
-            <button onclick="setQuery('ferramentas de marketing gratuitas')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Marketing gratis</button>
-            <button onclick="setQuery('recrutamento RH Brasil')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;">Recrutamento RH</button>
-          </div>
-        </div>
+<Base title="Buscar AI tools para LATAM — Buskai.net">
+  <div class="search-hero">
+    <h1>
+      Ache a AI tool certa.<br/>
+      <span class="accent">Em 10 segundos.</span>
+    </h1>
+    <p>
+      Descreva o que você precisa — devolvemos um shortlist com preço em R$, suporte PT/ES e postura LGPD.
+    </p>
+    <div class="sbox" id="search-box">
+      <div class="row">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="query" type="text" placeholder="bot de WhatsApp para clínica em São Paulo..."/>
+        <button id="search-btn" onclick="runSearch()" class="go">Buscar →</button>
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:60px 0;">
-        <div style="display:inline-flex;align-items:center;gap:12px;color:#8b938f;font-family:'JetBrains Mono',monospace;font-size:13px;">
-          <div style="width:16px;height:16px;border:2px solid rgba(61,220,132,.2);border-top-color:#3ddc84;border-radius:50%;animation:spin .8s linear infinite;"></div>
-          Analisando tools para sua busca...
-        </div>
+      <div class="chips">
+        <button onclick="setQuery('SDR em PT-BR')">SDR em PT-BR</button>
+        <button onclick="setQuery('Copiloto de CRM')">Copiloto de CRM</button>
+        <button onclick="setQuery('ferramentas de marketing gratuitas')">Marketing grátis</button>
+        <button onclick="setQuery('recrutamento RH Brasil')">Recrutamento RH</button>
       </div>
-      <div id="results" style="display:none;"></div>
     </div>
   </div>
-
-  <style>
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
-  </style>
+  <div class="results-wrap">
+    <div id="loading">
+      <div class="inner">
+        <div class="spin"></div>
+        Analisando tools para sua busca...
+      </div>
+    </div>
+    <div id="results" style="display:none;"></div>
+  </div>
 
   <script is:inline>
     function setQuery(q) {
@@ -63,6 +96,11 @@ import Base from '../layouts/Base.astro';
     document.getElementById('query').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') runSearch();
     });
+    // Autorun when arriving with ?q= (e.g. from the ⌘K modal's full-page link)
+    (function() {
+      var q = new URLSearchParams(window.location.search).get('q');
+      if (q) { document.getElementById('query').value = q; runSearch(); }
+    })();
     async function runSearch() {
       const query = document.getElementById('query').value.trim();
       if (!query) return;
@@ -82,7 +120,7 @@ import Base from '../layouts/Base.astro';
         renderResults(data, query);
       } catch(e) {
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('results').innerHTML = '<p style="color:#ff6a5b;text-align:center;">Erro ao buscar. Tente novamente.</p>';
+        document.getElementById('results').innerHTML = '<p style="color:var(--red);text-align:center;">Erro ao buscar. Tente novamente.</p>';
         document.getElementById('results').style.display = 'block';
       }
       document.getElementById('search-btn').disabled = false;
@@ -105,47 +143,47 @@ import Base from '../layouts/Base.astro';
       const c = document.getElementById('results');
       c.innerHTML = '';
       if (!data || !Array.isArray(data.tools)) {
-        c.appendChild(elWithStyle('p', 'color:#ff6a5b;text-align:center;', 'Erro ao buscar. Tente novamente.'));
+        c.appendChild(elWithStyle('p', 'color:var(--red);text-align:center;', 'Erro ao buscar. Tente novamente.'));
         return;
       }
 
       c.appendChild(elWithStyle('div',
-        'margin-bottom:16px;font-family:monospace;font-size:11px;color:#5d6662;',
+        'margin-bottom:16px;font-family:var(--mono);font-size:11px;color:var(--text-dimmer);',
         data.tools.length + ' tools para "' + query + '"'));
 
-      var reasoningBox = elWithStyle('div', 'margin-bottom:20px;padding:16px 20px;border:1px solid rgba(61,220,132,.2);border-radius:12px;background:rgba(61,220,132,.05);');
-      reasoningBox.appendChild(elWithStyle('p', 'color:#8b938f;font-size:14px;line-height:1.6;margin:0;', data.reasoning || ''));
+      var reasoningBox = elWithStyle('div', 'margin-bottom:20px;padding:16px 20px;border:1px solid var(--line-2);border-radius:12px;background:color-mix(in oklab, var(--accent-glow) 30%, transparent);');
+      reasoningBox.appendChild(elWithStyle('p', 'color:var(--text-dim);font-size:14px;line-height:1.6;margin:0;', data.reasoning || ''));
       c.appendChild(reasoningBox);
 
       var list = elWithStyle('div', 'display:flex;flex-direction:column;gap:12px;');
       data.tools.forEach(function(tool, i) {
-        var card = elWithStyle('div', 'border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:rgba(15,18,15,.6);display:flex;justify-content:space-between;align-items:flex-start;');
+        var card = elWithStyle('div', 'border:1px solid var(--line);border-radius:14px;padding:20px 24px;background:var(--bg-2);display:flex;justify-content:space-between;align-items:flex-start;');
 
         var left = elWithStyle('div', 'flex:1;');
         var titleRow = elWithStyle('div', 'display:flex;align-items:center;gap:10px;margin-bottom:8px;');
-        titleRow.appendChild(elWithStyle('span', 'font-family:monospace;font-size:11px;color:#3ddc84;', '#' + (i + 1)));
+        titleRow.appendChild(elWithStyle('span', 'font-family:var(--mono);font-size:11px;color:var(--accent);', '#' + (i + 1)));
 
-        var nameLink = elWithStyle('a', 'font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;', tool.name);
+        var nameLink = elWithStyle('a', 'font-size:17px;font-weight:600;color:var(--text);text-decoration:none;', tool.name);
         nameLink.setAttribute('href', '/tools/' + safeSlug(tool.slug));
         titleRow.appendChild(nameLink);
 
         if (tool.works_in_brazil) {
-          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;', 'Funciona no BR'));
+          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:rgba(74,134,255,.12);color:#4a86ff;border-radius:20px;', 'Funciona no BR'));
         }
         if (tool.has_free_plan) {
-          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;', 'Plano grátis'));
+          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:var(--accent-glow);color:var(--accent);border-radius:20px;', 'Plano grátis'));
         }
         left.appendChild(titleRow);
-        left.appendChild(elWithStyle('p', 'color:#8b938f;font-size:13px;margin:0 0 6px;', tool.tagline));
-        left.appendChild(elWithStyle('p', 'color:#5d6662;font-size:12px;margin:0;font-style:italic;', tool.reason));
+        left.appendChild(elWithStyle('p', 'color:var(--text-dim);font-size:13px;margin:0 0 6px;', tool.tagline));
+        left.appendChild(elWithStyle('p', 'color:var(--text-dimmer);font-size:12px;margin:0;font-style:italic;', tool.reason));
         card.appendChild(left);
 
         var right = elWithStyle('div', 'text-align:right;margin-left:20px;flex-shrink:0;');
-        right.appendChild(elWithStyle('div', 'font-size:15px;font-weight:600;margin-bottom:10px;color:#e9ecea;', tool.price));
+        right.appendChild(elWithStyle('div', 'font-size:15px;font-weight:600;margin-bottom:10px;color:var(--text);font-family:var(--mono);', tool.price));
 
         var visitUrl = safeHttpsUrl(tool.affiliate_url || tool.website);
         if (visitUrl) {
-          var visit = elWithStyle('a', 'display:inline-block;padding:8px 18px;background:#3ddc84;color:#0b0d0b;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;', 'Visitar →');
+          var visit = elWithStyle('a', 'display:inline-block;padding:8px 18px;background:var(--accent);color:var(--on-accent);border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;', 'Visitar →');
           visit.setAttribute('href', visitUrl);
           visit.setAttribute('target', '_blank');
           visit.setAttribute('rel', 'noopener noreferrer');

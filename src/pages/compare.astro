@@ -7,38 +7,64 @@ const categories = await getCategories();
 ---
 
 <style>
-  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-  .compare-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    gap: 12px;
-    align-items: end;
+  .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin: 24px 0 10px; display: block;
   }
-  @media (max-width: 640px) {
+  h1 { font-size: clamp(32px, 4.5vw, 48px); font-weight: 700; letter-spacing: -.03em; margin: 0 0 8px; }
+  .lead { font-size: 15px; color: var(--text-dim); margin-bottom: 40px; max-width: 60ch; line-height: 1.6; }
+  .builder {
+    padding: 24px; border: 1px solid var(--line-2); border-radius: var(--radius);
+    margin-bottom: 48px; background: var(--bg-2);
+  }
+  .builder h2 { font-size: 16px; font-weight: 600; margin: 0 0 20px; letter-spacing: -.01em; }
+  .compare-form-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 12px; align-items: end;
+  }
+  .compare-form-grid label {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .08em;
+  }
+  .compare-form-grid select {
+    width: 100%; padding: 9px 12px; border: 1px solid var(--line-2);
+    border-radius: 10px; font-size: 13px; background: var(--bg);
+    color: var(--text); font-family: var(--sans);
+  }
+  #btn-compare { opacity: 0.5; }
+  .pop-h { font-size: 22px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 16px; }
+  .pop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .pop-grid a {
+    padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px;
+    background: var(--bg-2); display: flex; justify-content: space-between; align-items: center;
+    transition: border-color .15s ease;
+  }
+  .pop-grid a:hover { border-color: var(--accent); }
+  .pop-grid .pair { font-size: 14px; font-weight: 600; color: var(--text); }
+  .pop-grid .pair .vs-m { font-family: var(--mono); font-size: 10px; color: var(--text-dim); font-weight: 400; padding: 0 4px; }
+  .pop-grid .cat { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+  @media (max-width: 800px) {
     .compare-form-grid { grid-template-columns: 1fr; }
     .compare-form-grid button { width: 100%; }
+    .pop-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 <Base title="Comparar Ferramentas de IA — Buskai.net">
-  <div class="breadcrumb">
-    <a href="/">Início</a><span>›</span>Comparar
+  <div class="crumb">
+    <a href="/">home</a><span class="sep">/</span><span class="cur">comparar</span>
   </div>
 
-  <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">Comparar ferramentas de IA</h1>
-  <p style="font-size:15px;color:#555;margin-bottom:40px;max-width:600px;line-height:1.6;">
-    Selecione uma categoria e duas tools para comparar lado a lado.
-  </p>
+  <span class="kicker">▲ BENCH COMPARISON</span>
+  <h1>Comparar ferramentas de IA</h1>
+  <p class="lead">Selecione uma categoria e duas tools para comparar lado a lado — preço, plano grátis, suporte PT e disponibilidade no Brasil.</p>
 
-  <div style="padding:24px;border:1px solid #eee;border-radius:12px;margin-bottom:48px;background:#f9f9f9;">
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:20px;">Monte sua comparação</h2>
+  <div class="builder">
+    <h2>Monte sua comparação</h2>
     <div class="compare-form-grid">
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Categoria</label>
-        <select id="sel-category" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;">
+        <label>Categoria</label>
+        <select id="sel-category">
           <option value="">Selecione uma categoria...</option>
           {categories.map(cat => (
             <option value={cat.Slug}>{cat.Name}</option>
@@ -46,37 +72,33 @@ const categories = await getCategories();
         </select>
       </div>
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Ferramenta A</label>
-        <select id="sel-toolA" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;" disabled>
+        <label>Ferramenta A</label>
+        <select id="sel-toolA" disabled>
           <option value="">Selecione uma ferramenta...</option>
         </select>
       </div>
       <div>
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">Ferramenta B</label>
-        <select id="sel-toolB" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#fff;" disabled>
+        <label>Ferramenta B</label>
+        <select id="sel-toolB" disabled>
           <option value="">Selecione uma ferramenta...</option>
         </select>
       </div>
-      <button id="btn-compare" style="padding:9px 20px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;opacity:0.5;" disabled>
+      <button id="btn-compare" class="btn primary" disabled>
         Comparar →
       </button>
     </div>
   </div>
 
-  <h2 style="font-size:18px;font-weight:600;margin-bottom:20px;">Comparações populares</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;">
+  <h2 class="pop-h">Comparações populares</h2>
+  <div class="pop-grid">
     {curatedComparisons.map(({ category, slugA, slugB }) => {
       const catName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       const labelA = slugA.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
       const labelB = slugB.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
       return (
-        <a href={'/compare/' + category + '/' + slugA + '-vs-' + slugB}
-          style="padding:16px 20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <span style="font-size:14px;font-weight:500;color:#1a1a1a;">{labelA} vs {labelB}</span>
-            <span style="font-size:12px;color:#888;margin-left:12px;">{catName}</span>
-          </div>
-          <span style="font-size:12px;color:#1D9E75;font-weight:500;">Comparar →</span>
+        <a href={'/compare/' + category + '/' + slugA + '-vs-' + slugB}>
+          <span class="pair">{labelA} <span class="vs-m">vs</span> {labelB}</span>
+          <span class="cat">{catName}</span>
         </a>
       );
     })}

@@ -7,128 +7,318 @@ const categories = await getCategories();
 const category = categories.find(c => c.Slug === slug) || {};
 const tools = await getToolsByCategory(category.Name || '');
 const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
+
+const ptCount = tools.filter(t => t.has_pt_support).length;
+const brCount = tools.filter(t => t.works_in_brazil).length;
+const freeCount = tools.filter(t => t.has_free_plan).length;
+const prices = tools.map(t => t.starting_price_usd).filter(p => typeof p === 'number' && p > 0);
+const priceRange = prices.length
+  ? `$${Math.min(...prices)} → $${Math.max(...prices)}`
+  : '—';
+
+const hostOf = (url) => { try { return new URL(url).hostname; } catch { return null; } };
+const gradients = ['a','b','c','d','e','f','g','h'];
+
+// Split the title so the tail gets the accent gradient treatment.
+const titleWords = (category.title_pt || category.Name || '').split(' ');
+const splitAt = Math.max(1, titleWords.length - 2);
+const titleHead = titleWords.slice(0, splitAt).join(' ');
+const titleTail = titleWords.slice(splitAt).join(' ');
 ---
 
 <style>
-  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-  .latam-note {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  .hero-cat {
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: end;
+    padding-bottom: 32px; border-bottom: 1px solid var(--line);
+  }
+  .hero-cat .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .hero-cat h1 {
+    font-size: clamp(36px, 5vw, 60px); line-height: 1.05; letter-spacing: -.035em;
+    font-weight: 700; margin: 0 0 14px;
+  }
+  .hero-cat h1 .accent {
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-cat p {
+    color: var(--text-dim); font-size: 16px; line-height: 1.55;
+    max-width: 52ch; margin: 0;
+  }
+  .hero-cat .side { display: grid; gap: 14px; }
+  .hero-cat .kv {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 12px;
+  }
+  .hero-cat .kv .k { color: var(--text-dim); }
+  .hero-cat .kv .v { color: var(--text); font-size: 13px; font-weight: 600; }
+  .hero-cat .kv .v.accent { color: var(--accent); }
+
+  /* Filter bar */
+  .filters {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    margin: 24px 0 20px;
+  }
+  .filters .fsearch {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line-2); background: var(--bg-2);
+    border-radius: 10px; padding: 8px 12px; flex: 1; min-width: 220px;
+  }
+  .filters .fsearch input {
+    background: transparent; border: 0; outline: 0;
+    color: var(--text); font-size: 14px; flex: 1; font-family: var(--sans); min-width: 0;
+  }
+  .filters .fsearch input::placeholder { color: var(--text-dimmer); }
+  .filters .fsearch svg { width: 16px; height: 16px; color: var(--text-dim); flex: none; }
+  .fchip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-family: var(--mono);
+    padding: 7px 10px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--bg-2); color: var(--text-dim);
+    cursor: pointer;
+  }
+  .fchip:hover { color: var(--text); border-color: var(--line-2); }
+  .fchip.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px;
+  }
+  .toolbar .sort {
+    display: flex; gap: 0; border: 1px solid var(--line); border-radius: 8px;
     overflow: hidden;
+  }
+  .toolbar .sort button {
+    background: transparent; border: 0; color: var(--text-dim);
+    font-family: var(--mono); font-size: 11px;
+    padding: 6px 10px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .toolbar .sort button:last-child { border-right: 0; }
+  .toolbar .sort button.on { background: var(--bg-2); color: var(--text); }
+
+  /* Tool rows */
+  .board { display: grid; gap: 10px; }
+  .trow {
+    display: grid;
+    grid-template-columns: minmax(220px, 280px) 1fr auto auto;
+    gap: 18px; align-items: center;
+    padding: 16px; border: 1px solid var(--line);
+    background: var(--bg-2); border-radius: 12px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .trow:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .trow .tool { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .trow .logo {
+    width: 40px; height: 40px; border-radius: 10px; flex: none;
+    display: grid; place-items: center; overflow: hidden;
+    font-weight: 800; font-size: 16px; color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+    background: var(--bg);
+  }
+  .trow .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .trow .logo .fb { display: grid; place-items: center; width: 100%; height: 100%; }
+  .logo.a .fb { background: linear-gradient(135deg, #ffb74a, #ff6a5b); }
+  .logo.b .fb { background: linear-gradient(135deg, #8a7dff, #2f3bff); }
+  .logo.c .fb { background: linear-gradient(135deg, #3ddc84, #0a5ea8); }
+  .logo.d .fb { background: linear-gradient(135deg, #ff6a5b, #c94b3f); }
+  .logo.e .fb { background: linear-gradient(135deg, #ffd14a, #f58b00); }
+  .logo.f .fb { background: linear-gradient(135deg, #20b062, #0e6b3b); }
+  .logo.g .fb { background: linear-gradient(135deg, #60e3ff, #2f3bff); }
+  .logo.h .fb { background: linear-gradient(135deg, #ff8fbb, #7f2f9b); }
+  .trow .tool h3 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+  .trow .tool h3 a { color: var(--text); }
+  .trow .tool h3 a:hover { color: var(--accent); }
+  .trow .meta-line { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+  .trow .meta-line span {
+    font-family: var(--mono); font-size: 10px; padding: 3px 7px;
+    border: 1px solid var(--line); border-radius: 5px; color: var(--text-dim);
+  }
+  .trow .meta-line .flag { border-color: var(--accent); color: var(--accent); }
+  .trow .desc { color: var(--text-dim); font-size: 13px; line-height: 1.5; min-width: 0; }
+  .trow .price {
+    font-family: var(--mono); font-size: 13px; color: var(--text);
+    font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap;
+  }
+  .trow .price small { color: var(--text-dim); display: block; font-size: 11px; margin-top: 2px; }
+  .trow .acts { display: flex; gap: 8px; }
+
+  .empty {
+    padding: 40px; background: var(--bg-2); border: 1px dashed var(--line-2);
+    border-radius: 12px; text-align: center; color: var(--text-dim);
+    font-family: var(--mono); font-size: 13px;
+  }
+
+  @media (max-width: 1000px) {
+    .hero-cat { grid-template-columns: 1fr; gap: 24px; }
+    .trow { grid-template-columns: 1fr auto; }
+    .trow .desc { display: none; }
+    .trow .price { display: none; }
+  }
+  @media (max-width: 640px) {
+    .trow { grid-template-columns: 1fr; }
+    .trow .acts { justify-content: flex-start; }
+    .toolbar { flex-direction: column; align-items: flex-start; }
   }
 </style>
 
 <Base title={`${category.title_pt} — Buskai.net`}>
-  <div class="breadcrumb">
-    <a href="/">Início</a><span>›</span>
-    <a href="/categories">Categorias</a><span>›</span>
-    {category.Name}
+  <div class="crumb">
+    <a href="/">home</a>
+    <span class="sep">/</span>
+    <a href="/categories">categorias</a>
+    <span class="sep">/</span>
+    <span class="cur">{slug}</span>
   </div>
 
-  <h1 style="font-size:28px;font-weight:600;margin-bottom:12px;">{category.title_pt}</h1>
-  <p style="font-size:15px;color:#555;margin-bottom:12px;max-width:600px;line-height:1.6;">
-    {category.description_en || 'Compare as melhores AI tools desta categoria, curadas para LATAM.'}
-  </p>
-  <p style="font-size:13px;color:#888;margin-bottom:20px;" id="tools-count">{tools.length} ferramentas encontradas</p>
+  <section class="hero-cat">
+    <div>
+      <span class="kicker">▲ CATEGORIA · {tools.length} TOOLS</span>
+      <h1>{titleHead}{titleTail && <><br/><span class="accent">{titleTail}</span></>}</h1>
+      <p>{category.description_en || 'Compare as melhores AI tools desta categoria, curadas para LATAM.'}</p>
+      <div style="margin-top:18px;display:flex;gap:10px;">
+        <a class="btn primary" href="/compare">Comparar tools →</a>
+        <a class="btn ghost" href="/sobre">Metodologia</a>
+      </div>
+    </div>
+    <div class="side">
+      <div class="status"><span class="dot"></span>curadoria ativa</div>
+      <div class="kv"><span class="k">tools curadas</span><span class="v">{tools.length}</span></div>
+      <div class="kv"><span class="k">com suporte PT</span><span class="v accent">{ptCount}</span></div>
+      <div class="kv"><span class="k">funcionam no BR</span><span class="v accent">{brCount}</span></div>
+      <div class="kv"><span class="k">com plano grátis</span><span class="v">{freeCount}</span></div>
+      <div class="kv"><span class="k">faixa de preço</span><span class="v">{priceRange}</span></div>
+    </div>
+  </section>
 
-  <div id="filter-bar" style="display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap;">
-    <select id="filter-price" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
-      <option value="all">💰 Preço — Todos</option>
-      <option value="free">Gratuito</option>
-      <option value="freemium">Freemium</option>
-      <option value="paid">Pago</option>
-    </select>
-    <select id="filter-location" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
-      <option value="all">🌎 Localização — Todos</option>
-      <option value="br">Funciona no BR</option>
-      <option value="brl">Aceita BRL</option>
-      <option value="pt">Suporte em PT</option>
-    </select>
-    <select id="filter-type" onchange="applyFilters()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#333;background:#fff;cursor:pointer;">
-      <option value="all">🤖 Tipo — Todos</option>
-      <option value="ainative">AI Native</option>
-    </select>
-    <button id="clear-filters" onclick="clearFilters()" style="display:none;padding:8px 14px;border:1px solid #e55;border-radius:8px;font-size:13px;color:#e55;background:#fff;cursor:pointer;">✕ Limpar filtros</button>
+  <div class="filters">
+    <label class="fsearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="filter-text" placeholder="Filtrar por nome ou caso de uso…" oninput="applyFilters()"/>
+    </label>
+    <button class="fchip" data-group="price" data-f="free" onclick="toggleChip(this)">Gratuito</button>
+    <button class="fchip" data-group="price" data-f="freemium" onclick="toggleChip(this)">Freemium</button>
+    <button class="fchip" data-group="price" data-f="paid" onclick="toggleChip(this)">Pago</button>
+    <button class="fchip" data-f="br" onclick="toggleChip(this)">🇧🇷 Funciona no BR</button>
+    <button class="fchip" data-f="brl" onclick="toggleChip(this)">Aceita BRL</button>
+    <button class="fchip" data-f="pt" onclick="toggleChip(this)">Suporte PT</button>
+    <button class="fchip" data-f="ainative" onclick="toggleChip(this)">AI Native</button>
   </div>
 
-  <style>
-    @media (max-width: 640px) {
-      #filter-bar { flex-direction: column; align-items: stretch; }
-      #filter-bar select, #filter-bar button { width: 100%; }
-    }
-  </style>
+  <div class="toolbar">
+    <span id="tools-count">{tools.length} tools · 0 filtros ativos</span>
+    <div class="sort">
+      <button class="on" data-sort="default" onclick="setSort(this)">curadoria</button>
+      <button data-sort="price" onclick="setSort(this)">preço</button>
+      <button data-sort="name" onclick="setSort(this)">nome</button>
+    </div>
+  </div>
 
   {tools.length === 0 ? (
-    <div style="padding:40px;background:#f9f9f9;border-radius:12px;text-align:center;color:#888;">
-      Tools em breve.
-    </div>
+    <div class="empty">&gt; tools em breve nesta categoria_</div>
   ) : (
-    <div style="display:flex;flex-direction:column;gap:16px;" id="tools-list">
-      {tools.map(tool => (
-        <div class="tool-card" data-free={tool.has_free_plan ? '1' : '0'} data-br={tool.works_in_brazil ? '1' : '0'} data-brl={tool.accepts_brl ? '1' : '0'} data-pt={tool.has_pt_support ? '1' : '0'} data-ainative={tool.ai_native === true ? '1' : '0'} data-pricing={tool.starting_price_usd === 0 ? 'free' : tool.has_free_plan ? 'freemium' : tool.starting_price_usd ? 'paid' : 'unknown'} style="padding:24px;border:1px solid #eee;border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;">
-          <div style="flex:1;">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
-              <a href={`/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">{tool.Name}</a>
-              {tool.starting_price_usd === 0 ? <span style="font-size:11px;padding:2px 8px;background:#E1F5EE;color:#0F6E56;border-radius:20px;">Gratuito</span> : tool.has_free_plan ? <span style="font-size:11px;padding:2px 8px;background:#FEF3C7;color:#92400E;border-radius:20px;">Freemium</span> : tool.starting_price_usd ? <span style="font-size:11px;padding:2px 8px;background:#F3F4F6;color:#374151;border-radius:20px;">Pago</span> : null}
-              {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:#D1FAE5;color:#065F46;border-radius:20px;">AI Native 🤖</span>}
+    <div class="board" id="tools-list">
+      {tools.map((tool, i) => {
+        const host = hostOf(tool.website);
+        const g = gradients[i % gradients.length];
+        const pricing = tool.starting_price_usd === 0 ? 'free' : tool.has_free_plan ? 'freemium' : tool.starting_price_usd ? 'paid' : 'unknown';
+        return (
+          <article
+            class="trow tool-card"
+            data-idx={i}
+            data-name={tool.Name}
+            data-price={tool.starting_price_usd ?? 99999}
+            data-text={`${tool.Name} ${tool.tagline_pt || tool.tagline_en || ''}`.toLowerCase()}
+            data-free={tool.has_free_plan ? '1' : '0'}
+            data-br={tool.works_in_brazil ? '1' : '0'}
+            data-brl={tool.accepts_brl ? '1' : '0'}
+            data-pt={tool.has_pt_support ? '1' : '0'}
+            data-ainative={tool.ai_native === true ? '1' : '0'}
+            data-pricing={pricing}
+          >
+            <div class="tool">
+              <div class={`logo ${g}`}>
+                {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+                <span class="fb" style={host ? 'display:none;' : ''}>{(tool.Name || '?').charAt(0).toUpperCase()}</span>
+              </div>
+              <div style="min-width:0;">
+                <h3><a href={`/tools/${tool.slug}`}>{tool.Name}</a></h3>
+                <div class="meta-line">
+                  {pricing === 'free' && <span class="flag">grátis</span>}
+                  {pricing === 'freemium' && <span class="flag">freemium</span>}
+                  {tool.works_in_brazil && <span>🇧🇷 BR</span>}
+                  {tool.has_pt_support && <span>PT</span>}
+                  {tool.ai_native === true && <span>AI native</span>}
+                </div>
+              </div>
             </div>
-            <p style="font-size:13px;color:#555;margin-bottom:10px;">{tool.tagline_pt || tool.tagline_en}</p>
-            {tool.latam_note_pt && (
-              <p class="latam-note" style="font-size:11px;color:#0F6E56;background:#E1F5EE;padding:4px 10px;border-radius:6px;display:inline-block;">{tool.latam_note_pt}</p>
-            )}
-          </div>
-          <div style="text-align:right;margin-left:24px;flex-shrink:0;">
-            <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
-              {tool.has_free_plan && tool.starting_price_usd === 0 ? 'Plano gratuito disponível' : tool.starting_price_usd ? `A partir de ${currencySymbol(tool.currency)}${tool.starting_price_usd}/mês` : 'Consultar preço'}
+            <div class="desc">{tool.tagline_pt || tool.tagline_en}</div>
+            <div class="price">
+              {tool.has_free_plan && tool.starting_price_usd === 0
+                ? 'grátis'
+                : tool.starting_price_usd
+                  ? `${currencySymbol(tool.currency)} ${tool.starting_price_usd}`
+                  : 'custom'}
+              <small>{tool.starting_price_usd ? '/mês' : 'consultar'}</small>
             </div>
-            <div style="display:flex;gap:8px;justify-content:flex-end;">
-              <a href={`/tools/${tool.slug}`} style="display:inline-block;padding:6px 12px;border:1px solid #ddd;border-radius:6px;text-decoration:none;font-size:12px;color:#333;">Detalhes</a>
-              <a href={tool.affiliate_url || tool.website} target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:6px 16px;background:#1D9E75;color:#fff;border-radius:6px;text-decoration:none;font-size:12px;">Visitar →</a>
+            <div class="acts">
+              <a href={`/tools/${tool.slug}`} class="btn" style="font-size:12px;padding:7px 12px;">Detalhes</a>
+              <a href={tool.affiliate_url || tool.website} target="_blank" rel="noopener noreferrer" class="btn primary" style="font-size:12px;padding:7px 12px;">Visitar →</a>
             </div>
-          </div>
-        </div>
-      ))}
+          </article>
+        );
+      })}
     </div>
   )}
 
   <script is:inline>
-    function applyFilters() {
-      const price    = document.getElementById('filter-price').value;
-      const location = document.getElementById('filter-location').value;
-      const type     = document.getElementById('filter-type').value;
+    function toggleChip(btn) {
+      // Price chips are mutually exclusive; feature chips combine.
+      if (btn.dataset.group === 'price' && !btn.classList.contains('on')) {
+        document.querySelectorAll('.fchip[data-group="price"]').forEach(c => c.classList.remove('on'));
+      }
+      btn.classList.toggle('on');
+      applyFilters();
+    }
 
-      const isFiltered = price !== 'all' || location !== 'all' || type !== 'all';
-      document.getElementById('clear-filters').style.display = isFiltered ? 'inline-block' : 'none';
+    function applyFilters() {
+      const text = (document.getElementById('filter-text').value || '').trim().toLowerCase();
+      const active = [...document.querySelectorAll('.fchip.on')];
+      const priceFilter = active.find(c => c.dataset.group === 'price')?.dataset.f;
+      const features = active.filter(c => c.dataset.group !== 'price').map(c => c.dataset.f);
 
       const cards = document.querySelectorAll('.tool-card');
       let visible = 0;
       cards.forEach(card => {
         let show = true;
-        if (price === 'free')      show = show && card.dataset.pricing === 'free';
-        if (price === 'freemium')  show = show && card.dataset.pricing === 'freemium';
-        if (price === 'paid')      show = show && card.dataset.pricing === 'paid';
-        if (location === 'br')     show = show && card.dataset.br === '1';
-        if (location === 'brl')    show = show && card.dataset.brl === '1';
-        if (location === 'pt')     show = show && card.dataset.pt === '1';
-        if (type === 'ainative')   show = show && card.dataset.ainative === '1';
-        card.style.display = show ? 'flex' : 'none';
+        if (text) show = show && card.dataset.text.includes(text);
+        if (priceFilter) show = show && card.dataset.pricing === priceFilter;
+        features.forEach(f => { show = show && card.dataset[f] === '1'; });
+        card.style.display = show ? '' : 'none';
         if (show) visible++;
       });
-      document.getElementById('tools-count').textContent = visible + ' ferramentas encontradas';
+      const nFilters = active.length + (text ? 1 : 0);
+      document.getElementById('tools-count').textContent =
+        visible + ' tools · ' + nFilters + (nFilters === 1 ? ' filtro ativo' : ' filtros ativos');
     }
 
-    function clearFilters() {
-      document.getElementById('filter-price').value    = 'all';
-      document.getElementById('filter-location').value = 'all';
-      document.getElementById('filter-type').value     = 'all';
-      document.getElementById('clear-filters').style.display = 'none';
-      document.querySelectorAll('.tool-card').forEach(c => c.style.display = 'flex');
-      document.getElementById('tools-count').textContent =
-        document.querySelectorAll('.tool-card').length + ' ferramentas encontradas';
+    function setSort(btn) {
+      document.querySelectorAll('.sort button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const mode = btn.dataset.sort;
+      const list = document.getElementById('tools-list');
+      if (!list) return;
+      const cards = [...list.querySelectorAll('.tool-card')];
+      cards.sort((a, b) => {
+        if (mode === 'price') return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+        if (mode === 'name') return a.dataset.name.localeCompare(b.dataset.name);
+        return parseInt(a.dataset.idx) - parseInt(b.dataset.idx);
+      });
+      cards.forEach(c => list.appendChild(c));
     }
   </script>
 </Base>

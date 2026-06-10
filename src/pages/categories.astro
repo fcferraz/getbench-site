@@ -6,46 +6,58 @@ const categories = await getCategories();
 ---
 
 <style>
-  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+  .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin: 24px 0 10px; display: block;
   }
-  @media (max-width: 640px) {
-    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  h1 { font-size: clamp(32px, 4.5vw, 48px); font-weight: 700; letter-spacing: -.03em; margin: 0 0 8px; }
+  .lead { font-size: 15px; color: var(--text-dim); margin-bottom: 40px; max-width: 60ch; line-height: 1.6; }
+  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cat-card {
+    padding: 24px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg-2); display: block;
+    transition: border-color .15s ease, transform .15s ease;
   }
-  @media (max-width: 400px) {
-    .cat-grid { grid-template-columns: 1fr; }
+  .cat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .cat-card h2 { font-size: 15px; font-weight: 600; margin: 0 0 6px; color: var(--text); letter-spacing: -.01em; }
+  .cat-card p { font-size: 13px; color: var(--text-dim); margin: 0 0 12px; line-height: 1.5; }
+  .cat-card .go { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+  .cat-card:hover .go { color: var(--accent); }
+  .popular {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--text-dim); line-height: 1.9;
   }
+  .popular b { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); font-weight: 500; }
+  .popular a { color: var(--accent); }
+  .popular a:hover { color: var(--accent-2); }
+  @media (max-width: 800px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .cat-grid { grid-template-columns: 1fr; } }
 </style>
 
 <Base title="Todas as Categorias de AI Tools — Buskai.net">
-  <div class="breadcrumb">
-    <a href="/">Início</a><span>›</span>Categorias
+  <div class="crumb">
+    <a href="/">home</a><span class="sep">/</span><span class="cur">categorias</span>
   </div>
 
-  <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">Explorar por categoria</h1>
-  <p style="font-size:15px;color:#555;margin-bottom:40px;">Encontre a AI tool certa para o seu caso de uso, curadas para empresas de LATAM.</p>
+  <span class="kicker">▲ DIRETÓRIO · {categories.length} CATEGORIAS</span>
+  <h1>Explorar por categoria</h1>
+  <p class="lead">Encontre a AI tool certa para o seu caso de uso, curadas para empresas de LATAM.</p>
 
   <div class="cat-grid">
     {categories.map(cat => (
-      <a href={`/category/${cat.Slug}`} style="padding:24px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
-        <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:#1a1a1a;">{cat.Name}</div>
-        <div style="font-size:13px;color:#888;margin-bottom:12px;line-height:1.5;">{cat.title_pt}</div>
-        <div style="font-size:12px;color:#1D9E75;font-weight:500;">Ver tools →</div>
+      <a href={`/category/${cat.Slug}`} class="cat-card">
+        <h2>{cat.Name}</h2>
+        <p>{cat.title_pt}</p>
+        <span class="go">ver tools →</span>
       </a>
     ))}
   </div>
 
-  <div style="margin-top:48px;padding-top:24px;border-top:1px solid #eee;font-size:13px;color:#888;line-height:1.9;">
-    <span style="font-weight:600;color:#555;">Buscas populares:</span>
-    <a href="/ferramentas-ia-gratuitas" style="color:#1D9E75;text-decoration:none;">Ferramentas gratuitas</a> ·
-    <a href="/ferramentas-ia-brasil" style="color:#1D9E75;text-decoration:none;">Funciona no Brasil</a> ·
-    <a href="/ferramentas-ia-em-portugues" style="color:#1D9E75;text-decoration:none;">Suporte em PT</a> ·
-    <a href="/ferramentas-ia-aceita-reais" style="color:#1D9E75;text-decoration:none;">Aceita BRL</a>
+  <div class="popular">
+    <b>Buscas populares:</b>
+    <a href="/ferramentas-ia-gratuitas">Ferramentas gratuitas</a> ·
+    <a href="/ferramentas-ia-brasil">Funciona no Brasil</a> ·
+    <a href="/ferramentas-ia-em-portugues">Suporte em PT</a> ·
+    <a href="/ferramentas-ia-aceita-reais">Aceita BRL</a>
   </div>
 </Base>

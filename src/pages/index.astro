@@ -1,127 +1,348 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCategories } from '../lib/airtable.js';
+import { getCategories, getTools } from '../lib/airtable.js';
 
-const categories = await getCategories();
+const [categories, tools] = await Promise.all([getCategories(), getTools()]);
+
+const ptTools = tools.filter(t => t.has_pt_support).length;
+const freeTools = tools.filter(t => t.has_free_plan).length;
+const lastUpdate = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short' }).format(new Date());
+
+// Tools per category — tool.categories can hold record IDs, names, or objects.
+const countByCat = (cat) => tools.filter(t =>
+  (t.categories || []).some(c =>
+    c === cat.id || c === cat.Name || c?.name === cat.Name || c?.slug === cat.Slug
+  )
+).length;
 ---
 
 <style>
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 48px;
+  .hero { margin-top: 56px; text-align: center; padding: 0 8px; }
+  .hero h1 {
+    font-size: clamp(44px, 6.5vw, 78px);
+    line-height: 1.02; letter-spacing: -.035em; font-weight: 700;
+    margin: 18px 0 14px;
   }
-  @media (max-width: 640px) {
+  .hero h1 .grad {
+    background: linear-gradient(180deg, var(--text) 0%, var(--text-dim) 120%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead {
+    color: var(--text-dim); font-size: 17px; max-width: 560px;
+    margin: 0 auto 28px; line-height: 1.5;
+  }
+  .search {
+    max-width: 720px; margin: 0 auto;
+    border: 1px solid var(--line-2); border-radius: 16px;
+    background: color-mix(in oklab, var(--bg-2) 90%, transparent);
+    box-shadow:
+      0 0 0 6px var(--accent-glow),
+      0 30px 60px -28px rgba(40,30,90,.28),
+      0 0 0 1px var(--line-2);
+    overflow: hidden; backdrop-filter: blur(10px);
+    transition: box-shadow .2s ease;
+  }
+  .search:focus-within {
+    box-shadow:
+      0 0 0 6px var(--accent-glow),
+      0 0 0 1px var(--accent),
+      0 30px 60px -28px rgba(40,30,90,.28);
+  }
+  .search-row { display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 18px; }
+  .search .icon { width: 20px; height: 20px; color: var(--text-dim); flex: none; }
+  .search input {
+    flex: 1; background: transparent; border: 0; outline: 0;
+    color: var(--text); font-size: 17px; font-family: var(--sans); min-width: 0;
+  }
+  .search input::placeholder { color: var(--text-dimmer); }
+  .search .kbd { display: inline-flex; gap: 4px; margin-right: 4px; }
+  .search .kbd span {
+    font-family: var(--mono); font-size: 11px; padding: 3px 6px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    color: var(--text-dim); background: var(--bg);
+  }
+  .search .go {
+    background: var(--accent); color: var(--on-accent); border: 0;
+    padding: 9px 16px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .search .go:hover { background: var(--accent-2); }
+  .chips {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    margin: 18px auto 0; max-width: 720px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--text-dim);
+    padding: 6px 12px; border: 1px solid var(--line);
+    border-radius: 999px; background: var(--bg-2);
+    cursor: pointer; transition: all .15s ease;
+  }
+  .chip:hover { color: var(--text); border-color: var(--line-2); }
+  .chip .hot { color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .06em; }
+  .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px; align-items: center; }
+  .tour-link {
+    background: none; border: none; cursor: pointer; font-size: 13px;
+    color: var(--accent); padding: 9px 4px; font-family: var(--mono);
+  }
+  .tour-link:hover { color: var(--accent-2); }
+
+  /* Stats strip */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    margin: 64px 0 0;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stats .stat { padding: 22px 18px; border-right: 1px solid var(--line); }
+  .stats .stat:last-child { border-right: 0; }
+  .stats .stat .k {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .stats .stat .v {
+    font-size: 28px; font-weight: 700; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats .stat .v.accent { color: var(--accent); }
+  .stats .stat .v.mono { font-family: var(--mono); font-size: 20px; padding-top: 6px; }
+  .stats .stat small { color: var(--text-dim); font-size: 12px; }
+
+  /* Category grid */
+  .section-hd { display: flex; align-items: baseline; justify-content: space-between; margin: 72px 0 22px; }
+  .section-hd h2 { font-size: 32px; font-weight: 700; letter-spacing: -.025em; margin: 0; }
+  .section-hd .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; display: block;
+  }
+  .section-hd .see {
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .section-hd .see:hover { color: var(--accent); }
+  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cat-card {
+    padding: 20px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg-2); display: block;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .cat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .cat-card h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  .cat-card p { margin: 0; font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .cat-card .count {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    margin-top: 10px; display: block;
+  }
+  .cat-card:hover .count { color: var(--accent); }
+
+  /* Onboarding modal */
+  .ob-modal {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(10,10,18,.5); backdrop-filter: blur(6px);
+  }
+  .ob-modal .box {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 100%; max-width: 480px; padding: 0 20px;
+  }
+  .ob-modal .panel {
+    background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 20px;
+    overflow: hidden; position: relative;
+    box-shadow: 0 30px 80px -20px rgba(20,15,60,.45);
+  }
+  .ob-modal .close {
+    position: absolute; top: 12px; right: 16px; background: none; border: none;
+    font-size: 20px; color: var(--text-dimmer); cursor: pointer; line-height: 1; z-index: 10;
+  }
+  .ob-modal .step-n { font-size: 11px; color: var(--text-dim); font-family: var(--mono); margin-bottom: 16px; }
+  .ob-modal .emoji { font-size: 40px; margin-bottom: 16px; }
+  .ob-modal h2 { font-size: 22px; font-weight: 700; margin: 0 0 12px; color: var(--text); }
+  .ob-modal p { font-size: 15px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+  .ob-modal .hint {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 16px; margin-top: 16px; font-size: 13px; color: var(--text-dim);
+  }
+  .ob-modal .body { padding: 32px 32px 24px; }
+  .ob-modal .acts { padding: 0 32px 32px; display: flex; gap: 8px; }
+  .ob-modal .acts.between { justify-content: space-between; }
+  .ob-modal .acts.end { justify-content: flex-end; }
+  .ob-modal .dots { display: flex; justify-content: center; gap: 6px; padding-bottom: 24px; }
+  .ob-modal .dots div { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+
+  @media (max-width: 960px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stats .stat:nth-child(2) { border-right: 0; }
+    .stats .stat:nth-child(1), .stats .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 400px) {
+  @media (max-width: 620px) {
+    .hero h1 { font-size: 40px; }
     .cat-grid { grid-template-columns: 1fr; }
+    .search .kbd { display: none; }
   }
 </style>
 
 <Base>
-  <div style="text-align:center;padding:60px 0 40px;">
-    <div style="display:inline-block;font-size:12px;padding:4px 12px;background:#E1F5EE;color:#0F6E56;border-radius:20px;margin-bottom:20px;">
-      Ferramentas de IA curadas para o mercado LATAM
-    </div>
-    <h1 style="font-size:40px;font-weight:600;line-height:1.15;margin-bottom:20px;">
-      As melhores ferramentas de IA para empresas
-    </h1>
-    <p style="font-size:16px;color:#555;max-width:520px;margin:0 auto 32px;line-height:1.6;">
-      Milhares de AI tools existem. Poucas funcionam de verdade.<br/>
-      Separamos as que funcionam.
-    </p>
-    <div style="max-width:560px;margin:0 auto 28px;position:relative;">
-      <input
-        id="home-search"
-        type="text"
-        placeholder="Busque por ferramenta ou objetivo (ex: automação de CRM, criar vídeos...)"
-        style="width:100%;padding:14px 56px 14px 20px;border:2px solid #e0e0e0;border-radius:12px;font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s;"
-        onfocus="this.style.borderColor='#1D9E75'"
-        onblur="this.style.borderColor='#e0e0e0'"
-        onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
-        oninput="debounceHomeSearch(this.value)"
-      />
-      <button
-        onclick="handleHomeSearch(document.getElementById('home-search').value)"
-        style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#1D9E75;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;color:#fff;display:flex;align-items:center;">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </button>
-    </div>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;">
-      <a href="/categories" style="padding:10px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Explorar categorias</a>
-      <a href="/compare" style="padding:10px 20px;border:1px solid #ddd;border-radius:8px;text-decoration:none;font-size:14px;color:#333;">Comparar ferramentas</a>
-      <button onclick="startTour()" style="background:none;border:none;cursor:pointer;font-size:14px;color:#1D9E75;text-decoration:underline;padding:10px 4px;">Como funciona →</button>
+  <section class="hero">
+    <div class="status">
+      <span class="dot"></span>
+      <span>{tools.length} AI tools indexadas para LATAM · curadoria ativa</span>
     </div>
 
+    <h1>
+      <span class="grad">Ache a AI tool certa</span><br/>
+      <span class="accent">em 10 segundos.</span>
+    </h1>
+    <p class="lead">
+      Descreva o que você precisa — a gente devolve um shortlist curado,
+      com preço em R$, suporte em português e disponibilidade no Brasil.
+    </p>
+
+    <div class="search">
+      <div class="search-row">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input
+          id="home-search"
+          type="text"
+          placeholder="bot de WhatsApp para clínica odontológica em São Paulo…"
+          onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
+          oninput="debounceHomeSearch(this.value)"
+        />
+        <span class="kbd"><span>⌘</span><span>K</span></span>
+        <button class="go" onclick="handleHomeSearch(document.getElementById('home-search').value)">Buscar →</button>
+      </div>
+    </div>
+
+    <div class="chips" id="chips">
+      <button class="chip" data-q="SDR em PT-BR"><span class="hot">🔥 HOT</span> SDR em PT-BR</button>
+      <button class="chip" data-q="Copiloto de CRM">Copiloto de CRM</button>
+      <button class="chip" data-q="Automação de marketing">Automação de marketing</button>
+      <button class="chip" data-q="Voz em PT-BR">Voz em PT-BR</button>
+      <button class="chip" data-q="Ferramentas grátis">Ferramentas grátis</button>
+    </div>
+
+    <div class="actions">
+      <a href="/categories" class="btn primary">Explorar categorias</a>
+      <a href="/compare" class="btn">Comparar ferramentas</a>
+      <button onclick="startTour()" class="tour-link">Como funciona →</button>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="k">Tools indexadas</div>
+      <div class="v accent">{tools.length}</div>
+      <small>testadas e curadas</small>
+    </div>
+    <div class="stat">
+      <div class="k">Categorias</div>
+      <div class="v">{categories.length}</div>
+      <small>de Marketing a RevOps</small>
+    </div>
+    <div class="stat">
+      <div class="k">Com suporte PT</div>
+      <div class="v">{ptTools}</div>
+      <small>{freeTools} com plano grátis</small>
+    </div>
+    <div class="stat">
+      <div class="k">Última revisão</div>
+      <div class="v mono">{lastUpdate}</div>
+      <small>preços + features</small>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-hd">
+      <div>
+        <span class="kicker">▲ DIRETÓRIO · {categories.length} CATEGORIAS</span>
+        <h2>Explorar por categoria</h2>
+      </div>
+      <a class="see" href="/categories">ver todas →</a>
+    </div>
+    <div class="cat-grid">
+      {categories.map(cat => {
+        const n = countByCat(cat);
+        return (
+          <a href={'/category/' + cat.Slug} class="cat-card">
+            <h3>{cat.Name}</h3>
+            {cat.title_pt && <p>{cat.title_pt}</p>}
+            <span class="count">{n > 0 ? `${n} tools →` : 'ver tools →'}</span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
   <!-- Onboarding Modal -->
-  <div id="onboarding-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);" onclick="closeOnboarding(event)">
-    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;max-width:480px;padding:0 20px;">
-      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.2);position:relative;"><button onclick="closeOnboardingDirect()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:20px;color:#aaa;cursor:pointer;line-height:1;z-index:10;">✕</button>
+  <div id="onboarding-modal" class="ob-modal" onclick="closeOnboarding(event)">
+    <div class="box">
+      <div class="panel">
+        <button onclick="closeOnboardingDirect()" class="close">✕</button>
 
         <!-- Step 1 -->
         <div class="step" id="step-1">
-          <div style="padding:32px 32px 24px;">
-            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">1 de 4</div>
-            <div style="font-size:40px;margin-bottom:16px;">🔍</div>
-            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">O que é o Buskai?</h2>
-            <p style="font-size:15px;color:#555;line-height:1.6;">O Buskai é um diretório curado de AI tools verificadas. Checamos se cada ferramenta funciona de verdade — preço em R$, suporte em português, conformidade com a LGPD.</p>
+          <div class="body">
+            <div class="step-n">1 de 4</div>
+            <div class="emoji">🔍</div>
+            <h2>O que é o Buskai?</h2>
+            <p>O Buskai é um diretório curado de AI tools verificadas. Checamos se cada ferramenta funciona de verdade — preço em R$, suporte em português, conformidade com a LGPD.</p>
           </div>
-          <div style="padding:0 32px 32px;display:flex;justify-content:flex-end;">
-            <button onclick="goStep(2)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          <div class="acts end">
+            <button onclick="goStep(2)" class="btn primary">Próximo →</button>
           </div>
         </div>
 
         <!-- Step 2 -->
         <div class="step" id="step-2" style="display:none;">
-          <div style="padding:32px 32px 24px;">
-            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">2 de 4</div>
-            <div style="font-size:40px;margin-bottom:16px;">🤖</div>
-            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Busca com IA</h2>
-            <p style="font-size:15px;color:#555;line-height:1.6;">Descreva o que você precisa — "bot de WhatsApp para clínica" ou "CRM gratuito com suporte em português" — e a IA devolve as melhores opções em segundos.</p>
-            <div style="background:#f5f5f5;border-radius:10px;padding:12px 16px;margin-top:16px;font-size:13px;color:#555;">🔍 Use o ícone de busca no menu para acessar de qualquer página</div>
+          <div class="body">
+            <div class="step-n">2 de 4</div>
+            <div class="emoji">🤖</div>
+            <h2>Busca com IA</h2>
+            <p>Descreva o que você precisa — "bot de WhatsApp para clínica" ou "CRM gratuito com suporte em português" — e a IA devolve as melhores opções em segundos.</p>
+            <div class="hint">🔍 Use o ícone de busca no menu (⌘K) para acessar de qualquer página</div>
           </div>
-          <div style="padding:0 32px 32px;display:flex;justify-content:space-between;">
-            <button onclick="goStep(1)" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">← Voltar</button>
-            <button onclick="goStep(3)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          <div class="acts between">
+            <button onclick="goStep(1)" class="btn">← Voltar</button>
+            <button onclick="goStep(3)" class="btn primary">Próximo →</button>
           </div>
         </div>
 
         <!-- Step 3 -->
         <div class="step" id="step-3" style="display:none;">
-          <div style="padding:32px 32px 24px;">
-            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">3 de 4</div>
-            <div style="font-size:40px;margin-bottom:16px;">⚖️</div>
-            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Compare ferramentas</h2>
-            <p style="font-size:15px;color:#555;line-height:1.6;">Não sabe escolher entre Clay e Apollo? HubSpot e Pipedrive? Compare lado a lado com critérios relevantes para o seu contexto — preço, free plan, suporte PT e disponibilidade no Brasil.</p>
+          <div class="body">
+            <div class="step-n">3 de 4</div>
+            <div class="emoji">⚖️</div>
+            <h2>Compare ferramentas</h2>
+            <p>Não sabe escolher entre Clay e Apollo? HubSpot e Pipedrive? Compare lado a lado com critérios relevantes para o seu contexto — preço, free plan, suporte PT e disponibilidade no Brasil.</p>
           </div>
-          <div style="padding:0 32px 32px;display:flex;justify-content:space-between;">
-            <button onclick="goStep(2)" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">← Voltar</button>
-            <button onclick="goStep(4)" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Próximo →</button>
+          <div class="acts between">
+            <button onclick="goStep(2)" class="btn">← Voltar</button>
+            <button onclick="goStep(4)" class="btn primary">Próximo →</button>
           </div>
         </div>
 
         <!-- Step 4 -->
         <div class="step" id="step-4" style="display:none;">
-          <div style="padding:32px 32px 24px;">
-            <div style="font-size:11px;color:#888;font-family:monospace;margin-bottom:16px;">4 de 4</div>
-            <div style="font-size:40px;margin-bottom:16px;">🚀</div>
-            <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;color:#1a1a1a;">Pronto para explorar!</h2>
-            <p style="font-size:15px;color:#555;line-height:1.6;">Comece pela busca com IA ou explore as categorias. Se tiver uma AI tool que merece estar aqui, submete para a gente.</p>
+          <div class="body">
+            <div class="step-n">4 de 4</div>
+            <div class="emoji">🚀</div>
+            <h2>Pronto para explorar!</h2>
+            <p>Comece pela busca com IA ou explore as categorias. Se tiver uma AI tool que merece estar aqui, submete para a gente.</p>
           </div>
-          <div style="padding:0 32px 32px;display:flex;gap:8px;justify-content:flex-end;">
-            <button onclick="closeOnboardingDirect()" style="background:none;border:1px solid #ddd;color:#555;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;">Fechar</button>
-            <button onclick="closeOnboardingDirect();openSearch();" style="background:#1D9E75;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Buscar agora →</button>
+          <div class="acts end">
+            <button onclick="closeOnboardingDirect()" class="btn">Fechar</button>
+            <button onclick="closeOnboardingDirect();openSearch();" class="btn primary">Buscar agora →</button>
           </div>
         </div>
 
         <!-- Progress dots -->
-        <div style="display:flex;justify-content:center;gap:6px;padding-bottom:24px;">
-          <div id="dot-1" style="width:6px;height:6px;border-radius:50%;background:#1D9E75;"></div>
-          <div id="dot-2" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
-          <div id="dot-3" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
-          <div id="dot-4" style="width:6px;height:6px;border-radius:50%;background:#ddd;"></div>
+        <div class="dots">
+          <div id="dot-1" style="background:var(--accent);"></div>
+          <div id="dot-2"></div>
+          <div id="dot-3"></div>
+          <div id="dot-4"></div>
         </div>
       </div>
     </div>
@@ -141,12 +362,13 @@ const categories = await getCategories();
     function goStep(n) {
       for (let i = 1; i <= 4; i++) {
         document.getElementById('step-' + i).style.display = i === n ? 'block' : 'none';
-        document.getElementById('dot-' + i).style.background = i === n ? '#1D9E75' : '#ddd';
+        document.getElementById('dot-' + i).style.background = i === n ? 'var(--accent)' : 'var(--line-2)';
       }
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeOnboardingDirect();
     });
+
     let homeSearchTimer;
 
     function debounceHomeSearch(query) {
@@ -168,14 +390,13 @@ const categories = await getCategories();
         }
       }, 50);
     }
-  </script>
-  </div>
 
-  <div class="cat-grid">
-    {categories.map(cat => (
-      <a href={'/category/' + cat.Slug} style="padding:20px;border:1px solid #eee;border-radius:12px;text-decoration:none;color:inherit;display:block;">
-        <div style="font-size:13px;font-weight:500;">{cat.Name}</div>
-      </a>
-    ))}
-  </div>
+    document.getElementById('chips').addEventListener('click', function(e) {
+      const b = e.target.closest('.chip');
+      if (!b) return;
+      const q = document.getElementById('home-search');
+      q.value = b.dataset.q;
+      handleHomeSearch(b.dataset.q);
+    });
+  </script>
 </Base>

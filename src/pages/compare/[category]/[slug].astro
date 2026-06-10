@@ -29,8 +29,8 @@ function formatValue(tool, criterion) {
 }
 
 function getColor(tool, criterion) {
-  if (!tool || criterion.type !== 'boolean') return '#555';
-  return tool[criterion.key] ? '#0F6E56' : '#888';
+  if (!tool || criterion.type !== 'boolean') return 'var(--text-dim)';
+  return tool[criterion.key] ? 'var(--accent)' : 'var(--text-dimmer)';
 }
 
 const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -129,106 +129,237 @@ Regras:
 
 if (bulletsA.length === 0) bulletsA = getVerdictBulletsFallback(toolA);
 if (bulletsB.length === 0) bulletsB = getVerdictBulletsFallback(toolB);
+
+const hostOf = (url) => { try { return new URL(url).hostname; } catch { return null; } };
+const hostA = hostOf(toolA?.website);
+const hostB = hostOf(toolB?.website);
+
+const priceLabel = (tool) =>
+  tool?.starting_price_usd === 0 ? 'Gratuito'
+  : tool?.starting_price_usd ? 'A partir de $' + tool.starting_price_usd + '/mês'
+  : tool?.pricing_model === 'free' ? 'Gratuito' : 'Ver site';
 ---
 
 <style>
-  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+  .hero-cmp { margin-top: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .hero-cmp .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .hero-cmp h1 {
+    font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -.035em;
+    font-weight: 700; margin: 0 0 10px;
+  }
+  .hero-cmp h1 .accent { color: var(--accent); }
+  .hero-cmp p { color: var(--text-dim); font-size: 16px; line-height: 1.5; max-width: 62ch; margin: 0; }
+
+  /* Tool slots */
+  .picker {
+    margin: 24px 0 20px;
+    display: grid; grid-template-columns: 1fr 44px 1fr; gap: 10px; align-items: stretch;
+  }
+  .slot {
+    border: 1px solid var(--line-2); background: var(--bg-2);
+    border-radius: 12px; padding: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .slot .logo {
+    width: 40px; height: 40px; border-radius: 10px; flex: none;
+    display: grid; place-items: center; overflow: hidden;
+    font-weight: 800; font-size: 16px; color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .slot .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .slot .logo .fb { display: grid; place-items: center; width: 100%; height: 100%; }
+  .slot.sa .logo .fb { background: linear-gradient(135deg, #8a7dff, #2f3bff); }
+  .slot.sb .logo .fb { background: linear-gradient(135deg, #ffb74a, #ff6a5b); }
+  .slot .name { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+  .slot .cat { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .slot .price-tag { margin-left: auto; text-align: right; flex: none; }
+  .slot .price-tag b { font-family: var(--mono); font-size: 13px; color: var(--text); display: block; }
+  .slot .price-tag .btn { margin-top: 8px; font-size: 12px; padding: 6px 12px; }
+  .vs {
+    display: grid; place-items: center;
+    font-family: var(--mono); font-size: 14px; color: var(--text-dim);
+    border: 1px dashed var(--line); border-radius: 12px;
+  }
+
+  /* Matrix */
+  .matrix {
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: var(--bg-2); margin-bottom: 32px;
+  }
+  .mx-head, .mx-row { display: grid; grid-template-columns: 200px repeat(2, 1fr); align-items: stretch; }
+  .mx-head { border-bottom: 1px solid var(--line); background: color-mix(in oklab, var(--bg) 50%, var(--bg-2)); }
+  .mx-head > div { padding: 16px 18px; border-right: 1px solid var(--line); }
+  .mx-head > div:last-child { border-right: 0; }
+  .mx-head .label {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    letter-spacing: .1em; text-transform: uppercase; display: flex; align-items: center;
+  }
+  .mx-head h4 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: -.01em; text-align: center; }
+  .mx-row { border-bottom: 1px solid var(--line); }
+  .mx-row:last-child { border-bottom: 0; }
+  .mx-row > div {
+    padding: 14px 18px; border-right: 1px solid var(--line);
+    font-size: 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .mx-row > div:last-child { border-right: 0; }
+  .mx-row .criterion {
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim); letter-spacing: .04em;
+  }
+  .mx-row .cell { justify-content: center; text-align: center; font-weight: 500; }
+
+  /* Verdict */
+  .verdict {
+    margin: 10px 0 32px; padding: 24px 28px;
+    border: 1px solid var(--accent); border-radius: 14px;
+    background:
+      radial-gradient(400px 200px at 0% 0%, var(--accent-glow), transparent 70%),
+      var(--bg-2);
+  }
+  .verdict .badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .verdict h2 { margin: 0 0 18px; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .verdict-grid .pc {
+    background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 18px;
+  }
+  .verdict-grid h3 {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .1em; text-transform: uppercase; margin: 0 0 14px;
+  }
+  .verdict-grid ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .verdict-grid li { font-size: 13px; color: var(--text-dim); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .verdict-grid li .arr { color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* Notes + about */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
-  .verdict-box { border: 1px solid #1D9E75; border-radius: 12px; background: #f0faf6; padding: 28px; margin-bottom: 32px; }
-  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 640px) {
-    .two-col { grid-template-columns: 1fr; }
-    .verdict-grid { grid-template-columns: 1fr; }
+  .note-card {
+    padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px;
+    background: color-mix(in oklab, var(--accent-glow) 35%, transparent);
+  }
+  .note-card h3 { font-size: 13px; font-weight: 600; color: var(--accent); margin: 0 0 6px; font-family: var(--mono); }
+  .note-card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+  .about-card { padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); }
+  .about-card h3 { font-size: 15px; font-weight: 600; margin: 0 0 12px; }
+  .about-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin: 0 0 8px; }
+  .about-card a { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+  .cta-card {
+    padding: 24px; border: 1px solid var(--line); border-radius: 12px;
+    text-align: center; background: var(--bg-2);
+  }
+  .cta-card p { font-size: 14px; color: var(--text-dim); margin: 0 0 12px; }
+
+  @media (max-width: 800px) {
+    .picker { grid-template-columns: 1fr; }
+    .vs { display: none; }
+    .matrix { overflow-x: auto; }
+    .mx-head, .mx-row { min-width: 560px; }
+    .two-col, .verdict-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 <Base title={toolA?.Name + ' vs ' + toolB?.Name + ' — Buskai.net'}>
-  <div class="breadcrumb">
-    <a href="/">Início</a><span>›</span>
-    <a href="/categories">Categorias</a><span>›</span>
-    <a href={'/category/' + category}>{categoryName}</a><span>›</span>
-    {toolA?.Name} vs {toolB?.Name}
+  <div class="crumb">
+    <a href="/">home</a>
+    <span class="sep">/</span>
+    <a href="/categories">categorias</a>
+    <span class="sep">/</span>
+    <a href={'/category/' + category}>{category}</a>
+    <span class="sep">/</span>
+    <span class="cur">{slugA} · {slugB}</span>
   </div>
 
-  <h1 style="font-size:28px;font-weight:600;margin-bottom:8px;">{toolA?.Name} vs {toolB?.Name}</h1>
-  <p style="font-size:15px;color:#555;margin-bottom:40px;">Comparação lado a lado para <strong>{categoryName}</strong> — curada para empresas de LATAM.</p>
+  <section class="hero-cmp">
+    <span class="kicker">▲ COMPARAÇÃO · {categoryName}</span>
+    <h1>{toolA?.Name} vs <span class="accent">{toolB?.Name}</span></h1>
+    <p>Comparação lado a lado para <strong>{categoryName}</strong> — preço, plano grátis, suporte em português e disponibilidade no Brasil, curada para empresas de LATAM.</p>
+  </section>
 
-  <div class="two-col">
-    {[toolA, toolB].map(tool => (
-      <div style="padding:24px;border:1px solid #eee;border-radius:12px;text-align:center;">
-        <h2 style="font-size:20px;font-weight:600;margin-bottom:8px;">{tool?.Name}</h2>
-        <p style="font-size:13px;color:#555;margin-bottom:16px;">{tool?.tagline_pt || tool?.tagline_en || ''}</p>
-        <div style="font-size:18px;font-weight:600;margin-bottom:12px;">
-          {tool?.starting_price_usd === 0 ? 'Gratuito' : tool?.starting_price_usd ? 'A partir de $' + tool.starting_price_usd + '/mês' : tool?.pricing_model === 'free' ? 'Gratuito' : 'Ver site'}
+  <div class="picker">
+    {[{ tool: toolA, host: hostA, cls: 'sa' }, { tool: toolB, host: hostB, cls: 'sb' }].map(({ tool, host, cls }, i) => (
+      <>
+        {i === 1 && <div class="vs">vs</div>}
+        <div class={`slot ${cls}`}>
+          <div class="logo">
+            {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+            <span class="fb" style={host ? 'display:none;' : ''}>{(tool?.Name || '?').charAt(0).toUpperCase()}</span>
+          </div>
+          <div>
+            <div class="name">{tool?.Name}</div>
+            <div class="cat">{tool?.tagline_pt || tool?.tagline_en || categoryName}</div>
+          </div>
+          <div class="price-tag">
+            <b>{priceLabel(tool)}</b>
+            <a href={tool?.affiliate_url || tool?.website} target="_blank" rel="noopener noreferrer" class="btn primary">Visitar →</a>
+          </div>
         </div>
-        <a href={tool?.affiliate_url || tool?.website} target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 20px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;">Visitar {tool?.Name} →</a>
-      </div>
+      </>
     ))}
   </div>
 
-  <div style="border:1px solid #eee;border-radius:12px;overflow:hidden;margin-bottom:32px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:#f9f9f9;padding:12px 20px;border-bottom:1px solid #eee;">
-      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;">Critério</div>
-      <div style="font-size:13px;font-weight:600;text-align:center;">{toolA?.Name}</div>
-      <div style="font-size:13px;font-weight:600;text-align:center;">{toolB?.Name}</div>
-    </div>
-    {criteria.map((c, i) => (
-      <div style={'display:grid;grid-template-columns:1fr 1fr 1fr;padding:14px 20px;align-items:center;' + (i < criteria.length - 1 ? 'border-bottom:1px solid #f0f0f0;' : '')}>
-        <div style="font-size:13px;color:#555;">{c.label}</div>
-        <div style={'font-size:13px;font-weight:500;text-align:center;color:' + getColor(toolA, c)}>{formatValue(toolA, c)}</div>
-        <div style={'font-size:13px;font-weight:500;text-align:center;color:' + getColor(toolB, c)}>{formatValue(toolB, c)}</div>
-      </div>
-    ))}
-  </div>
-
-  <div class="two-col">
-    {[toolA, toolB].filter(t => t?.latam_note_pt).map(tool => (
-      <div style="padding:16px 20px;background:#E1F5EE;border-radius:12px;">
-        <h3 style="font-size:13px;font-weight:600;color:#0F6E56;margin-bottom:6px;">{tool?.Name} no Brasil</h3>
-        <p style="font-size:13px;color:#085041;line-height:1.6;">{tool?.latam_note_pt}</p>
-      </div>
-    ))}
-  </div>
-
-  <div class="two-col">
-    {[toolA, toolB].map(tool => (
-      <div style="padding:24px;border:1px solid #eee;border-radius:12px;">
-        <h3 style="font-size:15px;font-weight:600;margin-bottom:12px;">Sobre {tool?.Name}</h3>
-        <p style="font-size:13px;color:#444;line-height:1.7;">{tool?.description_pt?.substring(0, 300)}...</p>
-        <a href={'/tools/' + tool?.slug} style="font-size:12px;color:#1D9E75;text-decoration:none;margin-top:8px;display:inline-block;">Ver ficha completa de {tool?.Name} →</a>
-      </div>
-    ))}
-  </div>
-
-  <div class="verdict-box">
-    <h2 style="font-size:18px;font-weight:600;margin-bottom:20px;color:#0F6E56;">Qual escolher?</h2>
+  <section class="verdict">
+    <span class="badge">veredicto · qual escolher</span>
+    <h2>Depende do seu contexto — aqui está o atalho.</h2>
     <div class="verdict-grid">
       {([toolA, toolB] as const).map((tool, i) => {
         const bullets = i === 0 ? bulletsA : bulletsB;
         return (
-          <div style="background:#fff;border:1px solid #c8ead9;border-radius:10px;padding:20px;">
-            <h3 style="font-size:14px;font-weight:600;color:#0F6E56;margin-bottom:14px;">Escolha {tool?.Name} se...</h3>
-            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <div class="pc">
+            <h3>Escolha {tool?.Name} se…</h3>
+            <ul>
               {bullets.map(b => (
-                <li style="font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;line-height:1.5;">
-                  <span style="color:#1D9E75;font-weight:700;flex-shrink:0;margin-top:1px;">→</span>{b}
-                </li>
+                <li><span class="arr">→</span>{b}</li>
               ))}
             </ul>
           </div>
         );
       })}
     </div>
+  </section>
+
+  <section class="matrix">
+    <div class="mx-head">
+      <div class="label">Critério</div>
+      <div><h4>{toolA?.Name}</h4></div>
+      <div><h4>{toolB?.Name}</h4></div>
+    </div>
+    {criteria.map((c) => (
+      <div class="mx-row">
+        <div class="criterion">{c.label}</div>
+        <div class="cell" style={'color:' + getColor(toolA, c)}>{formatValue(toolA, c)}</div>
+        <div class="cell" style={'color:' + getColor(toolB, c)}>{formatValue(toolB, c)}</div>
+      </div>
+    ))}
+  </section>
+
+  <div class="two-col">
+    {[toolA, toolB].filter(t => t?.latam_note_pt).map(tool => (
+      <div class="note-card">
+        <h3>{tool?.Name} no Brasil</h3>
+        <p>{tool?.latam_note_pt}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="two-col">
+    {[toolA, toolB].map(tool => (
+      <div class="about-card">
+        <h3>Sobre {tool?.Name}</h3>
+        <p>{tool?.description_pt?.substring(0, 300)}...</p>
+        <a href={'/tools/' + tool?.slug}>Ver ficha completa de {tool?.Name} →</a>
+      </div>
+    ))}
   </div>
 
   <div class="two-col" style="margin-bottom:0;">
     {[toolA, toolB].map(tool => (
-      <div style="padding:24px;border:1px solid #eee;border-radius:12px;text-align:center;background:#f9f9f9;">
-        <p style="font-size:14px;color:#555;margin-bottom:12px;">Pronto para experimentar {tool?.Name}?</p>
-        <a href={tool?.affiliate_url || tool?.website} target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:10px 24px;background:#1D9E75;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;">Começar →</a>
+      <div class="cta-card">
+        <p>Pronto para experimentar {tool?.Name}?</p>
+        <a href={tool?.affiliate_url || tool?.website} target="_blank" rel="noopener noreferrer" class="btn primary">Começar →</a>
       </div>
     ))}
   </div>

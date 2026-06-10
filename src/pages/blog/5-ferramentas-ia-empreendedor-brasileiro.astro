@@ -35,10 +35,10 @@ export const frontmatter = {
   })} />
 
   <style>
-    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+    .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
     /* ── Page layout ── */
     .page-layout {
@@ -56,7 +56,7 @@ export const frontmatter = {
     .sidebar-title {
       font-size: 11px;
       font-weight: 700;
-      color: #aaa;
+      color: var(--text-dimmer);
       text-transform: uppercase;
       letter-spacing: .08em;
       margin-bottom: 12px;
@@ -72,43 +72,43 @@ export const frontmatter = {
     .sidebar-nav a {
       display: block;
       font-size: 13px;
-      color: #999;
+      color: var(--text-dim);
       text-decoration: none;
       padding: 5px 0 5px 12px;
-      border-left: 2px solid #eee;
+      border-left: 2px solid var(--line);
       line-height: 1.45;
       transition: color 0.15s, border-color 0.15s;
     }
-    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
-    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .sidebar-nav a:hover { color: var(--accent); border-left-color: var(--line-2); }
+    .sidebar-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 
     /* ── Article ── */
-    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
-    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
-    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
-    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--text); }
+    .article .meta { font-size: 13px; color: var(--text-dimmer); margin-bottom: 36px; }
+    .article p { font-size: 15px; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue  { background: #E6F1FB; color: #185FA5; }
-    .tag-gray  { background: #f3f3f3; color: #555; }
-    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
-    .dica strong { color: #1D9E75; }
-    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
-    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
-    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
-    .cta-btn:hover { background: #178f68; }
+    .tag-green { background: var(--accent-glow); color: var(--accent); }
+    .tag-blue  { background: rgba(74,134,255,.12); color: #4a86ff; }
+    .tag-gray  { background: var(--bg-2); color: var(--text-dim); }
+    .dica { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: var(--accent); }
+    .cta-box { background: color-mix(in oklab, var(--accent-glow) 45%, transparent); border: 1px solid var(--line-2); border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-2); }
 
     /* ── Mobile inline sumário ── */
     .sumario-mobile { display: none; }
-    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
     .sumario-mobile li { margin-bottom: 6px; }
-    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
     /* ── Responsive ── */
@@ -173,7 +173,7 @@ export const frontmatter = {
       </p>
 
       <div id="chatgpt" class="tool-block">
-        <h2>1. <a href="/tools/chatgpt" style="color:#1D9E75;text-decoration:underline;font-weight:500;">ChatGPT</a> — O assistente que nunca dorme</h2>
+        <h2>1. <a href="/tools/chatgpt" style="color:var(--accent);text-decoration:underline;font-weight:500;">ChatGPT</a> — O assistente que nunca dorme</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano grátis</span>
           <span class="tag tag-blue">Suporte PT</span>
@@ -184,13 +184,13 @@ export const frontmatter = {
           propostas comerciais, responde e-mails, cria roteiros de vídeo, analisa planilhas e muito mais — tudo em
           português.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/chatgpt" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/chatgpt" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p><strong>Para quem é:</strong> qualquer empreendedor, independente do setor.</p>
         <div class="dica"><strong>Dica prática:</strong> use para rascunhar contratos, descrições de produtos e roteiros de treinamento para sua equipe.</div>
       </div>
 
       <div id="funnels" class="tool-block">
-        <h2>2. <a href="/tools/funnels" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Funnels</a> — Vendas e marketing com IA no piloto automático</h2>
+        <h2>2. <a href="/tools/funnels" style="color:var(--accent);text-decoration:underline;font-weight:500;">Funnels</a> — Vendas e marketing com IA no piloto automático</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Funciona no BR</span>
           <span class="tag tag-gray">A partir de R$497/mês</span>
@@ -200,13 +200,13 @@ export const frontmatter = {
           vendas e agentes de IA em uma única plataforma. Em vez de contratar um time inteiro, você configura
           agentes que prospectam, qualificam e nutrem leads automaticamente — 24 horas por dia.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/funnels" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/funnels" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p><strong>Para quem é:</strong> empreendedores que querem escalar vendas sem aumentar o time proporcionalmente.</p>
         <div class="dica"><strong>Dica prática:</strong> configure um agente de IA para fazer o primeiro contato com leads que preencherem um formulário no seu site — resposta em segundos, não em horas.</div>
       </div>
 
       <div id="notion-ai" class="tool-block">
-        <h2>3. <a href="/tools/notion-ai" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Notion AI</a> — O segundo cérebro da sua empresa</h2>
+        <h2>3. <a href="/tools/notion-ai" style="color:var(--accent);text-decoration:underline;font-weight:500;">Notion AI</a> — O segundo cérebro da sua empresa</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano grátis</span>
           <span class="tag tag-blue">Suporte PT</span>
@@ -217,13 +217,13 @@ export const frontmatter = {
           mais poderoso: resume reuniões, gera planos de projeto, responde perguntas sobre documentos internos e
           ajuda a estruturar processos.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/notion-ai" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/notion-ai" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p><strong>Para quem é:</strong> empreendedores que precisam organizar conhecimento e processos da empresa.</p>
         <div class="dica"><strong>Dica prática:</strong> crie uma wiki interna da sua empresa e use o Notion AI para treinar novos funcionários.</div>
       </div>
 
       <div id="elevenlabs" class="tool-block">
-        <h2>4. <a href="/tools/elevenlabs" style="color:#1D9E75;text-decoration:underline;font-weight:500;">ElevenLabs</a> — Voz profissional sem estúdio</h2>
+        <h2>4. <a href="/tools/elevenlabs" style="color:var(--accent);text-decoration:underline;font-weight:500;">ElevenLabs</a> — Voz profissional sem estúdio</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano grátis</span>
           <span class="tag tag-gray">A partir de $5/mês</span>
@@ -233,7 +233,7 @@ export const frontmatter = {
           vozes em português com qualidade de estúdio em segundos. Você pode até clonar sua própria voz para criar
           conteúdo em escala.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/elevenlabs" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/elevenlabs" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p><strong>Para quem é:</strong> empresas que produzem conteúdo em vídeo ou áudio.</p>
         <div class="dica"><strong>Dica prática:</strong> use para criar versões em áudio dos seus materiais de treinamento interno.</div>
       </div>
@@ -253,7 +253,7 @@ export const frontmatter = {
         <div class="dica"><strong>Dica prática:</strong> use o resumo automático do Fathom para enviar o follow-up da reunião para o cliente em menos de 5 minutos.</div>
       </div>
 
-      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Por onde começar?</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Por onde começar?</h2>
       <p>
         Não precisa implementar as 5 de uma vez. Escolha uma ferramenta que resolve o maior gargalo do seu negócio
         hoje e comece por ela. Teste o plano gratuito, veja o impacto e só então expanda.

@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Sales Outreach · BuskAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/buskai.css"/>
+<style>
+  /* Page-specific */
+  .hero-cat {
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: end;
+    padding-bottom: 32px; border-bottom: 1px solid var(--line);
+  }
+  .hero-cat .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .hero-cat h1 {
+    font-size: clamp(44px, 6vw, 72px); line-height: 1.02; letter-spacing: -.035em;
+    font-weight: 700; margin: 0 0 14px;
+  }
+  .hero-cat h1 .accent {
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-cat p {
+    color: var(--text-dim); font-size: 16px; line-height: 1.55;
+    max-width: 52ch; margin: 0;
+  }
+  .hero-cat .side { display: grid; gap: 14px; }
+  .hero-cat .kv {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 12px;
+  }
+  .hero-cat .kv .k { color: var(--text-dim); }
+  .hero-cat .kv .v { color: var(--text); font-size: 13px; font-weight: 600; }
+  .hero-cat .kv .v.accent { color: var(--accent); }
+
+  /* Filter bar */
+  .filters {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    margin: 24px 0 20px;
+  }
+  .filters .search {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line-2); background: var(--bg-2);
+    border-radius: 10px; padding: 8px 12px; flex: 1; min-width: 260px;
+  }
+  .filters .search input {
+    background: transparent; border: 0; outline: 0;
+    color: var(--text); font-size: 14px; flex: 1; font-family: var(--sans);
+  }
+  .filters .search input::placeholder { color: var(--text-dimmer); }
+  .filters .search svg { width: 16px; height: 16px; color: var(--text-dim); }
+  .fchip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-family: var(--mono);
+    padding: 7px 10px; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--bg-2); color: var(--text-dim);
+    cursor: pointer;
+  }
+  .fchip:hover { color: var(--text); border-color: var(--line-2); }
+  .fchip.on { background: var(--accent); color: #0b0d0b; border-color: var(--accent); }
+  .fchip .x { color: inherit; opacity: .6; }
+
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 10px;
+  }
+  .toolbar .sort {
+    display: flex; gap: 0; border: 1px solid var(--line); border-radius: 8px;
+    overflow: hidden;
+  }
+  .toolbar .sort button {
+    background: transparent; border: 0; color: var(--text-dim);
+    font-family: var(--mono); font-size: 11px;
+    padding: 6px 10px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .toolbar .sort button:last-child { border-right: 0; }
+  .toolbar .sort button.on { background: var(--bg-2); color: var(--text); }
+
+  /* Leaderboard rows */
+  .board { display: grid; gap: 10px; }
+  .row {
+    display: grid;
+    grid-template-columns: 44px 260px 1fr 120px 110px 90px;
+    gap: 18px; align-items: center;
+    padding: 16px; border: 1px solid var(--line);
+    background: var(--bg-2); border-radius: 12px;
+    transition: border-color .15s ease, transform .15s ease;
+    cursor: pointer;
+  }
+  .row:hover { border-color: var(--line-2); transform: translateY(-1px); }
+  .row.top {
+    background:
+      radial-gradient(300px 120px at 0% 0%, var(--accent-glow), transparent 70%),
+      var(--bg-2);
+    border-color: var(--accent);
+  }
+  .row .rank {
+    font-family: var(--mono); font-size: 22px; font-weight: 600;
+    color: var(--text-dim); font-variant-numeric: tabular-nums;
+  }
+  .row.top .rank { color: var(--accent); }
+  .row .tool {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .row .logo {
+    width: 40px; height: 40px; border-radius: 10px; flex: none;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 16px; color: #0b0d0b;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+  }
+  .logo.a { background: linear-gradient(135deg, #ffb74a, #ff6a5b); }
+  .logo.b { background: linear-gradient(135deg, #8a7dff, #2f3bff); }
+  .logo.c { background: linear-gradient(135deg, #3ddc84, #0a5ea8); }
+  .logo.d { background: linear-gradient(135deg, #ff6a5b, #c94b3f); }
+  .logo.e { background: linear-gradient(135deg, #ffd14a, #f58b00); }
+  .logo.f { background: linear-gradient(135deg, #20b062, #0e6b3b); }
+  .logo.g { background: linear-gradient(135deg, #60e3ff, #2f3bff); }
+  .logo.h { background: linear-gradient(135deg, #ff8fbb, #7f2f9b); }
+  .row .tool h3 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+  .row .tool .cat { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .row .desc { color: var(--text-dim); font-size: 13px; line-height: 1.5; }
+  .row .desc b { color: var(--text); font-weight: 600; }
+  .row .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .row .meta span {
+    font-family: var(--mono); font-size: 10px; padding: 3px 7px;
+    border: 1px solid var(--line); border-radius: 5px; color: var(--text-dim);
+  }
+  .row .meta .flag { border-color: var(--accent); color: var(--accent); }
+  .row .price {
+    font-family: var(--mono); font-size: 13px; color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .row .price small { color: var(--text-dim); display: block; font-size: 11px; margin-top: 2px; }
+  .row .score-wrap {
+    text-align: right;
+  }
+  .row .score {
+    font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--accent);
+    font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  }
+  .row .delta {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  }
+  .row .delta.up { color: var(--accent); }
+  .row .delta.dn { color: var(--red); }
+
+  /* Methodology callout */
+  .method {
+    margin-top: 40px; display: grid; grid-template-columns: 1fr 2fr; gap: 40px;
+    padding: 28px; border: 1px solid var(--line); border-radius: 14px;
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--bg-2) 80%, transparent), var(--bg-2));
+  }
+  .method h3 { margin: 0 0 10px; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .method .side-k { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: .1em; text-transform: uppercase; }
+  .method ol { margin: 0; padding-left: 18px; color: var(--text-dim); font-size: 14px; line-height: 1.7; }
+  .method ol b { color: var(--text); }
+
+  /* Related categories */
+  .related-h { margin: 56px 0 16px; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .related {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .related a {
+    padding: 16px; border: 1px solid var(--line); border-radius: 12px;
+    background: var(--bg-2); display: block;
+    transition: border-color .15s ease;
+  }
+  .related a:hover { border-color: var(--accent); }
+  .related a h4 { margin: 0; font-size: 15px; font-weight: 600; }
+  .related a p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 6px 0 0; }
+
+  @media (max-width: 1000px) {
+    .row { grid-template-columns: 36px 200px 1fr 90px 70px; gap: 14px; }
+    .row .meta { display: none; }
+    .hero-cat { grid-template-columns: 1fr; gap: 24px; }
+    .related { grid-template-columns: repeat(2, 1fr); }
+    .method { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .row { grid-template-columns: 36px 1fr 70px; gap: 12px; }
+    .row .desc, .row .price { display: none; }
+    .nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#fbfbfe">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#fbfbfe"/>
+    <circle cx="220" cy="40" r="320" fill="#7c5cfc" opacity="0.18"/>
+    <circle cx="900" cy="20" r="280" fill="#4a86ff" opacity="0.14"/>
+    <circle cx="1180" cy="60" r="220" fill="#ff6cb0" opacity="0.12"/>
+    <rect x="300" y="300" width="600" height="92" rx="20" fill="#ffffff" stroke="#6d5efc" stroke-width="3"/>
+    <rect x="300" y="436" width="600" height="64" rx="14" fill="#ffffff" stroke="rgba(20,18,45,0.12)" stroke-width="2"/>
+    <rect x="300" y="520" width="600" height="64" rx="14" fill="#ffffff" stroke="rgba(20,18,45,0.12)" stroke-width="2"/>
+    <circle cx="345" cy="346" r="22" fill="#6d5efc"/>
+    <text x="600" y="180" font-family="Inter, sans-serif" font-size="68" font-weight="700" fill="#14122d" text-anchor="middle" letter-spacing="-2">BuskAI</text>
+  </svg>
+</template>
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="brand" href="BuskAI Home.html">
+      <span class="mark"></span><span>BuskAI</span>
+    </a>
+    <ul>
+      <li class="on"><a href="BuskAI Category.html" data-i18n="nav.categories">Categorias</a></li>
+      <li><a href="BuskAI Compare.html" data-i18n="nav.compare">Comparar</a></li>
+      <li data-i18n="nav.bench">The Bench</li>
+      <li data-i18n="nav.blog">Blog</li>
+    </ul>
+    <span class="spacer"></span>
+    <div class="lang" id="lang">
+      <button class="on" data-lang="pt">PT</button>
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <button class="submit">＋ <span data-i18n="nav.submit">Enviar tool</span></button>
+  </nav>
+
+  <div class="crumb">
+    <a href="BuskAI Home.html">home</a>
+    <span class="sep">/</span>
+    <a>categorias</a>
+    <span class="sep">/</span>
+    <span class="cur">sales-outreach</span>
+  </div>
+
+  <section class="hero-cat">
+    <div>
+      <span class="kicker">▲ CATEGORIA · 34 TOOLS</span>
+      <h1>Sales Outreach<br/><span class="accent">agents &amp; SDRs.</span></h1>
+      <p>Agentes que prospectam, respondem e qualificam — com foco no que funciona em LATAM: WhatsApp nativo, PT/ES naturais, e preço que cabe num time de 5–50 vendedores.</p>
+      <div style="margin-top: 18px; display: flex; gap: 10px;">
+        <a class="btn primary" href="BuskAI Compare.html">Comparar top 3 →</a>
+        <button class="btn ghost">Metodologia</button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="status"><span class="dot"></span>bench revisada há 4 dias</div>
+      <div class="kv"><span class="k">tools benchmarkeadas</span><span class="v">34</span></div>
+      <div class="kv"><span class="k">com PT-BR nativo</span><span class="v accent">9</span></div>
+      <div class="kv"><span class="k">com ES nativo</span><span class="v accent">6</span></div>
+      <div class="kv"><span class="k">hosted in LATAM</span><span class="v">7</span></div>
+      <div class="kv"><span class="k">faixa de preço</span><span class="v">R$ 89 → custom</span></div>
+      <div class="kv"><span class="k">crescimento (30d)</span><span class="v accent">↑ 14%</span></div>
+    </div>
+  </section>
+
+  <div class="filters">
+    <label class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input placeholder="Filtrar por nome, integração, caso de uso…"/>
+    </label>
+    <button class="fchip on">🇧🇷 BR-built</button>
+    <button class="fchip">🇲🇽 MX</button>
+    <button class="fchip on">PT-BR nativo</button>
+    <button class="fchip">ES nativo</button>
+    <button class="fchip">WhatsApp</button>
+    <button class="fchip">LGPD hosted</button>
+    <button class="fchip">&lt; R$ 200/mo</button>
+    <button class="fchip" style="color: var(--text-dimmer)">+ 7 filtros</button>
+  </div>
+
+  <div class="toolbar">
+    <span>34 tools · 2 filtros ativos · mostrando 8 de 34</span>
+    <div class="sort">
+      <button class="on">bench score</button>
+      <button>preço</button>
+      <button>recentes</button>
+      <button>PT-BR</button>
+    </div>
+  </div>
+
+  <section class="board">
+
+    <article class="row top">
+      <div class="rank">01</div>
+      <div class="tool"><div class="logo a">A</div><div><h3>Atendente.ai</h3><div class="cat">SDR agent · WhatsApp Cloud</div></div></div>
+      <div class="desc"><b>Melhor fit para PT-BR.</b> WhatsApp Cloud API nativo, handoff humano, hosting em São Paulo. Single weakness: UI em inglês ainda está inconsistente.</div>
+      <div class="meta"><span class="flag">🇧🇷 BR</span><span>PT-BR</span><span>LGPD ✓</span><span>HubSpot · RD · Pipedrive</span></div>
+      <div class="price">R$ 129<small>/mês · starter</small></div>
+      <div class="score-wrap"><div class="score">8.9</div><div class="delta up">↑ 0.3</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">02</div>
+      <div class="tool"><div class="logo b">L</div><div><h3>Lindy</h3><div class="cat">AI employees · multi-channel</div></div></div>
+      <div class="desc">Agentes genéricos bem configuráveis, ótima cobertura de CRM. PT-BR é passável; português técnico dá trabalho de treinar.</div>
+      <div class="meta"><span>EN · PT parcial</span><span>US-East</span><span>Zapier · HubSpot</span></div>
+      <div class="price">US$ 49<small>/mês · 1 agent</small></div>
+      <div class="score-wrap"><div class="score">8.4</div><div class="delta">—</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">03</div>
+      <div class="tool"><div class="logo c">R</div><div><h3>Reply.io</h3><div class="cat">Multi-channel outbound</div></div></div>
+      <div class="desc">Maduro, engenharia sólida em email e LinkedIn. Fraco em WhatsApp nativo e no custo por assento.</div>
+      <div class="meta"><span>EN</span><span>Salesforce · HubSpot</span><span>SOC2</span></div>
+      <div class="price">US$ 70<small>/seat/mês</small></div>
+      <div class="score-wrap"><div class="score">8.0</div><div class="delta dn">↓ 0.1</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">04</div>
+      <div class="tool"><div class="logo d">K</div><div><h3>Koncert</h3><div class="cat">Outbound enterprise</div></div></div>
+      <div class="desc">Parallel dialer com boa voz AI. Pensado para times grandes US; overkill para SMB LATAM.</div>
+      <div class="meta"><span>EN</span><span>custom hosting</span><span>Salesforce</span></div>
+      <div class="price">custom<small>enterprise</small></div>
+      <div class="score-wrap"><div class="score">7.6</div><div class="delta">—</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">05</div>
+      <div class="tool"><div class="logo e">S</div><div><h3>SDRzinho</h3><div class="cat">🇧🇷 SDR agent simples</div></div></div>
+      <div class="desc"><b>Valor pela pechincha.</b> Bom pra clínicas, escolas, imobiliárias — fluxos prontos. CRM fica limitado a HubSpot.</div>
+      <div class="meta"><span class="flag">🇧🇷 BR</span><span>PT-BR</span><span>HubSpot</span></div>
+      <div class="price">R$ 89<small>/mês</small></div>
+      <div class="score-wrap"><div class="score">7.3</div><div class="delta up">↑ 0.4</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">06</div>
+      <div class="tool"><div class="logo f">V</div><div><h3>Vendah</h3><div class="cat">🇧🇷 social-seller assistant</div></div></div>
+      <div class="desc">Foco em rede de revendedoras (direct sales) — nicho, mas único no que faz. PT-BR com gírias regionais treinadas.</div>
+      <div class="meta"><span class="flag">🇧🇷 BR</span><span>PT-BR</span><span>WhatsApp</span></div>
+      <div class="price">R$ 149<small>/mês</small></div>
+      <div class="score-wrap"><div class="score">7.1</div><div class="delta up">↑ 0.2</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">07</div>
+      <div class="tool"><div class="logo g">C</div><div><h3>Clay</h3><div class="cat">Data enrichment + outbound</div></div></div>
+      <div class="desc">Mais pipeline builder que SDR; brilha em enrichment. Aprendizagem íngreme; adoption no BR ainda é técnica.</div>
+      <div class="meta"><span>EN</span><span>70+ sources</span><span>GPT · Claude</span></div>
+      <div class="price">US$ 149<small>/mês</small></div>
+      <div class="score-wrap"><div class="score">7.0</div><div class="delta">—</div></div>
+    </article>
+
+    <article class="row">
+      <div class="rank">08</div>
+      <div class="tool"><div class="logo h">M</div><div><h3>Meetz</h3><div class="cat">SDR agent · agendamento</div></div></div>
+      <div class="desc">Vender AI-SDR completo; qualidade do lead enrichment mediana. Preço competitivo.</div>
+      <div class="meta"><span>EN · ES</span><span>SOC2</span><span>Google Cal</span></div>
+      <div class="price">US$ 39<small>/mês</small></div>
+      <div class="score-wrap"><div class="score">6.8</div><div class="delta dn">↓ 0.2</div></div>
+    </article>
+
+  </section>
+
+  <div style="text-align: center; margin: 28px 0 0;">
+    <button class="btn">Carregar mais 26 tools ↓</button>
+  </div>
+
+  <section class="method">
+    <div>
+      <div class="side-k">METODOLOGIA · V2.4</div>
+      <h3>Como a gente avalia SDR agents.</h3>
+    </div>
+    <div>
+      <ol>
+        <li><b>Caso real.</b> 1.000 conversas em PT-BR/ES — pedimos orçamento pra uma clínica, agendamos visita, fechamos reunião.</li>
+        <li><b>Preço local.</b> Conversão pra R$/MX$/COP/ARS com a cotação da semana, incluindo taxa de cartão internacional.</li>
+        <li><b>Postura de dados.</b> Onde fica o servidor, DPAs disponíveis em português, LGPD/Ley Federal de Protección de Datos.</li>
+        <li><b>Encaixe linguístico.</b> Tom natural, gírias regionais, emojis certos — julgado por 3 nativos por mercado.</li>
+      </ol>
+    </div>
+  </section>
+
+  <h2 class="related-h">Categorias relacionadas</h2>
+  <div class="related">
+    <a><h4>SDR Automation</h4><p>12 tools · sobreposição 64%</p></a>
+    <a><h4>CRM Automation</h4><p>19 tools · sobreposição 41%</p></a>
+    <a><h4>Voice · WhatsApp</h4><p>18 tools · sobreposição 55%</p></a>
+    <a><h4>Customer Support</h4><p>26 tools · sobreposição 22%</p></a>
+  </div>
+
+  <footer class="foot">
+    <span>© 2026 BuskAI · v2.4.1</span>
+    <ul><li>methodology</li><li>about</li><li>rss</li><li>x.com/buskai</li></ul>
+  </footer>
+</div>
+
+<div class="tweaks" id="tweaks">
+  <h4>Tweaks <span>category</span></h4>
+  <label>Tema
+    <div class="seg" id="tw-theme">
+      <button data-v="light" class="on">light</button>
+      <button data-v="dark">dark</button>
+    </div>
+  </label>
+  <label>Densidade
+    <div class="seg" id="tw-density">
+      <button data-v="comfy">comfy</button>
+      <button data-v="default" class="on">default</button>
+      <button data-v="dense">dense</button>
+    </div>
+  </label>
+</div>
+
+<script src="assets/buskai.js"></script>
+<script>
+  const DICTS = {
+    pt: { "nav.categories":"Categorias","nav.compare":"Comparar","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Enviar tool" },
+    es: { "nav.categories":"Categorías","nav.compare":"Comparar","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Enviar herramienta" },
+    en: { "nav.categories":"Categories","nav.compare":"Compare","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Submit a tool" }
+  };
+  GB.init(DICTS);
+</script>
+</body>
+</html>

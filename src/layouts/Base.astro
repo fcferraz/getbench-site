@@ -17,29 +17,126 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: system-ui, sans-serif; color: #1a1a1a; }
-      nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid #eee; }
-      .logo { font-size: 18px; font-weight: 600; color: var(--logo-color, #1a1a1a); text-decoration: none; }
-      .logo span { color: var(--logo-accent, #1D9E75); }
-      .logo span { color: #1D9E75; }
-      .nav-links { display: flex; gap: 24px; align-items: center; }
-      .nav-links a { font-size: 14px; color: #555; text-decoration: none; }
-      .nav-links a:hover { color: #1a1a1a; }
-      .nav-submit { font-size: 12px; padding: 6px 14px; border: 1px solid #ddd; border-radius: 8px; color: #333; text-decoration: none; }
-      .nav-submit:hover { background: #f5f5f5; }
-      main { max-width: 1100px; margin: 0 auto; padding: 40px 32px; }
-      .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-      .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-      .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-      .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
-      footer { text-align: center; padding: 32px; font-size: 13px; color: #888; border-top: 1px solid #eee; margin-top: 80px; }
+    <!-- Apply saved theme before paint to avoid flash -->
+    <script is:inline>
+      try {
+        var s = JSON.parse(localStorage.getItem('buskai_ui_v1') || '{}');
+        document.documentElement.dataset.theme = s.theme || 'light';
+      } catch (e) { document.documentElement.dataset.theme = 'light'; }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/buskai.css" />
+    <style is:global>
+      /* ---- Site-wide primitives on top of buskai.css ---- */
+      main { display: block; }
+      .nav .icon-btn {
+        background: transparent; border: 0; cursor: pointer;
+        color: var(--text-dim); padding: 6px; border-radius: 8px;
+        display: inline-flex; align-items: center; gap: 6px; flex: none;
+        font-family: var(--mono); font-size: 11px;
+      }
+      .nav .icon-btn:hover { color: var(--text); background: var(--bg-2); }
+      .nav .theme-toggle { font-size: 14px; line-height: 1; }
+      .nav-dd { position: relative; }
+      .nav-dd > a { display: inline-flex; align-items: center; gap: 4px; }
+      .nav-dd .menu {
+        display: none; position: absolute; top: 100%; left: -10px;
+        background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 14px;
+        padding: 12px; min-width: 240px; z-index: 100; margin-top: 10px;
+      }
+      .nav-dd .menu::before {
+        content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+      }
+      .nav-dd:hover .menu { display: block; box-shadow: 0 20px 40px -12px rgba(40,30,90,.28); }
+      .nav-dd .menu .hd {
+        font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: .1em; margin: 0 0 8px; padding: 0 8px;
+      }
+      .nav-dd .menu a {
+        display: block; padding: 7px 8px; font-size: 13px; color: var(--text);
+        border-radius: 8px;
+      }
+      .nav-dd .menu a:hover { background: var(--bg); color: var(--accent); }
+      .nav-dd .menu .div { border-top: 1px solid var(--line); margin: 8px 0; }
+      .nav-dd .menu a.all { color: var(--accent); font-weight: 500; }
+
+      /* Footer columns */
+      .foot-cols {
+        margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line);
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      }
+      .foot-cols .hd {
+        font-family: var(--mono); font-size: 10px; font-weight: 500; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px;
+      }
+      .foot-cols a {
+        display: block; font-size: 13px; color: var(--text-dim);
+        padding: 3px 0;
+      }
+      .foot-cols a:hover { color: var(--accent); }
+      footer .foot { margin-top: 32px; border-top: 1px dashed var(--line); padding-top: 20px; }
+
+      /* Search modal */
+      .gb-modal {
+        display: none; position: fixed; inset: 0; z-index: 999;
+        background: rgba(10,10,18,.5); backdrop-filter: blur(6px);
+      }
+      .gb-modal .box {
+        position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
+        width: 100%; max-width: 680px; padding: 0 20px;
+      }
+      .gb-modal .panel {
+        background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 0 0 6px var(--accent-glow), 0 30px 80px -20px rgba(20,15,60,.45);
+      }
+      .gb-modal .row1 {
+        display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .gb-modal input {
+        flex: 1; background: transparent; border: 0; outline: 0;
+        color: var(--text); font-size: 16px; font-family: var(--sans);
+      }
+      .gb-modal input::placeholder { color: var(--text-dimmer); }
+      .gb-modal .go {
+        background: var(--accent); color: var(--on-accent); border: 0;
+        padding: 8px 16px; border-radius: 10px; font-weight: 600; font-size: 14px;
+        cursor: pointer; line-height: 1;
+      }
+      .gb-modal .go:hover { background: var(--accent-2); }
+      .gb-modal .esc {
+        font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+        border: 1px solid var(--line-2); border-radius: 6px; padding: 3px 6px; cursor: pointer;
+        background: var(--bg);
+      }
+      .gb-modal .chips-row {
+        padding: 10px 14px; display: flex; gap: 6px; flex-wrap: wrap;
+        border-bottom: 1px solid var(--line);
+      }
+      .gb-modal .chips-row button {
+        background: transparent; border: 1px solid var(--line);
+        color: var(--text-dim); padding: 4px 12px; border-radius: 999px;
+        font-size: 11px; cursor: pointer; font-family: var(--mono);
+      }
+      .gb-modal .chips-row button:hover { color: var(--text); border-color: var(--line-2); }
+      .gb-modal .spin {
+        width: 16px; height: 16px; border: 2px solid var(--accent-glow);
+        border-top-color: var(--accent); border-radius: 50%;
+        animation: gbspin .8s linear infinite; display: inline-block;
+        margin-right: 8px; vertical-align: middle;
+      }
+      @keyframes gbspin { to { transform: rotate(360deg); } }
+
+      @media (max-width: 960px) {
+        .nav ul { display: none; }
+        .foot-cols { grid-template-columns: 1fr; gap: 24px; }
+      }
       @media (max-width: 640px) {
-        nav { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-        .nav-links { gap: 12px; flex-wrap: wrap; }
-        .nav-submit { font-size: 11px; padding: 5px 10px; white-space: nowrap; }
-        main { padding: 24px 16px; }
+        .nav { flex-wrap: wrap; gap: 10px; }
+        .foot { flex-direction: column; gap: 12px; align-items: flex-start; }
       }
     </style>
   </head>
@@ -47,202 +144,208 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGVXP6BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <nav>
-      <a href="/" class="logo">Busk<span>ai</span>.net</a>
-      <div class="nav-links">
-        <div style="position:relative;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
-          <a href="/categories" style="font-size:14px;color:#333;text-decoration:none;padding:6px 4px;">Categorias ▾</a>
-          <div class="nav-dropdown" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;padding:12px;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,0.08);z-index:100;">
-            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;padding:0 8px;">Por característica</div>
-            <a href="/ferramentas-ia-gratuitas" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">Ferramentas gratuitas</a>
-            <a href="/ferramentas-ia-brasil" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">Funciona no Brasil</a>
-            <a href="/ferramentas-ia-em-portugues" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">Suporte em português</a>
-            <a href="/ferramentas-ia-aceita-reais" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">Aceita BRL</a>
-            <div style="border-top:1px solid #eee;margin:8px 0;"></div>
-            <a href="/categories" style="display:block;padding:6px 8px;font-size:13px;color:#1D9E75;text-decoration:none;border-radius:6px;font-weight:500;">Ver todas as categorias →</a>
+    <div class="wrap">
+      <nav class="nav">
+        <a href="/" class="brand">
+          <span class="mark"></span>
+          <span>BuskAI</span>
+          <small>.net</small>
+        </a>
+        <ul>
+          <li class="nav-dd">
+            <a href="/categories">Categorias <span style="font-size:9px;">▾</span></a>
+            <div class="menu">
+              <div class="hd">Por característica</div>
+              <a href="/ferramentas-ia-gratuitas">Ferramentas gratuitas</a>
+              <a href="/ferramentas-ia-brasil">Funciona no Brasil</a>
+              <a href="/ferramentas-ia-em-portugues">Suporte em português</a>
+              <a href="/ferramentas-ia-aceita-reais">Aceita BRL</a>
+              <div class="div"></div>
+              <a href="/categories" class="all">Ver todas as categorias →</a>
+            </div>
+          </li>
+          <li><a href="/compare">Comparar</a></li>
+          <li><a href="/blog">Blog</a></li>
+        </ul>
+        <span class="spacer"></span>
+        <button class="icon-btn" onclick="openSearch()" title="Buscar (⌘K)" aria-label="Buscar">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>⌘K</span>
+        </button>
+        <button class="icon-btn theme-toggle" onclick="GB && GB.toggleTheme()" aria-label="Mudar tema">☾</button>
+        <a href="/submit" class="submit">＋ Enviar tool</a>
+      </nav>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <div class="foot-cols">
+          <div>
+            <div class="hd">Ferramentas por tipo</div>
+            <a href="/ferramentas-ia-gratuitas">Ferramentas gratuitas</a>
+            <a href="/ferramentas-ia-brasil">Funciona no Brasil</a>
+            <a href="/ferramentas-ia-em-portugues">Suporte em português</a>
+            <a href="/ferramentas-ia-aceita-reais">Aceita BRL</a>
+          </div>
+          <div>
+            <div class="hd">Por setor</div>
+            <a href="/ferramentas-marketing-ia-brasil">Marketing com IA</a>
+            <a href="/ferramentas-vendas-ia-brasil">Vendas com IA</a>
+            <a href="/ferramentas-suporte-ia-brasil">Suporte com IA</a>
+            <a href="/ferramentas-rh-ia-brasil">RH com IA</a>
+            <a href="/ferramentas-produtividade-ia-brasil">Produtividade com IA</a>
+            <a href="/ferramentas-crm-ia-gratis">CRM gratuito</a>
+          </div>
+          <div>
+            <div class="hd">Buskai</div>
+            <a href="/categories">Todas as categorias</a>
+            <a href="/compare">Comparar ferramentas</a>
+            <a href="/blog">Blog</a>
+            <a href="/submit">Enviar ferramenta</a>
+            <a href="/sobre">Sobre</a>
+            <a href="/privacidade">Privacidade</a>
           </div>
         </div>
-        <a href="/compare">Comparar</a>
-        <a href="/blog">Blog</a>
-        <button onclick="openSearch()" style="background:none;border:none;cursor:pointer;padding:6px;color:#555;display:flex;align-items:center;" title="Buscar (⌘K)">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        <a href="/submit" class="nav-submit">+ Enviar ferramenta</a>
-      </div>
-    </nav>
-    <main>
-      <slot />
-    </main>
-<footer style="margin-top:80px;padding:40px 0;border-top:1px solid #eee;">
-  <div style="max-width:900px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:start;">
-
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Ferramentas por tipo</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <a href="/ferramentas-ia-gratuitas" style="font-size:13px;color:#555;text-decoration:none;">Ferramentas gratuitas</a>
-        <a href="/ferramentas-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Funciona no Brasil</a>
-        <a href="/ferramentas-ia-em-portugues" style="font-size:13px;color:#555;text-decoration:none;">Suporte em português</a>
-        <a href="/ferramentas-ia-aceita-reais" style="font-size:13px;color:#555;text-decoration:none;">Aceita BRL</a>
-      </div>
+        <div class="foot">
+          <span>© 2026 Buskai.net · AI tools para LATAM</span>
+          <ul>
+            <li>Feito com ☕ no Brasil</li>
+          </ul>
+        </div>
+      </footer>
     </div>
 
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Por setor</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <a href="/ferramentas-marketing-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Marketing com IA</a>
-        <a href="/ferramentas-vendas-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Vendas com IA</a>
-        <a href="/ferramentas-suporte-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Suporte com IA</a>
-        <a href="/ferramentas-rh-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">RH com IA</a>
-        <a href="/ferramentas-produtividade-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Produtividade com IA</a>
-        <a href="/ferramentas-crm-ia-gratis" style="font-size:13px;color:#555;text-decoration:none;">CRM gratuito</a>
-      </div>
-    </div>
-
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Buskai</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <a href="/categories" style="font-size:13px;color:#555;text-decoration:none;">Todas as categorias</a>
-        <a href="/compare" style="font-size:13px;color:#555;text-decoration:none;">Comparar ferramentas</a>
-        <a href="/blog" style="font-size:13px;color:#555;text-decoration:none;">Blog</a>
-        <a href="/submit" style="font-size:13px;color:#555;text-decoration:none;">Enviar ferramenta</a>
-        <a href="/sobre" style="font-size:13px;color:#555;text-decoration:none;">Sobre</a>
-        <a href="/privacidade" style="font-size:13px;color:#555;text-decoration:none;">Privacidade</a>
-      </div>
-    </div>
-
-  </div>
-  <div style="max-width:900px;margin:24px auto 0;padding:24px 24px 0;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-    <span style="font-size:12px;color:#aaa;">© 2026 Buskai.net — Ferramentas de IA para LATAM</span>
-    <span style="font-size:12px;color:#aaa;">Feito com ☕ no Brasil</span>
-  </div>
-</footer>
     <!-- Search Modal -->
-  <div id="search-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);" onclick="closeSearch(event)">
-    <div style="position:absolute;top:15%;left:50%;transform:translateX(-50%);width:100%;max-width:680px;padding:0 20px;">
-      <div style="background:#0f120f;border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);">
-        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08);">
-          <svg width="18" height="18" fill="none" stroke="#5d6662" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input id="modal-query" type="text" placeholder="Buscar AI tools para LATAM..." style="flex:1;background:transparent;border:0;outline:0;color:#e9ecea;font-size:16px;font-family:system-ui,sans-serif;"/>
-          <button onclick="runModalSearch()" id="modal-btn" style="background:#3ddc84;color:#0b0d0b;border:0;padding:8px 16px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;line-height:1;align-self:center;">Buscar</button>
-          <span style="font-size:11px;color:#5d6662;border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;cursor:pointer;" onclick="closeSearchDirect()">ESC</span>
+    <div id="search-modal" class="gb-modal" onclick="closeSearch(event)">
+      <div class="box">
+        <div class="panel">
+          <div class="row1">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--text-dim);flex:none;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="modal-query" type="text" placeholder="Buscar AI tools para LATAM..." />
+            <button onclick="runModalSearch()" id="modal-btn" class="go">Buscar</button>
+            <span class="esc" onclick="closeSearchDirect()">ESC</span>
+          </div>
+          <div class="chips-row">
+            <button onclick="setModalQuery('SDR em PT-BR')">SDR em PT-BR</button>
+            <button onclick="setModalQuery('Copiloto de CRM')">Copiloto de CRM</button>
+            <button onclick="setModalQuery('Marketing gratis')">Marketing grátis</button>
+            <button onclick="setModalQuery('Recrutamento RH')">Recrutamento RH</button>
+          </div>
+          <div id="modal-loading" style="display:none;padding:32px;text-align:center;color:var(--text-dim);font-size:13px;font-family:var(--mono);">
+            <div class="spin"></div>
+            Analisando tools...
+          </div>
+          <div id="modal-results" style="max-height:400px;overflow-y:auto;"></div>
         </div>
-        <div style="padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06);">
-          <button onclick="setModalQuery('SDR em PT-BR')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">SDR em PT-BR</button>
-          <button onclick="setModalQuery('Copiloto de CRM')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Copiloto de CRM</button>
-          <button onclick="setModalQuery('Marketing gratis')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Marketing gratis</button>
-          <button onclick="setModalQuery('Recrutamento RH')" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8b938f;padding:4px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Recrutamento RH</button>
-        </div>
-        <div id="modal-loading" style="display:none;padding:32px;text-align:center;color:#5d6662;font-size:13px;">
-          <div style="width:16px;height:16px;border:2px solid rgba(61,220,132,.2);border-top-color:#3ddc84;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;margin-right:8px;vertical-align:middle;"></div>
-          Analisando tools...
-        </div>
-        <div id="modal-results" style="max-height:400px;overflow-y:auto;"></div>
       </div>
     </div>
-  </div>
 
-  <script is:inline>
-    function openSearch() {
-      document.getElementById('search-modal').style.display = 'block';
-      setTimeout(() => document.getElementById('modal-query').focus(), 100);
-    }
-    function closeSearchDirect() {
-      document.getElementById('search-modal').style.display = 'none';
-      document.getElementById('modal-results').innerHTML = '';
-      document.getElementById('modal-query').value = '';
-    }
-    function closeSearch(e) {
-      if (e.target === document.getElementById('search-modal')) closeSearchDirect();
-    }
-    function setModalQuery(q) {
-      document.getElementById('modal-query').value = q;
-      document.getElementById('modal-query').focus();
-    }
-    document.addEventListener('keydown', function(e) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        openSearch();
+    <script src="/buskai.js" is:inline></script>
+    <script is:inline>
+      if (window.GB) GB.init();
+    </script>
+    <script is:inline>
+      function openSearch() {
+        document.getElementById('search-modal').style.display = 'block';
+        setTimeout(() => document.getElementById('modal-query').focus(), 100);
       }
-      if (e.key === 'Escape') closeSearchDirect();
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('modal-query').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') runModalSearch();
+      function closeSearchDirect() {
+        document.getElementById('search-modal').style.display = 'none';
+        document.getElementById('modal-results').innerHTML = '';
+        document.getElementById('modal-query').value = '';
+      }
+      function closeSearch(e) {
+        if (e.target === document.getElementById('search-modal')) closeSearchDirect();
+      }
+      function setModalQuery(q) {
+        document.getElementById('modal-query').value = q;
+        document.getElementById('modal-query').focus();
+      }
+      document.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          openSearch();
+        }
+        if (e.key === 'Escape') closeSearchDirect();
       });
-    });
-    function elWithStyle(tag, style, text) {
-      var el = document.createElement(tag);
-      if (style) el.setAttribute('style', style);
-      if (text != null) el.textContent = String(text);
-      return el;
-    }
-    function safeSlug(slug) {
-      // allow only slug-safe characters for the internal tool link
-      return String(slug || '').replace(/[^a-zA-Z0-9_-]/g, '');
-    }
-    function runModalSearch() {
-      var query = document.getElementById('modal-query').value.trim();
-      if (!query) return;
-      var resultsEl = document.getElementById('modal-results');
-      resultsEl.innerHTML = '';
-      document.getElementById('modal-loading').style.display = 'block';
-      document.getElementById('modal-btn').disabled = true;
-      fetch('/api/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      }).then(function(res) {
-        return res.json();
-      }).then(function(data) {
-        document.getElementById('modal-loading').style.display = 'none';
-        if (!data || !Array.isArray(data.tools)) throw new Error('bad response');
-        resultsEl.innerHTML = '';
-
-        resultsEl.appendChild(elWithStyle('div',
-          'padding:12px 20px;font-size:11px;color:#5d6662;font-family:monospace;',
-          data.tools.length + ' tools para "' + query + '"'));
-        resultsEl.appendChild(elWithStyle('div',
-          'font-size:13px;color:#8b938f;line-height:1.5;padding:8px 20px;',
-          data.reasoning || ''));
-
-        data.tools.forEach(function(tool, i) {
-          var a = document.createElement('a');
-          a.setAttribute('href', '/tools/' + safeSlug(tool.slug));
-          a.setAttribute('onclick', 'closeSearchDirect()');
-          a.setAttribute('style', 'display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid rgba(255,255,255,.05);');
-
-          var left = document.createElement('div');
-          var titleRow = elWithStyle('div', 'display:flex;align-items:center;gap:8px;margin-bottom:4px;');
-          titleRow.appendChild(elWithStyle('span', 'font-size:11px;color:#3ddc84;font-family:monospace;', '#' + (i + 1)));
-          titleRow.appendChild(elWithStyle('span', 'font-size:14px;font-weight:600;color:#e9ecea;', tool.name));
-          if (tool.works_in_brazil) {
-            titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;', 'BR'));
-          }
-          if (tool.has_free_plan) {
-            titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;', 'Grátis'));
-          }
-          left.appendChild(titleRow);
-          left.appendChild(elWithStyle('div', 'font-size:12px;color:#5d6662;font-style:italic;', tool.reason));
-          a.appendChild(left);
-
-          a.appendChild(elWithStyle('div', 'font-size:13px;font-weight:600;color:#e9ecea;margin-left:16px;flex-shrink:0;', tool.price));
-          resultsEl.appendChild(a);
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('modal-query').addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') runModalSearch();
         });
-
-        var footer = elWithStyle('div', 'padding:12px 20px;border-top:1px solid rgba(255,255,255,.05);text-align:center;');
-        var fullLink = elWithStyle('a', 'font-size:12px;color:#3ddc84;text-decoration:none;', 'Ver página completa →');
-        fullLink.setAttribute('href', '/search?q=' + encodeURIComponent(query));
-        footer.appendChild(fullLink);
-        resultsEl.appendChild(footer);
-
-        document.getElementById('modal-btn').disabled = false;
-      }).catch(function(e) {
-        document.getElementById('modal-loading').style.display = 'none';
-        resultsEl.innerHTML = '';
-        resultsEl.appendChild(elWithStyle('div', 'padding:20px;text-align:center;color:#ff6a5b;font-size:13px;', 'Erro ao buscar. Tente novamente.'));
-        document.getElementById('modal-btn').disabled = false;
       });
-    }
-  </script>
-</body>
+      function elWithStyle(tag, style, text) {
+        var el = document.createElement(tag);
+        if (style) el.setAttribute('style', style);
+        if (text != null) el.textContent = String(text);
+        return el;
+      }
+      function safeSlug(slug) {
+        // allow only slug-safe characters for the internal tool link
+        return String(slug || '').replace(/[^a-zA-Z0-9_-]/g, '');
+      }
+      function runModalSearch() {
+        var query = document.getElementById('modal-query').value.trim();
+        if (!query) return;
+        var resultsEl = document.getElementById('modal-results');
+        resultsEl.innerHTML = '';
+        document.getElementById('modal-loading').style.display = 'block';
+        document.getElementById('modal-btn').disabled = true;
+        fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        }).then(function(res) {
+          return res.json();
+        }).then(function(data) {
+          document.getElementById('modal-loading').style.display = 'none';
+          if (!data || !Array.isArray(data.tools)) throw new Error('bad response');
+          resultsEl.innerHTML = '';
+
+          resultsEl.appendChild(elWithStyle('div',
+            'padding:12px 20px;font-size:11px;color:var(--text-dimmer);font-family:var(--mono);',
+            data.tools.length + ' tools para "' + query + '"'));
+          resultsEl.appendChild(elWithStyle('div',
+            'font-size:13px;color:var(--text-dim);line-height:1.5;padding:8px 20px;',
+            data.reasoning || ''));
+
+          data.tools.forEach(function(tool, i) {
+            var a = document.createElement('a');
+            a.setAttribute('href', '/tools/' + safeSlug(tool.slug));
+            a.setAttribute('onclick', 'closeSearchDirect()');
+            a.setAttribute('style', 'display:flex;justify-content:space-between;align-items:center;padding:12px 20px;text-decoration:none;border-top:1px solid var(--line);');
+
+            var left = document.createElement('div');
+            var titleRow = elWithStyle('div', 'display:flex;align-items:center;gap:8px;margin-bottom:4px;');
+            titleRow.appendChild(elWithStyle('span', 'font-size:11px;color:var(--accent);font-family:var(--mono);', '#' + (i + 1)));
+            titleRow.appendChild(elWithStyle('span', 'font-size:14px;font-weight:600;color:var(--text);', tool.name));
+            if (tool.works_in_brazil) {
+              titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:rgba(74,134,255,.12);color:#4a86ff;border-radius:20px;font-family:var(--mono);', 'BR'));
+            }
+            if (tool.has_free_plan) {
+              titleRow.appendChild(elWithStyle('span', 'font-size:10px;padding:1px 6px;background:var(--accent-glow);color:var(--accent);border-radius:20px;font-family:var(--mono);', 'Grátis'));
+            }
+            left.appendChild(titleRow);
+            left.appendChild(elWithStyle('div', 'font-size:12px;color:var(--text-dim);font-style:italic;', tool.reason));
+            a.appendChild(left);
+
+            a.appendChild(elWithStyle('div', 'font-size:13px;font-weight:600;color:var(--text);margin-left:16px;flex-shrink:0;font-family:var(--mono);', tool.price));
+            resultsEl.appendChild(a);
+          });
+
+          var footer = elWithStyle('div', 'padding:12px 20px;border-top:1px solid var(--line);text-align:center;');
+          var fullLink = elWithStyle('a', 'font-size:12px;color:var(--accent);text-decoration:none;font-family:var(--mono);', 'Ver página completa →');
+          fullLink.setAttribute('href', '/search?q=' + encodeURIComponent(query));
+          footer.appendChild(fullLink);
+          resultsEl.appendChild(footer);
+
+          document.getElementById('modal-btn').disabled = false;
+        }).catch(function(e) {
+          document.getElementById('modal-loading').style.display = 'none';
+          resultsEl.innerHTML = '';
+          resultsEl.appendChild(elWithStyle('div', 'padding:20px;text-align:center;color:var(--red);font-size:13px;', 'Erro ao buscar. Tente novamente.'));
+          document.getElementById('modal-btn').disabled = false;
+        });
+      }
+    </script>
+  </body>
 </html>

@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Compare · BuskAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/buskai.css"/>
+<style>
+  .hero-cmp {
+    margin-top: 32px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--line);
+  }
+  .hero-cmp .kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block;
+  }
+  .hero-cmp h1 {
+    font-size: clamp(40px, 5.5vw, 64px); line-height: 1.02; letter-spacing: -.035em;
+    font-weight: 700; margin: 0 0 10px;
+  }
+  .hero-cmp h1 .accent { color: var(--accent); }
+  .hero-cmp p {
+    color: var(--text-dim); font-size: 16px; line-height: 1.5; max-width: 62ch; margin: 0;
+  }
+
+  /* Picker row */
+  .picker {
+    margin: 24px 0 20px;
+    display: grid; grid-template-columns: 1fr 44px 1fr 1fr auto;
+    gap: 10px; align-items: stretch;
+  }
+  .slot {
+    border: 1px solid var(--line-2); background: var(--bg-2);
+    border-radius: 12px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 10px;
+    min-height: 56px;
+  }
+  .slot.empty { border-style: dashed; color: var(--text-dim); cursor: pointer; }
+  .slot .logo {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: grid; place-items: center; flex: none;
+    font-weight: 800; font-size: 15px; color: #0b0d0b;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+  }
+  .logo.a { background: linear-gradient(135deg, #ffb74a, #ff6a5b); }
+  .logo.b { background: linear-gradient(135deg, #8a7dff, #2f3bff); }
+  .logo.c { background: linear-gradient(135deg, #3ddc84, #0a5ea8); }
+  .logo.d { background: linear-gradient(135deg, #ff6a5b, #c94b3f); }
+  .slot .name { font-weight: 600; font-size: 14px; }
+  .slot .cat { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+  .slot .x { margin-left: auto; color: var(--text-dim); cursor: pointer; padding: 4px 8px; }
+  .slot .x:hover { color: var(--red); }
+  .vs {
+    display: grid; place-items: center;
+    font-family: var(--mono); font-size: 14px; color: var(--text-dim);
+    border: 1px dashed var(--line); border-radius: 12px;
+  }
+  .add-slot {
+    display: grid; place-items: center;
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    border: 1px dashed var(--line); border-radius: 12px; cursor: pointer;
+    padding: 0 16px; white-space: nowrap;
+  }
+  .add-slot:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Verdict card */
+  .verdict {
+    margin: 10px 0 28px;
+    padding: 20px 24px;
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    background:
+      radial-gradient(400px 200px at 0% 0%, var(--accent-glow), transparent 70%),
+      var(--bg-2);
+    display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center;
+  }
+  .verdict .badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .verdict h3 {
+    margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.02em;
+  }
+  .verdict h3 b { color: var(--accent); }
+  .verdict p {
+    margin: 6px 0 0; color: var(--text-dim); font-size: 14px; line-height: 1.5; max-width: 60ch;
+  }
+  .verdict .score-b {
+    text-align: right; font-family: var(--mono);
+  }
+  .verdict .score-b b { font-size: 28px; color: var(--accent); font-weight: 700; }
+  .verdict .score-b small { color: var(--text-dim); display: block; font-size: 11px; }
+
+  /* Matrix */
+  .matrix {
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: var(--bg-2);
+  }
+  .mx-head, .mx-row {
+    display: grid;
+    grid-template-columns: 220px repeat(3, 1fr);
+    align-items: stretch;
+  }
+  .mx-head {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in oklab, var(--bg) 50%, var(--bg-2));
+  }
+  .mx-head > div {
+    padding: 18px 18px;
+    border-right: 1px solid var(--line);
+  }
+  .mx-head > div:last-child { border-right: 0; }
+  .mx-head .label {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    letter-spacing: .1em; text-transform: uppercase;
+    display: flex; align-items: center;
+  }
+  .mx-head .col {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .mx-head .col h4 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+  .mx-head .col .cat { font-family: var(--mono); font-size: 10px; color: var(--text-dim); }
+  .mx-head .col.winner { position: relative; }
+  .mx-head .col.winner::after {
+    content: "👑 winner"; position: absolute; top: -8px; right: 0;
+    font-family: var(--mono); font-size: 10px; color: var(--accent);
+    background: var(--bg-2); padding: 2px 6px; border: 1px solid var(--accent); border-radius: 4px;
+  }
+
+  .mx-row {
+    border-bottom: 1px solid var(--line);
+  }
+  .mx-row:last-child { border-bottom: 0; }
+  .mx-row > div {
+    padding: 14px 18px;
+    border-right: 1px solid var(--line);
+    font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mx-row > div:last-child { border-right: 0; }
+  .mx-row .criterion {
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    letter-spacing: .04em;
+    flex-direction: column; align-items: flex-start; gap: 3px;
+  }
+  .mx-row .criterion small {
+    font-size: 10px; color: var(--text-dimmer);
+  }
+  .mx-row .cell.best {
+    background: color-mix(in oklab, var(--accent-glow) 70%, transparent);
+    color: var(--text); font-weight: 600;
+  }
+  .mx-row .cell .tag {
+    font-family: var(--mono); font-size: 10px;
+    padding: 3px 7px; border: 1px solid var(--line-2); border-radius: 5px;
+    color: var(--text-dim);
+  }
+  .mx-row .cell .tag.good { color: var(--accent); border-color: var(--accent); }
+  .mx-row .cell .tag.bad { color: var(--red); border-color: var(--red); }
+  .mx-row .cell b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .mx-row.score-row {
+    background: color-mix(in oklab, var(--bg) 60%, var(--bg-2));
+  }
+  .mx-row.score-row .cell b {
+    font-family: var(--mono); font-size: 22px; color: var(--accent);
+  }
+  .bar {
+    width: 100%; height: 4px; background: var(--line); border-radius: 4px;
+    overflow: hidden; margin-top: 6px;
+  }
+  .bar i { display: block; height: 100%; background: var(--accent); }
+
+  /* Pros/cons */
+  .pc-grid {
+    margin-top: 32px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .pc {
+    border: 1px solid var(--line); border-radius: 12px;
+    background: var(--bg-2); padding: 18px;
+  }
+  .pc .head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 12px; border-bottom: 1px dashed var(--line);
+  }
+  .pc .head .logo {
+    width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+    font-weight: 800; font-size: 13px; color: #0b0d0b;
+  }
+  .pc .head h4 { margin: 0; font-size: 15px; font-weight: 700; }
+  .pc h5 {
+    font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+    letter-spacing: .14em; text-transform: uppercase; margin: 14px 0 6px;
+  }
+  .pc h5:first-of-type { margin-top: 0; }
+  .pc ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+  .pc ul.pro li::marker { color: var(--accent); }
+  .pc ul.con li::marker { color: var(--red); }
+
+  /* Use-case recommender */
+  .usecase {
+    margin-top: 40px; padding: 24px 28px;
+    border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2);
+  }
+  .usecase h3 { margin: 0 0 14px; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+  .uc-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 14px;
+    padding: 12px 0; border-bottom: 1px dashed var(--line);
+    align-items: center;
+  }
+  .uc-row:last-child { border-bottom: 0; }
+  .uc-row .q { color: var(--text-dim); font-size: 14px; }
+  .uc-row .q b { color: var(--text); font-weight: 600; }
+  .uc-row .pick {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .uc-row .pick .mini {
+    width: 18px; height: 18px; border-radius: 5px;
+    display: inline-grid; place-items: center; font-size: 10px; color: #0b0d0b; font-weight: 800;
+  }
+
+  /* Popular comparisons */
+  .popular-h { margin: 56px 0 16px; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .popular {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+  .popular a {
+    padding: 16px; border: 1px solid var(--line); border-radius: 12px;
+    background: var(--bg-2); display: flex; align-items: center; gap: 10px;
+    transition: border-color .15s ease;
+  }
+  .popular a:hover { border-color: var(--accent); }
+  .popular a .pair {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600;
+  }
+  .popular a .vs-m {
+    font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+  }
+  .popular a .runs { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+
+  @media (max-width: 1000px) {
+    .picker { grid-template-columns: 1fr; }
+    .vs { display: none; }
+    .matrix { overflow-x: auto; }
+    .mx-head, .mx-row { min-width: 820px; }
+    .pc-grid { grid-template-columns: 1fr; }
+    .popular { grid-template-columns: 1fr; }
+    .verdict { grid-template-columns: 1fr; text-align: left; }
+    .verdict .score-b { text-align: left; }
+  }
+  @media (max-width: 700px) {
+    .nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="brand" href="BuskAI Home.html">
+      <span class="mark"></span><span>BuskAI</span>
+    </a>
+    <ul>
+      <li><a href="BuskAI Category.html" data-i18n="nav.categories">Categorias</a></li>
+      <li class="on"><a href="BuskAI Compare.html" data-i18n="nav.compare">Comparar</a></li>
+      <li data-i18n="nav.bench">The Bench</li>
+      <li data-i18n="nav.blog">Blog</li>
+    </ul>
+    <span class="spacer"></span>
+    <div class="lang" id="lang">
+      <button class="on" data-lang="pt">PT</button>
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <button class="submit">＋ <span data-i18n="nav.submit">Enviar tool</span></button>
+  </nav>
+
+  <div class="crumb">
+    <a href="BuskAI Home.html">home</a>
+    <span class="sep">/</span>
+    <span class="cur">comparar</span>
+    <span class="sep">/</span>
+    <span>atendente.ai · lindy · reply.io</span>
+  </div>
+
+  <section class="hero-cmp">
+    <span class="kicker">▲ BENCH COMPARISON · SALES OUTREACH</span>
+    <h1>Atendente.ai vs Lindy vs <span class="accent">Reply.io</span></h1>
+    <p>Três SDR agents benchmarkeados nos mesmos 1.000 atendimentos simulados em PT-BR. Mesmas integrações, mesmos leads, mesmo tempo. Abaixo, o que eles fazem igual — e onde cada um vence.</p>
+  </section>
+
+  <!-- Tool pickers -->
+  <div class="picker">
+    <div class="slot">
+      <div class="logo a">A</div>
+      <div>
+        <div class="name">Atendente.ai</div>
+        <div class="cat">SDR agent · 🇧🇷 BR</div>
+      </div>
+      <span class="x">✕</span>
+    </div>
+    <div class="vs">vs</div>
+    <div class="slot">
+      <div class="logo b">L</div>
+      <div>
+        <div class="name">Lindy</div>
+        <div class="cat">AI employees · 🇺🇸 US</div>
+      </div>
+      <span class="x">✕</span>
+    </div>
+    <div class="slot">
+      <div class="logo c">R</div>
+      <div>
+        <div class="name">Reply.io</div>
+        <div class="cat">Multi-channel · 🇺🇸 US</div>
+      </div>
+      <span class="x">✕</span>
+    </div>
+    <div class="add-slot">＋ adicionar 4ª</div>
+  </div>
+
+  <!-- Verdict -->
+  <section class="verdict">
+    <div style="font-family: var(--mono); font-size: 48px; line-height: 1;">👑</div>
+    <div>
+      <div class="badge">nossa escolha · abril 2026</div>
+      <h3>Para times LATAM vendendo via WhatsApp, <b>Atendente.ai</b> ganha por margem larga.</h3>
+      <p>Mais barato em R$, resposta em PT-BR indistinguível de humano, LGPD nativo. Lindy vence só se você precisa de mais de 3 canais paralelos. Reply.io só se o seu mercado principal é EUA.</p>
+    </div>
+    <div class="score-b">
+      <b>8.9</b>
+      <small>bench score</small>
+      <small style="margin-top: 8px;">+0.5 vs #2</small>
+    </div>
+  </section>
+
+  <!-- Big comparison matrix -->
+  <section class="matrix">
+    <div class="mx-head">
+      <div class="label">Critério</div>
+      <div class="col winner">
+        <div class="logo a" style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;color:#0b0d0b;">A</div>
+        <div>
+          <h4>Atendente.ai</h4>
+          <div class="cat">🇧🇷 · R$ 129/mo</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="logo b" style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;color:#0b0d0b;">L</div>
+        <div>
+          <h4>Lindy</h4>
+          <div class="cat">🇺🇸 · US$ 49/mo</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="logo c" style="width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-weight:800;color:#0b0d0b;">R</div>
+        <div>
+          <h4>Reply.io</h4>
+          <div class="cat">🇺🇸 · US$ 70/seat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="mx-row">
+      <div class="criterion">PREÇO · STARTER<small>conversão @ cotação abr/26</small></div>
+      <div class="cell best"><b>R$ 129</b> /mês · até 3 agents</div>
+      <div class="cell">≈ R$ 248 /mês · 1 agent</div>
+      <div class="cell">≈ R$ 354 /seat/mês</div>
+    </div>
+
+    <!-- Language -->
+    <div class="mx-row">
+      <div class="criterion">PORTUGUÊS (BR)</div>
+      <div class="cell best"><span class="tag good">nativo</span> treinado em PT-BR</div>
+      <div class="cell"><span class="tag">parcial</span> tradução, não nativo</div>
+      <div class="cell"><span class="tag bad">sem suporte</span> via terceiros</div>
+    </div>
+    <div class="mx-row">
+      <div class="criterion">ESPANHOL (MX/AR/CO)</div>
+      <div class="cell"><span class="tag good">✓ nativo</span></div>
+      <div class="cell best"><span class="tag good">✓ nativo</span> (forte)</div>
+      <div class="cell"><span class="tag">parcial</span></div>
+    </div>
+
+    <!-- Channels -->
+    <div class="mx-row">
+      <div class="criterion">WHATSAPP NATIVO<small>Cloud API direto</small></div>
+      <div class="cell best"><span class="tag good">✓ Cloud API</span></div>
+      <div class="cell"><span class="tag bad">via Zapier</span></div>
+      <div class="cell"><span class="tag bad">não</span> só email/LinkedIn</div>
+    </div>
+    <div class="mx-row">
+      <div class="criterion">E-MAIL · LINKEDIN · VOZ</div>
+      <div class="cell">email ✓ · LI ✗ · voz beta</div>
+      <div class="cell best">email ✓ · LI ✓ · voz ✓</div>
+      <div class="cell best">email ✓ · LI ✓ · voz ✓</div>
+    </div>
+
+    <!-- Integrations -->
+    <div class="mx-row">
+      <div class="criterion">CRMs INTEGRADOS</div>
+      <div class="cell best"><b>HubSpot · Pipedrive · RD · Salesforce</b></div>
+      <div class="cell">HubSpot · Salesforce · Zapier</div>
+      <div class="cell">HubSpot · Salesforce (maduro)</div>
+    </div>
+
+    <!-- Data posture -->
+    <div class="mx-row">
+      <div class="criterion">HOSTING · LGPD</div>
+      <div class="cell best"><span class="tag good">🇧🇷 São Paulo</span> LGPD ✓ · DPA PT</div>
+      <div class="cell"><span class="tag">US-East</span> SCC disponível</div>
+      <div class="cell"><span class="tag">US · EU</span> SOC2 · DPA EN</div>
+    </div>
+
+    <!-- Setup time -->
+    <div class="mx-row">
+      <div class="criterion">SETUP · TIME TO FIRST REPLY</div>
+      <div class="cell best"><b>22 min</b> (templates BR)</div>
+      <div class="cell">45 min (flexível, genérico)</div>
+      <div class="cell">1h 40 (config denso)</div>
+    </div>
+
+    <!-- Customization -->
+    <div class="mx-row">
+      <div class="criterion">CUSTOMIZAÇÃO DE AGENTE</div>
+      <div class="cell">média · templates por setor</div>
+      <div class="cell best">alta · "Lego de agentes"</div>
+      <div class="cell">alta · via workflows</div>
+    </div>
+
+    <!-- Score rows -->
+    <div class="mx-row score-row">
+      <div class="criterion">QUALIDADE DE RESPOSTA<small>julgada por 3 nativos BR</small></div>
+      <div class="cell best"><b>9.2</b><div class="bar" style="flex:1"><i style="width:92%"></i></div></div>
+      <div class="cell"><b>7.4</b><div class="bar" style="flex:1"><i style="width:74%"></i></div></div>
+      <div class="cell"><b>6.8</b><div class="bar" style="flex:1"><i style="width:68%"></i></div></div>
+    </div>
+    <div class="mx-row score-row">
+      <div class="criterion">LEAD → MEETING RATE<small>amostra 1.000 conversas</small></div>
+      <div class="cell best"><b>18%</b></div>
+      <div class="cell"><b>14%</b></div>
+      <div class="cell"><b>11%</b></div>
+    </div>
+    <div class="mx-row score-row" style="background: color-mix(in oklab, var(--accent-glow) 20%, var(--bg));">
+      <div class="criterion" style="color: var(--text);"><b style="color:var(--text);">BENCH SCORE FINAL</b></div>
+      <div class="cell best"><b>8.9</b></div>
+      <div class="cell"><b>8.4</b></div>
+      <div class="cell"><b>8.0</b></div>
+    </div>
+  </section>
+
+  <!-- Pros/cons per tool -->
+  <section class="pc-grid">
+    <div class="pc">
+      <div class="head"><div class="logo a">A</div><h4>Atendente.ai</h4></div>
+      <h5>Onde vence</h5>
+      <ul class="pro">
+        <li>PT-BR natural, inclusive gírias regionais.</li>
+        <li>Mais barato em R$; cobrado em reais.</li>
+        <li>LGPD nativo, hosting em SP.</li>
+        <li>Templates prontos por vertical (clínica, imobiliária…).</li>
+      </ul>
+      <h5>Onde perde</h5>
+      <ul class="con">
+        <li>Canal único (WhatsApp) — email é beta.</li>
+        <li>UI admin em inglês inconsistente.</li>
+        <li>Salesforce só em plano Pro+.</li>
+      </ul>
+    </div>
+
+    <div class="pc">
+      <div class="head"><div class="logo b">L</div><h4>Lindy</h4></div>
+      <h5>Onde vence</h5>
+      <ul class="pro">
+        <li>Plataforma flexível — agentes multi-canal.</li>
+        <li>Marketplace de skills ativo.</li>
+        <li>Espanhol forte para MX/AR/CO.</li>
+      </ul>
+      <h5>Onde perde</h5>
+      <ul class="con">
+        <li>PT-BR passável, mas treina-se.</li>
+        <li>Cobrança em US$ — volátil pra BR.</li>
+        <li>Sem WhatsApp nativo (via Zapier).</li>
+      </ul>
+    </div>
+
+    <div class="pc">
+      <div class="head"><div class="logo c">R</div><h4>Reply.io</h4></div>
+      <h5>Onde vence</h5>
+      <ul class="pro">
+        <li>Outbound email/LinkedIn maduríssimo.</li>
+        <li>Deliverability e warm-up built-in.</li>
+        <li>Relatórios ricos, SOC2.</li>
+      </ul>
+      <h5>Onde perde</h5>
+      <ul class="con">
+        <li>PT-BR não é produto; adapta-se.</li>
+        <li>Sem WhatsApp.</li>
+        <li>Cara por seat — não escala em SMB.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Use case recommender -->
+  <section class="usecase">
+    <h3>Qual escolher pela sua situação</h3>
+    <div class="uc-row">
+      <div class="q">Você vende <b>B2C / SMB no Brasil</b> e o canal principal é WhatsApp</div>
+      <div class="pick"><span class="mini logo a">A</span> Atendente.ai</div>
+    </div>
+    <div class="uc-row">
+      <div class="q">Você opera em <b>MX / AR / CO</b>, espanhol é o idioma dominante</div>
+      <div class="pick"><span class="mini logo b">L</span> Lindy</div>
+    </div>
+    <div class="uc-row">
+      <div class="q">Você tem um <b>time outbound maduro</b> focado em email/LinkedIn com leads US/EU</div>
+      <div class="pick"><span class="mini logo c">R</span> Reply.io</div>
+    </div>
+    <div class="uc-row">
+      <div class="q">Você precisa de <b>agentes customizados</b> que façam mais que prospecção (ex: ops interna)</div>
+      <div class="pick"><span class="mini logo b">L</span> Lindy</div>
+    </div>
+    <div class="uc-row">
+      <div class="q">Você tem <b>time enxuto (≤5 pessoas)</b> e orçamento apertado em R$</div>
+      <div class="pick"><span class="mini logo a">A</span> Atendente.ai</div>
+    </div>
+  </section>
+
+  <!-- Popular comparisons -->
+  <h2 class="popular-h">Comparações populares</h2>
+  <div class="popular">
+    <a>
+      <div class="logo a" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">A</div>
+      <div class="pair">Atendente.ai <span class="vs-m">vs</span> SDRzinho</div>
+      <span class="runs">412</span>
+    </a>
+    <a>
+      <div class="logo b" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">L</div>
+      <div class="pair">Lindy <span class="vs-m">vs</span> Relevance</div>
+      <span class="runs">289</span>
+    </a>
+    <a>
+      <div class="logo d" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">K</div>
+      <div class="pair">Klaviyo <span class="vs-m">vs</span> RD Station</div>
+      <span class="runs">256</span>
+    </a>
+    <a>
+      <div class="logo c" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">R</div>
+      <div class="pair">Reply.io <span class="vs-m">vs</span> Koncert</div>
+      <span class="runs">198</span>
+    </a>
+    <a>
+      <div class="logo a" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">A</div>
+      <div class="pair">Atendente.ai <span class="vs-m">vs</span> Clay</div>
+      <span class="runs">174</span>
+    </a>
+    <a>
+      <div class="logo b" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-weight:800;font-size:11px;color:#0b0d0b;">L</div>
+      <div class="pair">Lindy <span class="vs-m">vs</span> Reply.io</div>
+      <span class="runs">142</span>
+    </a>
+  </div>
+
+  <footer class="foot">
+    <span>© 2026 BuskAI · v2.4.1</span>
+    <ul><li>methodology</li><li>about</li><li>rss</li><li>x.com/buskai</li></ul>
+  </footer>
+</div>
+
+<div class="tweaks" id="tweaks">
+  <h4>Tweaks <span>compare</span></h4>
+  <label>Tema
+    <div class="seg" id="tw-theme">
+      <button data-v="light" class="on">light</button>
+      <button data-v="dark">dark</button>
+    </div>
+  </label>
+  <label>Densidade
+    <div class="seg" id="tw-density">
+      <button data-v="comfy">comfy</button>
+      <button data-v="default" class="on">default</button>
+      <button data-v="dense">dense</button>
+    </div>
+  </label>
+</div>
+
+<script src="assets/buskai.js"></script>
+<script>
+  const DICTS = {
+    pt: { "nav.categories":"Categorias","nav.compare":"Comparar","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Enviar tool" },
+    es: { "nav.categories":"Categorías","nav.compare":"Comparar","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Enviar herramienta" },
+    en: { "nav.categories":"Categories","nav.compare":"Compare","nav.bench":"The Bench","nav.blog":"Blog","nav.submit":"Submit a tool" }
+  };
+  GB.init(DICTS);
+</script>
+</body>
+</html>

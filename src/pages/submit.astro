@@ -3,10 +3,10 @@ import Base from '../layouts/Base.astro';
 ---
 
 <style>
-  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-  .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-  .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-  .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+  .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+  .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+  .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+  .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
   #form-modal {
     display: none;
@@ -21,7 +21,7 @@ import Base from '../layouts/Base.astro';
   }
   #form-modal.open { display: flex; }
   .modal-card {
-    background: #fff;
+    background:var(--bg-2);
     border-radius: 16px;
     width: 100%;
     max-width: 680px;
@@ -33,21 +33,21 @@ import Base from '../layouts/Base.astro';
     justify-content: space-between;
     align-items: center;
     padding: 16px 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--line);
   }
-  .modal-header span { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+  .modal-header span { font-size: 14px; font-weight: 600; color: var(--text); }
   .modal-close {
     background: none;
     border: none;
     cursor: pointer;
-    color: #888;
+    color: var(--text-dim);
     font-size: 20px;
     line-height: 1;
     padding: 4px;
     border-radius: 6px;
     transition: background .15s;
   }
-  .modal-close:hover { background: #f5f5f5; color: #1a1a1a; }
+  .modal-close:hover { background: var(--bg-2); color: var(--text); }
 </style>
 
 <Base title="Envie sua ferramenta de IA — Buskai.net">
@@ -57,14 +57,14 @@ import Base from '../layouts/Base.astro';
 
   <div style="max-width:600px;">
     <h1 style="font-size:28px;font-weight:600;margin-bottom:12px;line-height:1.3;">Seu produto merece ser descoberto</h1>
-    <p style="font-size:15px;color:#555;line-height:1.7;margin-bottom:32px;">
+    <p style="font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:32px;">
       O Buskai está construindo o maior diretório de AI tools para o mercado brasileiro. Se você criou um produto
       que ajuda empresas, queremos conhecer e apresentar para quem está buscando — sem custo.
     </p>
 
     <button
       onclick="document.getElementById('form-modal').classList.add('open')"
-      style="padding:14px 32px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">
+      style="padding:14px 32px;background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">
       Cadastrar meu produto grátis →
     </button>
   </div>

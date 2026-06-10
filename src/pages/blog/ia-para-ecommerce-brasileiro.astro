@@ -35,45 +35,45 @@ export const frontmatter = {
   })} />
 
   <style>
-    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: #bbb; margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
-    .breadcrumb a { color: #999; text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
-    .breadcrumb a:hover { color: #1D9E75; background: #f0faf6; }
-    .breadcrumb span { color: #ddd; font-size: 10px; margin: 0 1px; user-select: none; }
+    .breadcrumb { display: flex; gap: 2px; align-items: center; font-size: 12px; color: var(--text-dimmer); margin-bottom: 28px; flex-wrap: wrap; letter-spacing: 0.01em; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; padding: 2px 4px; border-radius: 4px; transition: color 0.15s ease, background 0.15s ease; }
+    .breadcrumb a:hover { color: var(--accent); background: color-mix(in oklab, var(--accent-glow) 45%, transparent); }
+    .breadcrumb span { color: var(--line-2); font-size: 10px; margin: 0 1px; user-select: none; }
 
     .page-layout { display: grid; grid-template-columns: 200px 1fr 240px; gap: 32px; align-items: start; }
 
     .sidebar { position: sticky; top: 80px; }
-    .sidebar-title { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; color: var(--text-dimmer); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .sidebar-nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
-    .sidebar-nav a { display: block; font-size: 13px; color: #999; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #eee; line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
-    .sidebar-nav a:hover { color: #1D9E75; border-left-color: #c8ead9; }
-    .sidebar-nav a.active { color: #1D9E75; border-left-color: #1D9E75; font-weight: 600; }
+    .sidebar-nav a { display: block; font-size: 13px; color: var(--text-dim); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); line-height: 1.45; transition: color 0.15s, border-color 0.15s; }
+    .sidebar-nav a:hover { color: var(--accent); border-left-color: var(--line-2); }
+    .sidebar-nav a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
 
-    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: #1a1a1a; }
-    .article .meta { font-size: 13px; color: #aaa; margin-bottom: 36px; }
-    .article p { font-size: 15px; color: #333; line-height: 1.75; margin-bottom: 20px; }
-    .tool-block { border: 1px solid #eee; border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
-    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+    .article h1 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--text); }
+    .article .meta { font-size: 13px; color: var(--text-dimmer); margin-bottom: 36px; }
+    .article p { font-size: 15px; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+    .tool-block { border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; scroll-margin-top: 24px; }
+    .tool-block h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
     .tool-block p { margin-bottom: 10px; }
     .tool-block p:last-child { margin-bottom: 0; }
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-    .tag-green { background: #E1F5EE; color: #0F6E56; }
-    .tag-blue { background: #E6F1FB; color: #185FA5; }
-    .tag-gray { background: #f3f3f3; color: #555; }
-    .dica { background: #f9fafb; border-left: 3px solid #1D9E75; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #444; line-height: 1.6; margin-top: 14px; }
-    .dica strong { color: #1D9E75; }
-    .cta-box { background: #f0faf6; border: 1px solid #c8ead9; border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
-    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #0F6E56; }
-    .cta-box p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-    .cta-btn { display: inline-block; padding: 12px 28px; background: #1D9E75; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
-    .cta-btn:hover { background: #178f68; }
+    .tag-green { background: var(--accent-glow); color: var(--accent); }
+    .tag-blue { background: rgba(74,134,255,.12); color: #4a86ff; }
+    .tag-gray { background: var(--bg-2); color: var(--text-dim); }
+    .dica { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 14px; }
+    .dica strong { color: var(--accent); }
+    .cta-box { background: color-mix(in oklab, var(--accent-glow) 45%, transparent); border: 1px solid var(--line-2); border-radius: 14px; padding: 32px; text-align: center; margin-top: 48px; }
+    .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+    .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-2); }
 
     .sumario-mobile { display: none; }
-    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
     .sumario-mobile li { margin-bottom: 6px; }
-    .sumario-mobile a { font-size: 14px; color: #1D9E75; text-decoration: none; }
+    .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
     @media (max-width: 768px) {
@@ -129,7 +129,7 @@ export const frontmatter = {
       </p>
 
       <div id="tidio-ecom" class="tool-block">
-        <h2>1. <a href="/tools/tidio" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Tidio</a> — Atendimento automático 24/7 para sua loja</h2>
+        <h2>1. <a href="/tools/tidio" style="color:var(--accent);text-decoration:underline;font-weight:500;">Tidio</a> — Atendimento automático 24/7 para sua loja</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Integra com Shopify</span>
@@ -138,7 +138,7 @@ export const frontmatter = {
         <p>
           O Tidio responde automaticamente as dúvidas mais comuns dos clientes da sua loja — rastreamento de pedido, prazo de entrega, política de troca, tamanhos disponíveis — 24 horas por dia, 7 dias por semana. Para e-commerces brasileiros que recebem a maior parte dos contatos fora do horário comercial, isso significa não perder vendas por falta de resposta rápida.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/tidio" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/tidio" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA Lyro do Tidio aprende com o conteúdo do seu site e responde perguntas específicas do seu negócio — não apenas respostas genéricas. Quando o cliente quer saber se um produto específico está disponível em determinada cor e tamanho, o bot consulta o estoque em tempo real e responde com precisão.
         </p>
@@ -149,7 +149,7 @@ export const frontmatter = {
       </div>
 
       <div id="klaviyo" class="tool-block">
-        <h2>2. <a href="/tools/klaviyo" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Klaviyo</a> — E-mail marketing com IA para e-commerce</h2>
+        <h2>2. <a href="/tools/klaviyo" style="color:var(--accent);text-decoration:underline;font-weight:500;">Klaviyo</a> — E-mail marketing com IA para e-commerce</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Integra com Shopify/VTEX</span>
@@ -158,7 +158,7 @@ export const frontmatter = {
         <p>
           O Klaviyo é a plataforma de e-mail e SMS marketing preferida de e-commerces em todo o mundo — e funciona muito bem no Brasil com integração para as principais plataformas, incluindo VTEX, Shopify e WooCommerce. A IA segmenta automaticamente sua base de clientes com base no comportamento de compra e envia o e-mail certo para cada segmento no momento ideal.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/klaviyo" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/klaviyo" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Os fluxos automáticos do Klaviyo cuidam de toda a jornada pós-compra: confirmação de pedido, atualização de entrega, solicitação de avaliação, e-mail de recompra no momento em que o produto provavelmente acabou. Para clientes que não compram há 90 dias, o Klaviyo dispara automaticamente uma campanha de reativação com desconto personalizado.
         </p>
@@ -169,7 +169,7 @@ export const frontmatter = {
       </div>
 
       <div id="adcreative" class="tool-block">
-        <h2>3. <a href="/tools/adcreative" style="color:#1D9E75;text-decoration:underline;font-weight:500;">AdCreative</a> — Criativos de anúncio gerados por IA</h2>
+        <h2>3. <a href="/tools/adcreative" style="color:var(--accent);text-decoration:underline;font-weight:500;">AdCreative</a> — Criativos de anúncio gerados por IA</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Funciona em PT</span>
           <span class="tag tag-gray">A partir de $21/mês</span>
@@ -177,7 +177,7 @@ export const frontmatter = {
         <p>
           Criar dezenas de variações de criativos para testar no Meta Ads e Google é uma das tarefas mais demoradas do marketing de e-commerce. O AdCreative gera banners, stories e posts a partir das informações do seu produto e da sua marca — em segundos e com pontuação de performance prevista pela IA antes mesmo de publicar.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/adcreative" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/adcreative" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           A IA analisa os dados de performance dos seus anúncios anteriores e entende quais elementos visuais e textos convertem melhor para o seu público. Com o tempo, os criativos gerados ficam cada vez mais alinhados com o que funciona especificamente para o seu negócio — não para um e-commerce genérico.
         </p>
@@ -188,7 +188,7 @@ export const frontmatter = {
       </div>
 
       <div id="chatbase-ecom" class="tool-block">
-        <h2>4. <a href="/tools/chatbase" style="color:#1D9E75;text-decoration:underline;font-weight:500;">Chatbase</a> — Chatbot treinado com seu catálogo</h2>
+        <h2>4. <a href="/tools/chatbase" style="color:var(--accent);text-decoration:underline;font-weight:500;">Chatbase</a> — Chatbot treinado com seu catálogo</h2>
         <div class="tag-row">
           <span class="tag tag-green">Plano gratuito</span>
           <span class="tag tag-blue">Funciona em PT</span>
@@ -197,7 +197,7 @@ export const frontmatter = {
         <p>
           O Chatbase permite criar um chatbot treinado especificamente com as informações da sua loja — catálogo de produtos, tabela de medidas, política de troca e FAQ — e publicá-lo no WhatsApp e no site. A diferença em relação a chatbots genéricos é que ele realmente conhece os seus produtos e consegue ajudar o cliente a escolher o tamanho certo ou comparar modelos.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/chatbase" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/chatbase" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Para e-commerces de moda, calçados e eletrônicos — categorias com alto volume de dúvidas sobre especificações técnicas — o Chatbase reduz drasticamente as perguntas que chegam para o atendimento humano. O cliente tira a dúvida na hora, sem esperar, e a taxa de conversão aumenta porque ele não abandona a compra por falta de informação.
         </p>
@@ -208,7 +208,7 @@ export const frontmatter = {
       </div>
 
       <div id="activecampaign" class="tool-block">
-        <h2>5. <a href="/tools/activecampaign" style="color:#1D9E75;text-decoration:underline;font-weight:500;">ActiveCampaign</a> — Automação de marketing completa</h2>
+        <h2>5. <a href="/tools/activecampaign" style="color:var(--accent);text-decoration:underline;font-weight:500;">ActiveCampaign</a> — Automação de marketing completa</h2>
         <div class="tag-row">
           <span class="tag tag-blue">Suporte PT</span>
           <span class="tag tag-blue">Funciona no BR</span>
@@ -217,7 +217,7 @@ export const frontmatter = {
         <p>
           O ActiveCampaign combina e-mail marketing, automação de marketing e CRM em uma plataforma — ideal para e-commerces que querem ir além do Klaviyo e integrar as comunicações de marketing com o processo de vendas. A IA pontua automaticamente os leads com base no comportamento (páginas visitadas, e-mails abertos, produtos visualizados) e aciona sequências específicas para cada perfil.
         </p>
-          <p style="margin-top:8px;"><a href="/tools/activecampaign" style="font-size:13px;color:#1D9E75;text-decoration:none;font-weight:500;">Ver site →</a></p>
+          <p style="margin-top:8px;"><a href="/tools/activecampaign" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:500;">Ver site →</a></p>
         <p>
           Para o mercado brasileiro, o ActiveCampaign tem suporte em português e aceita pagamento em reais. As automações de carrinho abandonado, recompra e reativação são configuráveis sem código — qualquer membro do time de marketing consegue ajustar os fluxos sem precisar de um desenvolvedor.
         </p>
@@ -227,7 +227,7 @@ export const frontmatter = {
         <div class="dica"><strong>Dica prática:</strong> configure no ActiveCampaign um fluxo de "cliente VIP" que identifica automaticamente compradores que fizeram 3 ou mais compras e os move para uma lista especial com conteúdo e promoções exclusivas — fidelizar um cliente custa 5x menos do que adquirir um novo.</div>
       </div>
 
-      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:#1a1a1a;">Por onde começar no e-commerce?</h2>
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Por onde começar no e-commerce?</h2>
       <p>
         Se você está começando a usar IA no e-commerce, priorize o atendimento automático (Tidio) e o e-mail marketing inteligente (Klaviyo ou ActiveCampaign) — são as duas alavancas com maior retorno imediato. Criativos automatizados com AdCreative e chatbots personalizados com Chatbase vêm na segunda fase, quando a operação básica já estiver rodando bem.
       </p>
