@@ -50,7 +50,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <nav>
       <a href="/" class="logo">Busk<span>ai</span>.net</a>
       <div class="nav-links">
-        <a href="/categories">Categorias</a>
+        <div style="position:relative;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
+          <a href="/categories" style="font-size:14px;color:#333;text-decoration:none;padding:6px 4px;">Categorias ▾</a>
+          <div class="nav-dropdown" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;padding:12px;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,0.08);z-index:100;">
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;padding:0 8px;">Por característica</div>
+            <a href="/ferramentas-ia-gratuitas" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">🆓 Ferramentas gratuitas</a>
+            <a href="/ferramentas-ia-brasil" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">🇧🇷 Funciona no Brasil</a>
+            <a href="/ferramentas-ia-em-portugues" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">🇵🇹 Suporte em português</a>
+            <a href="/ferramentas-ia-aceita-reais" style="display:block;padding:6px 8px;font-size:13px;color:#333;text-decoration:none;border-radius:6px;" onmouseenter="this.style.background='#f0faf6'" onmouseleave="this.style.background='transparent'">💰 Aceita BRL</a>
+            <div style="border-top:1px solid #eee;margin:8px 0;"></div>
+            <a href="/categories" style="display:block;padding:6px 8px;font-size:13px;color:#1D9E75;text-decoration:none;border-radius:6px;font-weight:500;">Ver todas as categorias →</a>
+          </div>
+        </div>
         <a href="/compare">Comparar</a>
         <a href="/blog">Blog</a>
         <button onclick="openSearch()" style="background:none;border:none;cursor:pointer;padding:6px;color:#555;display:flex;align-items:center;" title="Buscar (⌘K)">
@@ -62,15 +73,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <main>
       <slot />
     </main>
-    <footer>
-      <div style="display:flex;justify-content:center;gap:24px;margin-bottom:12px;flex-wrap:wrap;">
-        <a href="/sobre" style="font-size:13px;color:#888;text-decoration:none;">Sobre</a>
-        <a href="/privacidade" style="font-size:13px;color:#888;text-decoration:none;">Privacidade</a>
-        <a href="/contato" style="font-size:13px;color:#888;text-decoration:none;">Contato</a>
-        <a href="/submit" style="font-size:13px;color:#888;text-decoration:none;">Enviar ferramenta</a>
+<footer style="margin-top:80px;padding:40px 0;border-top:1px solid #eee;">
+  <div style="max-width:900px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Ferramentas por tipo</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <a href="/ferramentas-ia-gratuitas" style="font-size:13px;color:#555;text-decoration:none;">Ferramentas gratuitas</a>
+        <a href="/ferramentas-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Funciona no Brasil</a>
+        <a href="/ferramentas-ia-em-portugues" style="font-size:13px;color:#555;text-decoration:none;">Suporte em português</a>
+        <a href="/ferramentas-ia-aceita-reais" style="font-size:13px;color:#555;text-decoration:none;">Aceita BRL</a>
       </div>
-      © 2026 Buskai.net — O benchmark de AI tools para LATAM
-    </footer>
+    </div>
+
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Por setor</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <a href="/ferramentas-marketing-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Marketing com IA</a>
+        <a href="/ferramentas-vendas-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Vendas com IA</a>
+        <a href="/ferramentas-suporte-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Suporte com IA</a>
+        <a href="/ferramentas-rh-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">RH com IA</a>
+        <a href="/ferramentas-produtividade-ia-brasil" style="font-size:13px;color:#555;text-decoration:none;">Produtividade com IA</a>
+        <a href="/ferramentas-crm-ia-gratis" style="font-size:13px;color:#555;text-decoration:none;">CRM gratuito</a>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Buskai</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <a href="/categories" style="font-size:13px;color:#555;text-decoration:none;">Todas as categorias</a>
+        <a href="/compare" style="font-size:13px;color:#555;text-decoration:none;">Comparar ferramentas</a>
+        <a href="/blog" style="font-size:13px;color:#555;text-decoration:none;">Blog</a>
+        <a href="/submit" style="font-size:13px;color:#555;text-decoration:none;">Enviar ferramenta</a>
+        <a href="/sobre" style="font-size:13px;color:#555;text-decoration:none;">Sobre</a>
+        <a href="/privacidade" style="font-size:13px;color:#555;text-decoration:none;">Privacidade</a>
+      </div>
+    </div>
+
+  </div>
+  <div style="max-width:900px;margin:24px auto 0;padding:24px 24px 0;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+    <span style="font-size:12px;color:#aaa;">© 2026 Buskai.net — Ferramentas de IA para LATAM</span>
+    <span style="font-size:12px;color:#aaa;">Feito com ☕ no Brasil</span>
+  </div>
+</footer>
     <!-- Search Modal -->
   <div id="search-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);" onclick="closeSearch(event)">
     <div style="position:absolute;top:15%;left:50%;transform:translateX(-50%);width:100%;max-width:680px;padding:0 20px;">
