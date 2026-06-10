@@ -88,23 +88,74 @@ import Base from '../layouts/Base.astro';
       document.getElementById('search-btn').disabled = false;
       document.getElementById('search-btn').textContent = 'Buscar →';
     }
+    function elWithStyle(tag, style, text) {
+      var el = document.createElement(tag);
+      if (style) el.setAttribute('style', style);
+      if (text != null) el.textContent = String(text);
+      return el;
+    }
+    function safeSlug(slug) {
+      return String(slug || '').replace(/[^a-zA-Z0-9_-]/g, '');
+    }
+    function safeHttpsUrl(url) {
+      // only allow absolute https URLs for outbound links
+      return /^https:\/\//i.test(url || '') ? url : null;
+    }
     function renderResults(data, query) {
       const c = document.getElementById('results');
-      c.innerHTML = '<div style="margin-bottom:16px;font-family:monospace;font-size:11px;color:#5d6662;">' + data.tools.length + ' tools para "' + query + '"</div>' +
-        '<div style="margin-bottom:20px;padding:16px 20px;border:1px solid rgba(61,220,132,.2);border-radius:12px;background:rgba(61,220,132,.05);"><p style="color:#8b938f;font-size:14px;line-height:1.6;margin:0;">' + data.reasoning + '</p></div>' +
-        '<div style="display:flex;flex-direction:column;gap:12px;">' +
-        data.tools.map(function(tool, i) {
-          return '<div style="border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:rgba(15,18,15,.6);display:flex;justify-content:space-between;align-items:flex-start;">' +
-            '<div style="flex:1;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
-            '<span style="font-family:monospace;font-size:11px;color:#3ddc84;">#' + (i+1) + '</span>' +
-            '<a href="/tools/' + tool.slug + '" style="font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;">' + tool.name + '</a>' +
-            (tool.works_in_brazil ? '<span style="font-size:11px;padding:2px 8px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;">Funciona no BR</span>' : '') +
-            (tool.has_free_plan ? '<span style="font-size:11px;padding:2px 8px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;">Plano grátis</span>' : '') +
-            '</div><p style="color:#8b938f;font-size:13px;margin:0 0 6px;">' + tool.tagline + '</p>' +
-            '<p style="color:#5d6662;font-size:12px;margin:0;font-style:italic;">' + tool.reason + '</p></div>' +
-            '<div style="text-align:right;margin-left:20px;flex-shrink:0;"><div style="font-size:15px;font-weight:600;margin-bottom:10px;color:#e9ecea;">' + tool.price + '</div>' +
-            '<a href="' + (tool.affiliate_url || tool.website) + '" target="_blank" style="display:inline-block;padding:8px 18px;background:#3ddc84;color:#0b0d0b;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;">Visitar →</a></div></div>';
-        }).join('') + '</div>';
+      c.innerHTML = '';
+      if (!data || !Array.isArray(data.tools)) {
+        c.appendChild(elWithStyle('p', 'color:#ff6a5b;text-align:center;', 'Erro ao buscar. Tente novamente.'));
+        return;
+      }
+
+      c.appendChild(elWithStyle('div',
+        'margin-bottom:16px;font-family:monospace;font-size:11px;color:#5d6662;',
+        data.tools.length + ' tools para "' + query + '"'));
+
+      var reasoningBox = elWithStyle('div', 'margin-bottom:20px;padding:16px 20px;border:1px solid rgba(61,220,132,.2);border-radius:12px;background:rgba(61,220,132,.05);');
+      reasoningBox.appendChild(elWithStyle('p', 'color:#8b938f;font-size:14px;line-height:1.6;margin:0;', data.reasoning || ''));
+      c.appendChild(reasoningBox);
+
+      var list = elWithStyle('div', 'display:flex;flex-direction:column;gap:12px;');
+      data.tools.forEach(function(tool, i) {
+        var card = elWithStyle('div', 'border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:rgba(15,18,15,.6);display:flex;justify-content:space-between;align-items:flex-start;');
+
+        var left = elWithStyle('div', 'flex:1;');
+        var titleRow = elWithStyle('div', 'display:flex;align-items:center;gap:10px;margin-bottom:8px;');
+        titleRow.appendChild(elWithStyle('span', 'font-family:monospace;font-size:11px;color:#3ddc84;', '#' + (i + 1)));
+
+        var nameLink = elWithStyle('a', 'font-size:17px;font-weight:600;color:#e9ecea;text-decoration:none;', tool.name);
+        nameLink.setAttribute('href', '/tools/' + safeSlug(tool.slug));
+        titleRow.appendChild(nameLink);
+
+        if (tool.works_in_brazil) {
+          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:rgba(59,130,246,.15);color:#93c5fd;border-radius:20px;', 'Funciona no BR'));
+        }
+        if (tool.has_free_plan) {
+          titleRow.appendChild(elWithStyle('span', 'font-size:11px;padding:2px 8px;background:rgba(61,220,132,.1);color:#3ddc84;border-radius:20px;', 'Plano grátis'));
+        }
+        left.appendChild(titleRow);
+        left.appendChild(elWithStyle('p', 'color:#8b938f;font-size:13px;margin:0 0 6px;', tool.tagline));
+        left.appendChild(elWithStyle('p', 'color:#5d6662;font-size:12px;margin:0;font-style:italic;', tool.reason));
+        card.appendChild(left);
+
+        var right = elWithStyle('div', 'text-align:right;margin-left:20px;flex-shrink:0;');
+        right.appendChild(elWithStyle('div', 'font-size:15px;font-weight:600;margin-bottom:10px;color:#e9ecea;', tool.price));
+
+        var visitUrl = safeHttpsUrl(tool.affiliate_url || tool.website);
+        if (visitUrl) {
+          var visit = elWithStyle('a', 'display:inline-block;padding:8px 18px;background:#3ddc84;color:#0b0d0b;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;', 'Visitar →');
+          visit.setAttribute('href', visitUrl);
+          visit.setAttribute('target', '_blank');
+          visit.setAttribute('rel', 'noopener noreferrer');
+          right.appendChild(visit);
+        }
+        card.appendChild(right);
+
+        list.appendChild(card);
+      });
+      c.appendChild(list);
     }
   </script>
 </Base>
