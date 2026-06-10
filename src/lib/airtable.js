@@ -47,3 +47,60 @@ export async function getToolBySlug(slug) {
     `filterByFormula=AND({slug}="${safeSlug}",{status}="published")`);
   return records[0] ?? null;
 }
+
+// "Compare Cache" table — referenced by ID because the name contains a space.
+const COMPARE_CACHE_TABLE = 'tbl0FHXP8lZaaJaIv';
+
+// Looks up a cached Claude verdict for a tool pair. Returns { bulletsA, bulletsB }
+// (arrays) on hit, or null on miss / parse error / Airtable error.
+export async function getCompareCache(slugA, slugB) {
+  const pairKey = `${slugA}|${slugB}`;
+  const safeKey = pairKey.replace(/"/g, '\\"');
+  const records = await fetchFromAirtable(COMPARE_CACHE_TABLE,
+    `filterByFormula={pair_key}="${safeKey}"&maxRecords=1`);
+  const rec = records[0];
+  if (!rec) return null;
+  try {
+    const bulletsA = JSON.parse(rec.bulletsA || '[]');
+    const bulletsB = JSON.parse(rec.bulletsB || '[]');
+    if (!Array.isArray(bulletsA) || !Array.isArray(bulletsB)) return null;
+    return { bulletsA, bulletsB };
+  } catch {
+    return null;
+  }
+}
+
+// Saves a generated verdict to the Compare Cache table. Returns true on success.
+export async function saveCompareCache(slugA, slugB, bulletsA, bulletsB) {
+  const BASE_URL = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}`;
+  try {
+    const res = await fetch(`${BASE_URL}/${COMPARE_CACHE_TABLE}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        records: [
+          {
+            fields: {
+              pair_key: `${slugA}|${slugB}`,
+              bulletsA: JSON.stringify(bulletsA ?? []),
+              bulletsB: JSON.stringify(bulletsB ?? []),
+              created_at: new Date().toISOString().split('T')[0],
+            },
+          },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      console.error('saveCompareCache error:', err.error ?? err);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error('saveCompareCache failed:', err?.message ?? err);
+    return false;
+  }
+}

@@ -1,7 +1,7 @@
 ---
 import Anthropic from '@anthropic-ai/sdk';
 import Base from '../../../layouts/Base.astro';
-import { getTools } from '../../../lib/airtable.js';
+import { getTools, getCompareCache, saveCompareCache } from '../../../lib/airtable.js';
 import { categoryCriteria } from '../../../lib/comparisons.js';
 
 const { category, slug } = Astro.params;
@@ -75,15 +75,22 @@ function toolSummary(tool) {
 let bulletsA: string[] = [];
 let bulletsB: string[] = [];
 
-if (toolA && toolB && process.env.ANTHROPIC_API_KEY) {
-  try {
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5',
-      max_tokens: 512,
-      messages: [{
-        role: 'user',
-        content: `Você é um especialista em ferramentas de IA para empresas de LATAM. Compare as duas ferramentas abaixo e gere bullets de decisão em português.
+if (toolA && toolB) {
+  // 1. Try the Airtable cache first — avoids a Claude call on repeat views.
+  const cached = await getCompareCache(slugA, slugB);
+  if (cached) {
+    bulletsA = cached.bulletsA.slice(0, 3);
+    bulletsB = cached.bulletsB.slice(0, 3);
+  } else if (process.env.ANTHROPIC_API_KEY) {
+    // 2. Cache miss — generate with Claude, then persist for next time.
+    try {
+      const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+      const response = await client.messages.create({
+        model: 'claude-haiku-4-5',
+        max_tokens: 512,
+        messages: [{
+          role: 'user',
+          content: `Você é um especialista em ferramentas de IA para empresas de LATAM. Compare as duas ferramentas abaixo e gere bullets de decisão em português.
 
 Ferramenta A: ${toolSummary(toolA)}
 
@@ -101,18 +108,21 @@ Regras:
 - Os bullets devem ser DIFERENTES entre as duas ferramentas — cada uma tem seu ponto forte distinto
 - Seja específico com dados reais (preços, recursos, mercado)
 - Escreva em português brasileiro, tom profissional mas direto`
-      }]
-    });
+        }]
+      });
 
-    const text = response.content[0].type === 'text' ? response.content[0].text : '';
-    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    const parsed = JSON.parse(clean);
-    if (Array.isArray(parsed.bulletsA) && Array.isArray(parsed.bulletsB)) {
-      bulletsA = parsed.bulletsA.slice(0, 3);
-      bulletsB = parsed.bulletsB.slice(0, 3);
+      const text = response.content[0].type === 'text' ? response.content[0].text : '';
+      const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      const parsed = JSON.parse(clean);
+      if (Array.isArray(parsed.bulletsA) && Array.isArray(parsed.bulletsB)) {
+        bulletsA = parsed.bulletsA.slice(0, 3);
+        bulletsB = parsed.bulletsB.slice(0, 3);
+        // 3. Fire-and-forget cache write — don't block the render on it.
+        saveCompareCache(slugA, slugB, bulletsA, bulletsB).catch(() => {});
+      }
+    } catch (err) {
+      console.error('[compare] Claude verdict error:', err?.message ?? err);
     }
-  } catch (err) {
-    console.error('[compare] Claude verdict error:', err?.message ?? err);
   }
 }
 

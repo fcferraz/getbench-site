@@ -6,6 +6,14 @@ export async function POST({ request }) {
   if (limited) return limited;
 
   const { query } = await request.json();
+
+  if (typeof query !== 'string' || query.length > 200) {
+    return new Response(
+      JSON.stringify({ error: 'Busca inválida ou muito longa (máx. 200 caracteres)' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   const tools = await getTools();
 
   const toolsList = tools.map(t => ({
