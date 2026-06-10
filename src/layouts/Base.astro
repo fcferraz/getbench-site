@@ -38,6 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         font-family: var(--mono); font-size: 11px;
       }
       .nav .icon-btn:hover { color: var(--text); background: var(--bg-2); }
+      .nav .icon-btn kbd { font-family: inherit; font-size: inherit; }
       .nav .theme-toggle { font-size: 14px; line-height: 1; }
       .nav-dd { position: relative; }
       .nav-dd > a { display: inline-flex; align-items: center; gap: 4px; }
@@ -168,9 +169,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li><a href="/blog">Blog</a></li>
         </ul>
         <span class="spacer"></span>
-        <button class="icon-btn" onclick="openSearch()" title="Buscar (⌘K)" aria-label="Buscar">
+        <button class="icon-btn" onclick="openSearch()" title="Buscar" aria-label="Buscar">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <span>⌘K</span>
+          <kbd id="search-kbd"></kbd>
         </button>
         <button class="icon-btn theme-toggle" onclick="GB && GB.toggleTheme()" aria-label="Mudar tema">☾</button>
         <a href="/submit" class="submit">＋ Enviar tool</a>
@@ -243,6 +244,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="/buskai.js" is:inline></script>
     <script is:inline>
       if (window.GB) GB.init();
+      document.getElementById('search-kbd').textContent =
+        navigator.platform.includes('Mac') ? '⌘K' : 'Ctrl+K';
     </script>
     <script is:inline>
       function openSearch() {
