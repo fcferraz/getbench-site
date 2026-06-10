@@ -117,8 +117,9 @@ Regras:
       if (Array.isArray(parsed.bulletsA) && Array.isArray(parsed.bulletsB)) {
         bulletsA = parsed.bulletsA.slice(0, 3);
         bulletsB = parsed.bulletsB.slice(0, 3);
-        // 3. Fire-and-forget cache write — don't block the render on it.
-        saveCompareCache(slugA, slugB, bulletsA, bulletsB).catch(() => {});
+        // 3. Persist for next time. Awaited so the write survives the
+        //    serverless function freeze that follows the response on Vercel.
+        await saveCompareCache(slugA, slugB, bulletsA, bulletsB).catch(() => {});
       }
     } catch (err) {
       console.error('[compare] Claude verdict error:', err?.message ?? err);
