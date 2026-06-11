@@ -2,6 +2,13 @@
 import Base from '../layouts/Base.astro';
 ---
 
+<style>
+  .check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 640px) {
+    .check-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
 <Base title="Sobre o Buskai.net — Diretório de AI Tools para LATAM">
   <div style="max-width:720px;margin:0 auto;">
 
@@ -29,7 +36,7 @@ import Base from '../layouts/Base.astro';
 
     <div style="border-top:1px solid var(--line);padding-top:40px;margin-bottom:40px;">
       <h2 style="font-size:22px;font-weight:600;margin-bottom:24px;">O que verificamos em cada ferramenta</h2>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+      <div class="check-grid">
         <div style="padding:20px;border:1px solid var(--line);border-radius:12px;">
           <div style="font-size:24px;margin-bottom:10px;">🇧🇷</div>
           <div style="font-size:14px;font-weight:600;margin-bottom:6px;">Funciona no Brasil</div>

@@ -76,6 +76,10 @@ export const frontmatter = {
     .sumario-mobile a { font-size: 14px; color: var(--accent); text-decoration: none; }
     .sumario-mobile a:hover { text-decoration: underline; }
 
+    @media (max-width: 1024px) {
+      .page-layout { grid-template-columns: 200px 1fr; }
+      .right-sidebar { display: none; }
+    }
     @media (max-width: 768px) {
       .page-layout { grid-template-columns: 1fr; gap: 0; }
       .sidebar { display: none; }
