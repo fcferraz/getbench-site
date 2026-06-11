@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Enriches Tools records missing starting_price_usd by scraping each website
+// Enriches Tools records missing both starting_price_usd and pricing_model by scraping each website
 // with Firecrawl and extracting pricing data with Claude.
 // Usage: node --env-file=.env.local scripts/enrich-tools.mjs
 
@@ -61,7 +61,7 @@ async function fetchToolsMissingPrice() {
     const params = new URLSearchParams({
       filterByFormula: OVERWRITE
         ? `{status}="published"`
-        : `AND({status}="published",{starting_price_usd}=BLANK())`,
+        : `AND({status}="published",{starting_price_usd}=BLANK(),{pricing_model}=BLANK())`,
       pageSize: '100',
     });
     ['Name', 'website', 'tagline_en'].forEach(f => params.append('fields[]', f));
@@ -174,7 +174,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function run() {
   console.log(OVERWRITE
     ? 'Fetching all published tools (--overwrite)…'
-    : 'Fetching published tools missing starting_price_usd…');
+    : 'Fetching published tools missing starting_price_usd and pricing_model…');
   const tools = await fetchToolsMissingPrice();
   console.log(`Found ${tools.length} tool(s) to enrich.\n`);
 
