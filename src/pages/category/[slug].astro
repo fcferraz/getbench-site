@@ -155,12 +155,12 @@ const titleTail = titleWords.slice(splitAt).join(' ');
 
   @media (max-width: 1000px) {
     .hero-cat { grid-template-columns: 1fr; gap: 24px; }
-    .trow { grid-template-columns: 1fr auto; }
+    .trow { grid-template-columns: 1fr auto auto; }
     .trow .desc { display: none; }
-    .trow .price { display: none; }
   }
   @media (max-width: 640px) {
     .trow { grid-template-columns: 1fr; }
+    .trow .price { text-align: left; }
     .trow .acts { justify-content: flex-start; }
     .toolbar { flex-direction: column; align-items: flex-start; }
   }
@@ -242,7 +242,7 @@ const titleTail = titleWords.slice(splitAt).join(' ');
           >
             <div class="tool">
               <div class={`logo ${g}`}>
-                {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+                {host && <img src={`https://www.google.com/s2/favicons?domain=${host}&sz=128`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
                 <span class="fb" style={host ? 'display:none;' : ''}>{(tool.Name || '?').charAt(0).toUpperCase()}</span>
               </div>
               <div style="min-width:0;">

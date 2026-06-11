@@ -208,7 +208,6 @@ const countByCat = (cat) => tools.filter(t =>
           type="text"
           placeholder="bot de WhatsApp para clínica odontológica em São Paulo…"
           onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
-          oninput="debounceHomeSearch(this.value)"
         />
         <span class="kbd"><span>⌘</span><span>K</span></span>
         <button class="go" onclick="handleHomeSearch(document.getElementById('home-search').value)">Buscar →</button>
@@ -368,16 +367,6 @@ const countByCat = (cat) => tools.filter(t =>
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeOnboardingDirect();
     });
-
-    let homeSearchTimer;
-
-    function debounceHomeSearch(query) {
-      clearTimeout(homeSearchTimer);
-      if (!query.trim()) return;
-      homeSearchTimer = setTimeout(() => {
-        handleHomeSearch(query);
-      }, 400);
-    }
 
     function handleHomeSearch(query) {
       if (!query.trim()) return;

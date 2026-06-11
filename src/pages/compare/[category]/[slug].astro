@@ -285,7 +285,7 @@ const priceLabel = (tool) =>
         {i === 1 && <div class="vs">vs</div>}
         <div class={`slot ${cls}`}>
           <div class="logo">
-            {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+            {host && <img src={`https://www.google.com/s2/favicons?domain=${host}&sz=128`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
             <span class="fb" style={host ? 'display:none;' : ''}>{(tool?.Name || '?').charAt(0).toUpperCase()}</span>
           </div>
           <div>

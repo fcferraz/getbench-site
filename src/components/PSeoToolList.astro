@@ -50,8 +50,23 @@ const schema = {
     font-family: var(--mono); font-size: 11px; color: var(--accent);
     letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block;
   }
-  .pseo-card { transition: border-color .15s ease, transform .15s ease; background: var(--bg-2); }
-  .pseo-card:hover { border-color: var(--accent) !important; transform: translateY(-1px); }
+  .pseo-card {
+    transition: border-color .15s ease, transform .15s ease; background: var(--bg-2);
+    padding: 24px; border: 1px solid var(--line); border-radius: 12px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  }
+  .pseo-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .pseo-card .side { text-align: right; margin-left: 24px; flex-shrink: 0; }
+  .pseo-card .side .acts { display: flex; gap: 8px; justify-content: flex-end; }
+  @media (max-width: 640px) {
+    .pseo-card { flex-wrap: wrap; }
+    .pseo-card .side {
+      text-align: left; margin-left: 0; flex-basis: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .pseo-card .side > div:first-child { margin-bottom: 0; }
+    .pseo-card .side .acts { justify-content: flex-start; }
+  }
 </style>
 
 <Base title={title} description={description}>
@@ -77,9 +92,9 @@ const schema = {
       {tools.map(tool => {
         const host = (() => { try { return new URL(tool.website).hostname; } catch { return null; } })();
         return (
-        <div class="pseo-card" style="padding:24px;border:1px solid var(--line);border-radius:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+        <div class="pseo-card">
           <div class="pseo-logo">
-            {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+            {host && <img src={`https://www.google.com/s2/favicons?domain=${host}&sz=128`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
             <span class="fb" style={host ? 'display:none;' : ''}>{(tool.Name || '?').charAt(0).toUpperCase()}</span>
           </div>
           <div style="flex:1;">
@@ -94,11 +109,11 @@ const schema = {
               <p class="latam-note" style="font-size:11px;color:var(--accent);background:var(--accent-glow);padding:4px 10px;border-radius:6px;display:inline-block;">{tool.latam_note_pt}</p>
             )}
           </div>
-          <div style="text-align:right;margin-left:24px;flex-shrink:0;">
+          <div class="side">
             <div style="font-size:14px;font-weight:500;margin-bottom:8px;">
               {priceLabel(tool)}
             </div>
-            <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <div class="acts">
               <a href={`/tools/${tool.slug}`} class="btn" style="font-size:12px;padding:6px 12px;">Detalhes</a>
               <a href={tool.affiliate_url || tool.website} target="_blank" rel="noopener noreferrer" class="btn primary" style="font-size:12px;padding:6px 14px;">Visitar →</a>
             </div>

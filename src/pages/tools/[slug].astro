@@ -121,6 +121,10 @@ const schema = {
   }
   .tool-logo img { width: 100%; height: 100%; object-fit: cover; }
   .tool-logo .fb { display: grid; place-items: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
 </style>
 
 <Base title={`${tool.Name} — Buskai.net`} description={seoDescription}>
@@ -134,7 +138,7 @@ const schema = {
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
     <div style="display:flex;gap:16px;align-items:flex-start;">
       <div class="tool-logo">
-        {host && <img src={`https://logo.clearbit.com/${host}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
+        {host && <img src={`https://www.google.com/s2/favicons?domain=${host}&sz=128`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />}
         <span class="fb" style={host ? 'display:none;' : ''}>{(tool.Name || '?').charAt(0).toUpperCase()}</span>
       </div>
       <div>
@@ -164,7 +168,7 @@ const schema = {
     </div>
   )}
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+  <div class="two-col" style="margin-bottom:32px;">
     <div style="padding:20px;border:1px solid var(--line);border-radius:12px;">
       <h2 style="font-size:13px;font-weight:600;margin-bottom:16px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;">Preços</h2>
       <div style="display:flex;flex-direction:column;gap:10px;">
@@ -227,7 +231,7 @@ const schema = {
   {(tool.pros_pt || tool.cons_pt) && (
     <div style="margin-bottom:32px;">
       <h2 style="font-size:13px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Prós e Contras</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="two-col">
         {tool.pros_pt && (
           <div style="padding:20px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;">
             <h3 style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Pontos positivos</h3>
