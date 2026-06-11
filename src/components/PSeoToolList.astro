@@ -102,7 +102,7 @@ const schema = {
               <a href={`/tools/${tool.slug}`} style="font-size:16px;font-weight:600;color:var(--text);text-decoration:none;">{tool.Name}</a>
               {tool.works_in_brazil && <span style="font-size:11px;padding:2px 8px;background:rgba(74,134,255,.12);color:#4a86ff;border-radius:20px;">Funciona no BR</span>}
               {tool.has_free_plan && <span style="font-size:11px;padding:2px 8px;background:var(--accent-glow);color:var(--accent);border-radius:20px;">Plano grátis</span>}
-              {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:var(--accent-glow);color:var(--accent);border-radius:20px;">AI Native 🤖</span>}
+              {tool.ai_native === true && <span style="font-size:11px;padding:2px 8px;background:var(--accent-glow);color:var(--accent);border-radius:20px;">AI Native</span>}
             </div>
             <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">{tool.tagline_pt || tool.tagline_en}</p>
             {tool.latam_note_pt && (

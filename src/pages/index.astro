@@ -188,7 +188,7 @@ const countByCat = (cat) => tools.filter(t =>
   <section class="hero">
     <div class="status">
       <span class="dot"></span>
-      <span>{tools.length} AI tools indexadas para LATAM · curadoria ativa</span>
+      <span>{tools.length} ferramentas de IA indexadas para LATAM · curadoria ativa</span>
     </div>
 
     <h1>
@@ -232,7 +232,7 @@ const countByCat = (cat) => tools.filter(t =>
 
   <section class="stats">
     <div class="stat">
-      <div class="k">Tools indexadas</div>
+      <div class="k">Ferramentas indexadas</div>
       <div class="v accent">{tools.length}</div>
       <small>testadas e curadas</small>
     </div>
@@ -242,7 +242,7 @@ const countByCat = (cat) => tools.filter(t =>
       <small>de Marketing a RevOps</small>
     </div>
     <div class="stat">
-      <div class="k">Com suporte PT</div>
+      <div class="k">Suporte em português</div>
       <div class="v">{ptTools}</div>
       <small>{freeTools} com plano grátis</small>
     </div>
@@ -268,7 +268,7 @@ const countByCat = (cat) => tools.filter(t =>
           <a href={'/category/' + cat.Slug} class="cat-card">
             <h3>{cat.Name}</h3>
             {cat.title_pt && <p>{cat.title_pt}</p>}
-            <span class="count">{n > 0 ? `${n} tools →` : 'ver tools →'}</span>
+            <span class="count">{n > 0 ? `${n} ferramentas →` : 'ver ferramentas →'}</span>
           </a>
         );
       })}
@@ -301,7 +301,7 @@ const countByCat = (cat) => tools.filter(t =>
             <div class="emoji">🤖</div>
             <h2>Busca com IA</h2>
             <p>Descreva o que você precisa — "bot de WhatsApp para clínica" ou "CRM gratuito com suporte em português" — e a IA devolve as melhores opções em segundos.</p>
-            <div class="hint">🔍 Use o ícone de busca no menu (⌘K) para acessar de qualquer página</div>
+            <div class="hint">🔍 Use o ícone de busca no menu (atalho de teclado) para acessar de qualquer página</div>
           </div>
           <div class="acts between">
             <button onclick="goStep(1)" class="btn">← Voltar</button>
