@@ -50,13 +50,18 @@ const VALID_PRICING_MODELS = new Set(['per_month', 'per_user', 'custom']);
 
 const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
 
+// --overwrite: re-scrape every published tool instead of only those missing a price
+const OVERWRITE = process.argv.includes('--overwrite');
+
 // --- Airtable ---
 async function fetchToolsMissingPrice() {
   const tools = [];
   let offset = '';
   do {
     const params = new URLSearchParams({
-      filterByFormula: `AND({status}="published",{starting_price_usd}=BLANK())`,
+      filterByFormula: OVERWRITE
+        ? `{status}="published"`
+        : `AND({status}="published",{starting_price_usd}=BLANK())`,
       pageSize: '100',
     });
     ['Name', 'website', 'tagline_en'].forEach(f => params.append('fields[]', f));
@@ -93,21 +98,41 @@ async function scrape(url) {
   return data?.data?.markdown || '';
 }
 
-async function scrapeWithFallback(website) {
-  const pricingUrl = website.replace(/\/$/, '') + '/pricing';
-  try {
-    process.stdout.write(`  Scraping ${pricingUrl}… `);
-    const content = await scrape(pricingUrl);
-    console.log(`${content.length} chars`);
-    if (content.trim()) return content;
-  } catch (e) {
-    console.log(`failed (${e.message.split('\n')[0]})`);
-  }
+// A 404/bot-wall/login page still returns a few hundred chars of markdown,
+// so "non-empty" is not good enough to trust a guessed pricing URL.
+const THIN_CONTENT = 1000;
 
-  process.stdout.write(`  Scraping ${website}… `);
-  const content = await scrape(website);
-  console.log(`${content.length} chars`);
-  return content;
+async function scrapeWithFallback(website) {
+  const base = website.replace(/\/$/, '');
+  const candidates = [`${base}/pricing`];
+  let isBr = false;
+  try { isBr = /\.br$/.test(new URL(website).hostname); } catch { /* keep defaults */ }
+  if (isBr) candidates.push(`${base}/planos`, `${base}/precos`, `${base}/planos-e-precos`);
+  candidates.push(website);
+
+  let best = '';
+  for (const url of candidates) {
+    try {
+      process.stdout.write(`  Scraping ${url}… `);
+      const content = await scrape(url);
+      console.log(`${content.length} chars`);
+      if (content.length >= THIN_CONTENT) return content;
+      if (content.length > best.length) best = content;
+    } catch (e) {
+      console.log(`failed (${e.message.split('\n')[0]})`);
+    }
+  }
+  return best;
+}
+
+// Strip markdown images/links/URLs — pure noise for pricing extraction that
+// can push the actual plan prices past the truncation window on heavy pages.
+function cleanMarkdown(md) {
+  return md
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[([^\]]*)\]\(([^)]*)\)/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\n{3,}/g, '\n\n');
 }
 
 // --- Claude extraction ---
@@ -122,7 +147,7 @@ async function extractPricing(toolName, content, hasTagline) {
 Tool: ${toolName}
 Content:
 ---
-${content.substring(0, 8000)}
+${cleanMarkdown(content).substring(0, 30000)}
 ---
 
 Respond ONLY with a JSON object:
@@ -147,7 +172,9 @@ Rules: annual pricing → divide by 12 for monthly. Return null for anything unc
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function run() {
-  console.log('Fetching published tools missing starting_price_usd…');
+  console.log(OVERWRITE
+    ? 'Fetching all published tools (--overwrite)…'
+    : 'Fetching published tools missing starting_price_usd…');
   const tools = await fetchToolsMissingPrice();
   console.log(`Found ${tools.length} tool(s) to enrich.\n`);
 
