@@ -206,7 +206,8 @@ const countByCat = (cat) => tools.filter(t =>
         <input
           id="home-search"
           type="text"
-          placeholder="bot de WhatsApp para clínica odontológica em São Paulo…"
+          placeholder="Descreva o que você precisa..."
+          data-placeholder-desktop="bot de WhatsApp para clínica odontológica em São Paulo…"
           onkeydown="if(event.key==='Enter') handleHomeSearch(this.value)"
         />
         <span class="kbd"><span>⌘</span><span>K</span></span>
@@ -367,6 +368,17 @@ const countByCat = (cat) => tools.filter(t =>
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeOnboardingDirect();
     });
+
+    (function () {
+      var input = document.getElementById('home-search');
+      function setPlaceholder() {
+        input.placeholder = window.innerWidth < 640
+          ? 'Descreva o que você precisa...'
+          : input.dataset.placeholderDesktop;
+      }
+      setPlaceholder();
+      window.addEventListener('resize', setPlaceholder);
+    })();
 
     function handleHomeSearch(query) {
       if (!query.trim()) return;
