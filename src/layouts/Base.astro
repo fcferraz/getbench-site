@@ -259,7 +259,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <!-- Search Modal -->
-    <div id="search-modal" class="gb-modal" onclick="closeSearch(event)">
+    <div id="search-modal" class="gb-modal" role="dialog" aria-modal="true" aria-label="Buscar ferramentas" onclick="closeSearch(event)">
       <div class="box">
         <div class="panel">
           <div class="row1">
@@ -297,7 +297,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
       }
+      var searchOpenerEl = null;
       function openSearch() {
+        searchOpenerEl = document.activeElement;
         document.getElementById('search-modal').style.display = 'block';
         document.body.style.overflow = 'hidden';
         setTimeout(() => document.getElementById('modal-query').focus(), 100);
@@ -307,6 +309,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         document.body.style.overflow = '';
         document.getElementById('modal-results').innerHTML = '';
         document.getElementById('modal-query').value = '';
+        if (searchOpenerEl && searchOpenerEl.focus) searchOpenerEl.focus();
+        searchOpenerEl = null;
       }
       function closeSearch(e) {
         if (e.target === document.getElementById('search-modal')) closeSearchDirect();
@@ -321,6 +325,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           openSearch();
         }
         if (e.key === 'Escape') closeSearchDirect();
+        if (e.key === 'Tab') {
+          var modal = document.getElementById('search-modal');
+          if (modal.style.display !== 'block') return;
+          var focusables = Array.prototype.filter.call(
+            modal.querySelectorAll('a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'),
+            function(el) { return el.offsetParent !== null; }
+          );
+          if (!focusables.length) return;
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          } else if (!modal.contains(document.activeElement)) {
+            e.preventDefault(); first.focus();
+          }
+        }
       });
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modal-query').addEventListener('keydown', function(e) {

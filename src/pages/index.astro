@@ -275,7 +275,7 @@ const countByCat = (cat) => tools.filter(t =>
   </section>
 
   <!-- Onboarding Modal -->
-  <div id="onboarding-modal" class="ob-modal" onclick="closeOnboarding(event)">
+  <div id="onboarding-modal" class="ob-modal" role="dialog" aria-modal="true" aria-label="Como funciona o Buskai" onclick="closeOnboarding(event)">
     <div class="box">
       <div class="panel">
         <button onclick="closeOnboardingDirect()" class="close">✕</button>
