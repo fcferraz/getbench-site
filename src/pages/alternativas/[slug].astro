@@ -39,15 +39,11 @@ let tools: any[] = [];
 
 if (toolIds.length > 0) {
   const formula =
-    'OR(' + toolIds.map((id) => `RECORD_ID() = "${id}"`).join(',') + ')';
+    'AND(OR(' + toolIds.map((id) => `RECORD_ID() = "${id}"`).join(',') + '),{status}="published")';
 
   const toolsRes = await fetch(
     `https://api.airtable.com/v0/${BASE_ID}/${TOOLS_TABLE}?` +
-    new URLSearchParams({
-      filterByFormula: formula,
-      fields: ['Name', 'slug', 'tagline_pt', 'preco_inicial', 'preco_moeda',
-               'plano_gratis', 'funciona_brasil', 'suporte_pt', 'website'],
-    }),
+    new URLSearchParams({ filterByFormula: formula }),
     { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
   );
 
@@ -271,15 +267,15 @@ const updatedAt = new Date(page.updated_at || Date.now()).toLocaleDateString('pt
         <a href={`/tools/${tool.slug}`} class="tool-card">
           <div class="tool-card__header">
             <h3>{tool.Name}</h3>
-            {tool.plano_gratis && <span class="tag-free">Plano grátis</span>}
+            {tool.has_free_plan && <span class="tag-free">Plano grátis</span>}
           </div>
-          <p class="tool-card__tagline">{tool.tagline_pt}</p>
+          <p class="tool-card__tagline">{tool.tagline_pt || tool.tagline_en}</p>
           <div class="tool-card__badges">
-            {tool.funciona_brasil && <span class="tool-badge tool-badge--br">🇧🇷 Brasil</span>}
-            {tool.suporte_pt && <span class="tool-badge tool-badge--br">PT-BR</span>}
-            {tool.preco_inicial
-              ? <span class="tool-badge">A partir de {tool.preco_moeda === 'BRL' ? 'R$' : '$'}{tool.preco_inicial}/mês</span>
-              : <span class="tool-badge">Grátis</span>
+            {tool.works_in_brazil && <span class="tool-badge tool-badge--br">🇧🇷 Brasil</span>}
+            {tool.has_pt_support && <span class="tool-badge tool-badge--br">PT-BR</span>}
+            {tool.starting_price_usd
+              ? <span class="tool-badge">A partir de {tool.currency === 'BRL' ? 'R$' : '$'}{tool.starting_price_usd}/mês</span>
+              : <span class="tool-badge">{tool.has_free_plan ? 'Grátis' : 'Consultar preço'}</span>
             }
           </div>
           <span class="tool-card__cta">Ver ferramenta →</span>
