@@ -18,6 +18,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalUrl ?? new URL(Astro.url.pathname, 'https://www.buskai.net').href} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Buskai.net" />
+    <meta property="og:url" content={canonicalUrl ?? new URL(Astro.url.pathname, 'https://www.buskai.net').href} />
+    <meta property="og:title" content={title ?? 'Buskai.net — Encontre e compare ferramentas de IA para LATAM'} />
+    <meta property="og:description" content={description ?? 'Diretório curado de ferramentas de IA para o mercado brasileiro e LATAM. Compare preços, suporte em português e disponibilidade no Brasil.'} />
+    <meta property="og:image" content="https://www.buskai.net/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@buskainet" />
+    <meta name="twitter:title" content={title ?? 'Buskai.net — Encontre e compare ferramentas de IA para LATAM'} />
+    <meta name="twitter:description" content={description ?? 'Diretório curado de ferramentas de IA para o mercado brasileiro e LATAM.'} />
+    <meta name="twitter:image" content="https://www.buskai.net/og-image.png" />
     <!-- Apply saved theme before paint to avoid flash -->
     <script is:inline>
       try {
