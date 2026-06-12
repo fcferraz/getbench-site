@@ -55,9 +55,6 @@ if (toolIds.length > 0) {
 const title = `Melhores alternativas ao ${page.nome_referencia} com IA — Buskai.net`;
 const description = `Confira as ${tools.length} melhores alternativas ao ${page.nome_referencia} com IA para o mercado brasileiro. Comparamos preço, suporte em português e disponibilidade no Brasil.`;
 const canonicalUrl = `https://www.buskai.net/alternativas/${slug}`;
-const updatedAt = new Date(page.updated_at || Date.now()).toLocaleDateString('pt-BR', {
-  month: 'long', year: 'numeric'
-});
 ---
 
 <Base title={title}>
@@ -68,15 +65,6 @@ const updatedAt = new Date(page.updated_at || Date.now()).toLocaleDateString('pt
       text-align: center;
       border-bottom: 1px solid var(--line);
       margin-bottom: 40px;
-    }
-    .alt-eyebrow {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 12px;
     }
     .alt-hero h1 {
       font-size: clamp(28px, 4vw, 44px);
@@ -237,7 +225,6 @@ const updatedAt = new Date(page.updated_at || Date.now()).toLocaleDateString('pt
 
   <!-- HERO -->
   <div class="alt-hero">
-    <span class="alt-eyebrow">▲ ALTERNATIVAS CURADAS · {updatedAt}</span>
     <h1>
       Melhores alternativas ao<br/>
       <span>{page.nome_referencia}</span> com IA
