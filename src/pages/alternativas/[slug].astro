@@ -1,0 +1,333 @@
+---
+// src/pages/alternativas/[slug].astro
+// Página pSEO de alternativas — Buskai.net
+// Lê da tabela "Alternativas" no Airtable e gera /alternativas/[slug]
+
+import Layout from '../../layouts/Layout.astro';
+
+export const prerender = false; // SSR via Vercel
+
+const AIRTABLE_TOKEN = import.meta.env.AIRTABLE_TOKEN;
+const BASE_ID = import.meta.env.AIRTABLE_BASE_ID; // appFwfYV1xtqMcEMg
+const ALTERNATIVAS_TABLE = import.meta.env.AIRTABLE_ALTERNATIVAS_TABLE_ID;
+const TOOLS_TABLE = import.meta.env.AIRTABLE_TOOLS_TABLE_ID; // tbl66b2aHBKUkkAF0
+
+const { slug } = Astro.params;
+
+// ─── 1. Busca o registro de alternativa pelo slug_referencia ────────────────
+const searchRes = await fetch(
+  `https://api.airtable.com/v0/${BASE_ID}/${ALTERNATIVAS_TABLE}?` +
+  new URLSearchParams({
+    filterByFormula: `AND({slug_referencia} = "${slug}", {published} = 1)`,
+    maxRecords: '1',
+  }),
+  { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+);
+
+const searchData = await searchRes.json();
+
+if (!searchData.records || searchData.records.length === 0) {
+  return Astro.redirect('/404');
+}
+
+const page = searchData.records[0].fields;
+
+// ─── 2. Busca as ferramentas alternativas linkadas ──────────────────────────
+const toolIds: string[] = page.alternativas || [];
+
+let tools: any[] = [];
+
+if (toolIds.length > 0) {
+  const formula =
+    'OR(' + toolIds.map((id) => `RECORD_ID() = "${id}"`).join(',') + ')';
+
+  const toolsRes = await fetch(
+    `https://api.airtable.com/v0/${BASE_ID}/${TOOLS_TABLE}?` +
+    new URLSearchParams({
+      filterByFormula: formula,
+      fields: ['Name', 'slug', 'tagline_pt', 'preco_inicial', 'preco_moeda',
+               'plano_gratis', 'funciona_brasil', 'suporte_pt', 'website'],
+    }),
+    { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+  );
+
+  const toolsData = await toolsRes.json();
+  tools = toolsData.records?.map((r: any) => r.fields) ?? [];
+}
+
+// ─── 3. Meta SEO ────────────────────────────────────────────────────────────
+const title = `Melhores alternativas ao ${page.nome_referencia} com IA — Buskai.net`;
+const description = `Confira as ${tools.length} melhores alternativas ao ${page.nome_referencia} com IA para o mercado brasileiro. Comparamos preço, suporte em português e disponibilidade no Brasil.`;
+const canonicalUrl = `https://www.buskai.net/alternativas/${slug}`;
+const updatedAt = new Date(page.updated_at || Date.now()).toLocaleDateString('pt-BR', {
+  month: 'long', year: 'numeric'
+});
+---
+
+<Layout title={title} description={description} canonical={canonicalUrl}>
+
+  <!-- ── HERO ──────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Comparativo curado · {updatedAt}</p>
+      <h1>
+        Melhores alternativas ao<br/>
+        <span class="highlight">{page.nome_referencia}</span> com IA
+      </h1>
+      <p class="subtitle">{page.descricao_referencia}</p>
+      <div class="meta-badges">
+        <span class="badge">{tools.length} alternativas curadas</span>
+        {page.contexto_brasil && (
+          <span class="badge badge--br">🇧🇷 Foco no Brasil</span>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POR QUE BUSCAR ALTERNATIVA ───────────────────────────────────── -->
+  {page.motivo_busca && (
+    <section class="motivo container">
+      <h2>Por que buscar alternativas ao {page.nome_referencia}?</h2>
+      <p>{page.motivo_busca}</p>
+    </section>
+  )}
+
+  <!-- ── CARDS DE ALTERNATIVAS ─────────────────────────────────────────── -->
+  <section class="alternativas container">
+    <h2>As melhores alternativas</h2>
+    <div class="tools-grid">
+      {tools.map((tool) => (
+        <a href={`/tools/${tool.slug}`} class="tool-card">
+          <div class="tool-card__header">
+            <h3>{tool.Name}</h3>
+            {tool.plano_gratis && (
+              <span class="tag tag--free">Plano grátis</span>
+            )}
+          </div>
+          <p class="tool-card__tagline">{tool.tagline_pt}</p>
+          <div class="tool-card__badges">
+            {tool.funciona_brasil && (
+              <span class="badge badge--sm">🇧🇷 Brasil</span>
+            )}
+            {tool.suporte_pt && (
+              <span class="badge badge--sm">🇧🇷 PT</span>
+            )}
+            {tool.preco_inicial && (
+              <span class="badge badge--sm badge--price">
+                A partir de {tool.preco_moeda === 'BRL' ? 'R$' : '$'}{tool.preco_inicial}/mês
+              </span>
+            )}
+            {!tool.preco_inicial && (
+              <span class="badge badge--sm badge--price">Grátis</span>
+            )}
+          </div>
+          <span class="tool-card__cta">Ver ferramenta →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── COMO ESCOLHER (editorial manual) ─────────────────────────────── -->
+  {page.como_escolher && (
+    <section class="como-escolher container">
+      <h2>Como escolher a melhor alternativa para você</h2>
+      <div class="editorial" set:html={page.como_escolher} />
+    </section>
+  )}
+
+  <!-- ── CTA FINAL ──────────────────────────────────────────────────────── -->
+  <section class="cta-final container">
+    <p>Quer comparar duas ferramentas lado a lado?</p>
+    <a href="/compare" class="btn btn--primary">Comparar ferramentas →</a>
+  </section>
+
+</Layout>
+
+<style>
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .highlight {
+    color: var(--color-accent, #00e87a);
+  }
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+  .meta-badges {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-badge-bg, rgba(0,232,122,0.12));
+    color: var(--color-accent, #00e87a);
+    border: 1px solid var(--color-accent, #00e87a);
+  }
+  .badge--sm { font-size: 0.7rem; padding: 0.15rem 0.45rem; }
+  .badge--price { background: transparent; color: var(--color-muted); border-color: var(--color-border); }
+
+  /* Motivo */
+  .motivo {
+    padding: 3rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .motivo h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .motivo p {
+    color: var(--color-muted);
+    line-height: 1.7;
+    max-width: 720px;
+  }
+
+  /* Grid de ferramentas */
+  .alternativas {
+    padding: 3rem 1.5rem;
+  }
+  .alternativas h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Card */
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .tool-card:hover {
+    border-color: var(--color-accent, #00e87a);
+    box-shadow: 0 0 0 1px var(--color-accent, #00e87a);
+  }
+  .tool-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .tool-card__header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .tag--free {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    background: rgba(0,232,122,0.15);
+    color: var(--color-accent, #00e87a);
+    white-space: nowrap;
+  }
+  .tool-card__tagline {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .tool-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .tool-card__cta {
+    font-size: 0.8rem;
+    color: var(--color-accent, #00e87a);
+    margin-top: 0.25rem;
+  }
+
+  /* Como escolher */
+  .como-escolher {
+    padding: 3rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .como-escolher h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .editorial {
+    color: var(--color-muted);
+    line-height: 1.8;
+    max-width: 720px;
+  }
+  .editorial p { margin-bottom: 1rem; }
+
+  /* CTA final */
+  .cta-final {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+  }
+  .cta-final p {
+    font-size: 1rem;
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+  }
+  .btn--primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    background: var(--color-accent, #00e87a);
+    color: #000;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .btn--primary:hover { opacity: 0.85; }
+
+  @media (max-width: 600px) {
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>
