@@ -1,0 +1,85 @@
+---
+const {
+  name = 'Filipe Ferraz',
+  photo = '/authors/filipe-ferraz.webp',
+  linkedin = 'https://www.linkedin.com/in/filipecamposferraz/',
+} = Astro.props;
+---
+
+<aside class="author-box">
+  <img class="author-photo" src={photo} alt={`Foto de ${name}`} width="72" height="72" loading="lazy" />
+  <div class="author-body">
+    <div class="author-head">
+      <span class="author-name">{name}</span>
+      <a
+        class="author-linkedin"
+        href={linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`LinkedIn de ${name}`}
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+        </svg>
+      </a>
+    </div>
+    <p class="author-bio">
+      Estrategista de Growth e Produto com mais de 15 anos de experiência em SaaS B2B.
+      Criador do Buskai.net e autor da newsletter
+      <a href="https://divendrive.substack.com/" target="_blank" rel="noopener noreferrer">Dive n' Drive</a>
+      — onde escreve sobre crescimento, produto e IA para o mercado LATAM.
+    </p>
+  </div>
+</aside>
+
+<style>
+  .author-box {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-top: 48px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg-2);
+  }
+  .author-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .author-body { flex: 1; min-width: 0; }
+  .author-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .author-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .author-linkedin {
+    display: inline-flex;
+    color: var(--text-dimmer);
+    transition: color 0.15s ease;
+    flex-shrink: 0;
+  }
+  .author-linkedin:hover { color: var(--accent); }
+  .author-bio {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-dim);
+    margin: 0;
+  }
+  .author-bio a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .author-bio a:hover { text-decoration: underline; }
+</style>
