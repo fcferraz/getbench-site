@@ -1,17 +1,37 @@
 ---
+import CookieBanner from '../components/CookieBanner.astro';
 const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM", description, canonicalUrl } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <!-- Google Tag Manager -->
-    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MGVXP6BK');</script>
-    <!-- End Google Tag Manager -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3858312966776117" crossorigin="anonymous" is:inline></script>
+    <!-- Google Tag Manager + AdSense (carregados apenas com consentimento) -->
+    <script is:inline>
+      (function () {
+        window.loadTrackingScripts = function () {
+          if (window.__buskaiTrackingLoaded) return;
+          window.__buskaiTrackingLoaded = true;
+          // Google Tag Manager (GA4)
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MGVXP6BK');
+          // Google AdSense
+          var ad = document.createElement('script');
+          ad.async = true;
+          ad.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3858312966776117';
+          ad.crossOrigin = 'anonymous';
+          document.head.appendChild(ad);
+        };
+        try {
+          if (localStorage.getItem('buskai_cookie_consent') === 'accepted') {
+            window.loadTrackingScripts();
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <!-- End Google Tag Manager + AdSense -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -203,7 +223,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGVXP6BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="wrap">
       <nav class="nav">
@@ -459,5 +478,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         });
       }
     </script>
+
+    <CookieBanner />
   </body>
 </html>

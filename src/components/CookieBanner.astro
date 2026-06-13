@@ -1,0 +1,91 @@
+---
+---
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Consentimento de cookies" aria-live="polite">
+  <p class="cookie-text">
+    Usamos cookies para melhorar sua experiência e analisar o tráfego do site. Ao continuar, você concorda com nossa
+    <a href="/privacidade">Política de Privacidade</a>.
+  </p>
+  <div class="cookie-actions">
+    <button type="button" id="cookie-refuse" class="cookie-btn cookie-btn-ghost">Recusar</button>
+    <button type="button" id="cookie-accept" class="cookie-btn cookie-btn-primary">Aceitar</button>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    display: none;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2147483000;
+    max-width: 920px;
+    margin: 0 auto;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    background: #14131f;
+    color: #ecedf6;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.6);
+  }
+  .cookie-banner.is-visible { display: flex; }
+  .cookie-text {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #c9cad6;
+  }
+  .cookie-text a { color: #8b7cff; text-decoration: none; font-weight: 500; }
+  .cookie-text a:hover { text-decoration: underline; }
+  .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+  .cookie-btn {
+    padding: 10px 22px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .cookie-btn-primary { background: #6d5efc; color: #fff; }
+  .cookie-btn-primary:hover { background: #8b7cff; }
+  .cookie-btn-ghost { background: transparent; color: #c9cad6; border-color: rgba(255, 255, 255, 0.18); }
+  .cookie-btn-ghost:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+  @media (max-width: 560px) {
+    .cookie-banner { flex-direction: column; align-items: stretch; gap: 14px; }
+    .cookie-actions { justify-content: flex-end; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var KEY = 'buskai_cookie_consent';
+    var banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    var consent = null;
+    try { consent = localStorage.getItem(KEY); } catch (e) {}
+    if (consent === 'accepted' || consent === 'refused') return; // já escolheu
+
+    banner.classList.add('is-visible');
+
+    function choose(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      banner.classList.remove('is-visible');
+      if (value === 'accepted' && typeof window.loadTrackingScripts === 'function') {
+        window.loadTrackingScripts();
+      }
+    }
+
+    var accept = document.getElementById('cookie-accept');
+    var refuse = document.getElementById('cookie-refuse');
+    if (accept) accept.addEventListener('click', function () { choose('accepted'); });
+    if (refuse) refuse.addEventListener('click', function () { choose('refused'); });
+  })();
+</script>
