@@ -23,6 +23,8 @@ const seoDescription = tool.description_pt
   ? tool.description_pt.slice(0, 160)
   : (tool.tagline_pt || tool.tagline_en || '');
 
+const canonicalUrl = `https://www.buskai.net/tools/${slug}`;
+
 const hostOf = (url) => { try { return new URL(url).hostname; } catch { return null; } };
 const host = hostOf(tool.website);
 
@@ -127,7 +129,7 @@ const schema = {
   }
 </style>
 
-<Base title={`${tool.Name} — Buskai.net`} description={seoDescription}>
+<Base title={`${tool.Name} — Buskai.net`} description={seoDescription} canonicalUrl={canonicalUrl}>
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <div class="crumb">
     <a href="/">home</a><span class="sep">/</span>
