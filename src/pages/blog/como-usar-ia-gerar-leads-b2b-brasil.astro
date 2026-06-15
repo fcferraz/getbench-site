@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-02',
   slug: 'como-usar-ia-gerar-leads-b2b-brasil',
   tags: ['leads', 'vendas', 'b2b'],
+  faqs: [
+    {
+      question: "A IA consegue gerar leads B2B qualificados no Brasil?",
+      answer: "Sim, mas o resultado depende dos dados. Ferramentas de prospecção com IA ajudam a montar listas, enriquecer contatos e personalizar o outreach, porém a cobertura de dados do Brasil varia entre plataformas — vale testar a qualidade antes de assinar.",
+    },
+    {
+      question: "Usar IA para prospecção respeita a LGPD?",
+      answer: "Pode respeitar, desde que você trate os dados com base legal adequada, use informações profissionais públicas e ofereça opção de descadastro. A responsabilidade pelo uso correto é da empresa, não da ferramenta.",
+    },
+    {
+      question: "Quais ferramentas de IA são melhores para leads B2B?",
+      answer: "Para o mercado brasileiro, é comum combinar uma base de dados (como o Apollo) com enriquecimento (como o Clay) e uma ferramenta de outreach (como Lemlist ou Instantly). Cada uma resolve uma etapa, e juntas formam um fluxo completo de prospecção.",
+    },
+    {
+      question: "A IA substitui o time de SDR?",
+      answer: "Não. A IA automatiza as partes repetitivas — pesquisa, enriquecimento e primeiros contatos — liberando o SDR para conversas qualificadas e fechamento. Times que usam IA conseguem o trabalho de uma equipe maior com menos esforço manual.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Como usar IA para gerar leads B2B no Brasil em 2026"
   description="Estratégias e ferramentas de IA para geração de leads B2B no mercado brasileiro. Do enriquecimento de dados ao outreach automatizado."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -234,6 +257,24 @@ export const frontmatter = {
       <p>
         A combinação mais eficiente para o mercado brasileiro é Apollo.io (para listas) + Clay (para enriquecimento e personalização) + Lemlist ou Instantly (para disparo). Com esse trio, um SDR consegue trabalhar com volume de prospects que antes exigiria uma equipe inteira — e com qualidade de personalização que mantém as taxas de resposta altas.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>A IA consegue gerar leads B2B qualificados no Brasil?</h3>
+        <p>Sim, mas o resultado depende dos dados. Ferramentas de prospecção com IA ajudam a montar listas, enriquecer contatos e personalizar o outreach, porém a cobertura de dados do Brasil varia entre plataformas — vale testar a qualidade antes de assinar.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Usar IA para prospecção respeita a LGPD?</h3>
+        <p>Pode respeitar, desde que você trate os dados com base legal adequada, use informações profissionais públicas e ofereça opção de descadastro. A responsabilidade pelo uso correto é da empresa, não da ferramenta.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quais ferramentas de IA são melhores para leads B2B?</h3>
+        <p>Para o mercado brasileiro, é comum combinar uma base de dados (como o Apollo) com enriquecimento (como o Clay) e uma ferramenta de outreach (como Lemlist ou Instantly). Cada uma resolve uma etapa, e juntas formam um fluxo completo de prospecção.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA substitui o time de SDR?</h3>
+        <p>Não. A IA automatiza as partes repetitivas — pesquisa, enriquecimento e primeiros contatos — liberando o SDR para conversas qualificadas e fechamento. Times que usam IA conseguem o trabalho de uma equipe maior com menos esforço manual.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare as melhores ferramentas de prospecção B2B</h2>

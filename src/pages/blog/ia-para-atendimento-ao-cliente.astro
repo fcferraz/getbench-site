@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-08',
   slug: 'ia-para-atendimento-ao-cliente',
   tags: ['atendimento', 'automacao', 'suporte'],
+  faqs: [
+    {
+      question: "Como a IA ajuda no atendimento ao cliente?",
+      answer: "A IA responde dúvidas frequentes 24 horas por dia, classifica e prioriza chamados e sugere respostas para os atendentes. Isso reduz o tempo de espera e libera a equipe para casos que realmente exigem atenção humana.",
+    },
+    {
+      question: "A IA no atendimento funciona em português?",
+      answer: "Sim. As ferramentas de atendimento com IA atendem bem em português brasileiro e podem ser treinadas com o vocabulário e as políticas da sua empresa para responder com mais precisão.",
+    },
+    {
+      question: "Vou precisar demitir minha equipe de atendimento?",
+      answer: "Não. A proposta é ampliar a capacidade do time, não substituí-lo: a IA cuida do volume repetitivo e a equipe foca em casos complexos e relacionamento. Na prática, o atendimento melhora sem precisar contratar mais gente.",
+    },
+    {
+      question: "Quanto custa implementar IA no atendimento?",
+      answer: "Há opções com plano gratuito e ferramentas pagas que começam baixo e escalam conforme o volume de conversas. Para a maioria das empresas, a economia de tempo e a redução de filas justificam o investimento rapidamente.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Como usar IA para atender clientes sem contratar mais pessoas"
   description="Descubra como usar IA no atendimento ao cliente da sua empresa — reduzindo tempo, custos e melhorando a experiência sem aumentar o time."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -70,6 +89,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
@@ -226,6 +249,24 @@ export const frontmatter = {
           A IA não substitui o atendimento humano de qualidade — ela libera seu time para oferecer exatamente
           isso nos momentos que importam.
         </p>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Como a IA ajuda no atendimento ao cliente?</h3>
+        <p>A IA responde dúvidas frequentes 24 horas por dia, classifica e prioriza chamados e sugere respostas para os atendentes. Isso reduz o tempo de espera e libera a equipe para casos que realmente exigem atenção humana.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA no atendimento funciona em português?</h3>
+        <p>Sim. As ferramentas de atendimento com IA atendem bem em português brasileiro e podem ser treinadas com o vocabulário e as políticas da sua empresa para responder com mais precisão.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Vou precisar demitir minha equipe de atendimento?</h3>
+        <p>Não. A proposta é ampliar a capacidade do time, não substituí-lo: a IA cuida do volume repetitivo e a equipe foca em casos complexos e relacionamento. Na prática, o atendimento melhora sem precisar contratar mais gente.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quanto custa implementar IA no atendimento?</h3>
+        <p>Há opções com plano gratuito e ferramentas pagas que começam baixo e escalam conforme o volume de conversas. Para a maioria das empresas, a economia de tempo e a redução de filas justificam o investimento rapidamente.</p>
       </div>
 
       <div class="cta-box">

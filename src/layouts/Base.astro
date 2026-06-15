@@ -1,6 +1,6 @@
 ---
 import CookieBanner from '../components/CookieBanner.astro';
-const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM", description, canonicalUrl } = Astro.props;
+const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM", description, canonicalUrl, faqs } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -38,6 +38,17 @@ const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM"
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalUrl ?? new URL(Astro.url.pathname, 'https://www.buskai.net').href} />
+    {Array.isArray(faqs) && faqs.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((f) => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+        }))
+      })} />
+    )}
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Buskai.net" />

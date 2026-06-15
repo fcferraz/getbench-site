@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-08',
   slug: 'chatgpt-vs-gemini-vs-claude',
   tags: ['assistentes', 'ia-generativa', 'comparacao'],
+  faqs: [
+    {
+      question: "Qual é melhor: ChatGPT, Gemini ou Claude?",
+      answer: "Não existe um vencedor absoluto — depende do uso. O ChatGPT é o mais versátil e com maior ecossistema; o Gemini se integra ao Google Workspace; o Claude se destaca em textos longos e análise de documentos. O ideal é testar os três com tarefas reais do seu dia a dia.",
+    },
+    {
+      question: "Os três funcionam em português?",
+      answer: "Sim. ChatGPT, Gemini e Claude têm bom desempenho em português brasileiro para escrita, resumo e análise. Para tarefas mais sensíveis, vale comparar as respostas dos três no mesmo prompt.",
+    },
+    {
+      question: "Qual tem o melhor plano gratuito?",
+      answer: "Todos oferecem acesso gratuito com limitações. O ChatGPT e o Gemini têm planos gratuitos generosos para uso geral; o Claude também oferece uso gratuito com limites de mensagens. Para uso intenso, os planos pagos (em torno de US$ 20/mês) liberam os modelos mais avançados.",
+    },
+    {
+      question: "Posso usar mais de um assistente ao mesmo tempo?",
+      answer: "Sim, e muitas empresas fazem isso. É comum usar um assistente para escrita, outro para análise de documentos e outro integrado às ferramentas que a equipe já usa. O custo de manter dois planos costuma compensar pelo ganho de produtividade.",
+    },
+  ],
 };
 ---
 
 <Base
   title="ChatGPT vs Gemini vs Claude: qual usar na sua empresa em 2026?"
   description="Comparamos os três principais assistentes de IA para você escolher o melhor para o seu negócio. Veja pontos fortes, limitações e preços."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -80,6 +99,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
@@ -299,6 +322,24 @@ export const frontmatter = {
         <p>
           O ideal para empresas mais maduras é usar os três de forma complementar — cada um para o que faz melhor.
         </p>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Qual é melhor: ChatGPT, Gemini ou Claude?</h3>
+        <p>Não existe um vencedor absoluto — depende do uso. O ChatGPT é o mais versátil e com maior ecossistema; o Gemini se integra ao Google Workspace; o Claude se destaca em textos longos e análise de documentos. O ideal é testar os três com tarefas reais do seu dia a dia.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Os três funcionam em português?</h3>
+        <p>Sim. ChatGPT, Gemini e Claude têm bom desempenho em português brasileiro para escrita, resumo e análise. Para tarefas mais sensíveis, vale comparar as respostas dos três no mesmo prompt.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Qual tem o melhor plano gratuito?</h3>
+        <p>Todos oferecem acesso gratuito com limitações. O ChatGPT e o Gemini têm planos gratuitos generosos para uso geral; o Claude também oferece uso gratuito com limites de mensagens. Para uso intenso, os planos pagos (em torno de US$ 20/mês) liberam os modelos mais avançados.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Posso usar mais de um assistente ao mesmo tempo?</h3>
+        <p>Sim, e muitas empresas fazem isso. É comum usar um assistente para escrita, outro para análise de documentos e outro integrado às ferramentas que a equipe já usa. O custo de manter dois planos costuma compensar pelo ganho de produtividade.</p>
       </div>
 
       <div class="cta-box">

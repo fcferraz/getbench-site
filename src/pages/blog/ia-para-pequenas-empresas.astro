@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-08',
   slug: 'ia-para-pequenas-empresas',
   tags: ['brasil', 'produtividade', 'pme'],
+  faqs: [
+    {
+      question: "Por onde uma pequena empresa deve começar com IA?",
+      answer: "Comece por uma dor concreta e de alto impacto — atendimento, marketing ou organização — e adote uma ferramenta que a resolva. Evite tentar automatizar tudo de uma vez; um resultado rápido em uma frente gera confiança para expandir.",
+    },
+    {
+      question: "IA é cara para pequenas empresas?",
+      answer: "Não precisa ser. Muitas ferramentas têm plano gratuito ou custam poucas dezenas de reais ou dólares por mês. O risco financeiro de começar é baixo, e o retorno em tempo economizado costuma aparecer rápido.",
+    },
+    {
+      question: "Preciso de conhecimento técnico para usar IA no meu negócio?",
+      answer: "Não. A maioria das ferramentas é feita para usuários sem formação técnica, com interfaces simples. O aprendizado principal é entender quais tarefas delegar à IA e como escrever bons comandos.",
+    },
+    {
+      question: "Quais áreas do negócio mais se beneficiam da IA?",
+      answer: "Atendimento ao cliente, marketing e conteúdo, vendas e tarefas administrativas são as que mais ganham com IA em pequenas empresas. São áreas com muitas tarefas repetitivas, exatamente onde a automação rende mais.",
+    },
+  ],
 };
 ---
 
 <Base
   title="IA para pequenas empresas: por onde começar sem gastar muito"
   description="Guia prático para empreendedores brasileiros que querem usar IA sem complicação e sem investimento alto."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -79,6 +98,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
     .sumario-mobile ol { padding-left: 20px; margin: 0 0 32px; }
@@ -253,6 +276,24 @@ export const frontmatter = {
         A diferença entre empresas que crescem e empresas que ficam no mesmo lugar vai ser cada vez mais a
         capacidade de usar IA de forma inteligente. E o melhor momento para começar é agora.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Por onde uma pequena empresa deve começar com IA?</h3>
+        <p>Comece por uma dor concreta e de alto impacto — atendimento, marketing ou organização — e adote uma ferramenta que a resolva. Evite tentar automatizar tudo de uma vez; um resultado rápido em uma frente gera confiança para expandir.</p>
+      </div>
+      <div class="faq-item">
+        <h3>IA é cara para pequenas empresas?</h3>
+        <p>Não precisa ser. Muitas ferramentas têm plano gratuito ou custam poucas dezenas de reais ou dólares por mês. O risco financeiro de começar é baixo, e o retorno em tempo economizado costuma aparecer rápido.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Preciso de conhecimento técnico para usar IA no meu negócio?</h3>
+        <p>Não. A maioria das ferramentas é feita para usuários sem formação técnica, com interfaces simples. O aprendizado principal é entender quais tarefas delegar à IA e como escrever bons comandos.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quais áreas do negócio mais se beneficiam da IA?</h3>
+        <p>Atendimento ao cliente, marketing e conteúdo, vendas e tarefas administrativas são as que mais ganham com IA em pequenas empresas. São áreas com muitas tarefas repetitivas, exatamente onde a automação rende mais.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Ferramentas de IA verificadas para o mercado brasileiro</h2>

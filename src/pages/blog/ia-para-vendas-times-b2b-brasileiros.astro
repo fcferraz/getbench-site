@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-13',
   slug: 'ia-para-vendas-times-b2b-brasileiros',
   tags: ['vendas', 'b2b', 'crm'],
+  faqs: [
+    {
+      question: "Como times de vendas B2B usam IA no Brasil?",
+      answer: "Equipes usam IA para prospectar e enriquecer contatos, priorizar leads, registrar e resumir reuniões e até prever quais negócios têm mais chance de fechar. O resultado é menos trabalho manual e mais tempo com clientes.",
+    },
+    {
+      question: "A IA ajuda a fechar mais negócios ou só a prospectar?",
+      answer: "Ajuda nas duas pontas. Além de gerar e qualificar leads, a IA analisa o histórico de conversas, sugere próximos passos e identifica riscos no funil — apoiando o vendedor até o fechamento.",
+    },
+    {
+      question: "Ferramentas de vendas com IA funcionam com CRMs usados no Brasil?",
+      answer: "As principais integram-se a CRMs populares no Brasil, como HubSpot, Pipedrive e RD Station. A integração com o CRM é essencial para que a IA trabalhe com dados atualizados e devolva insights úteis.",
+    },
+    {
+      question: "A IA vai substituir os vendedores?",
+      answer: "Não. A IA automatiza tarefas operacionais e dá inteligência ao processo, mas relacionamento, negociação e confiança continuam humanos. Os times que adotam IA tendem a vender mais com a mesma equipe.",
+    },
+  ],
 };
 ---
 
 <Base
   title="IA para vendas: como times B2B brasileiros estão usando em 2026"
   description="Como equipes de vendas B2B no Brasil estão usando IA para prospectar, qualificar e fechar mais negócios. Ferramentas, estratégias e casos reais."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -238,6 +261,24 @@ export const frontmatter = {
       <p>
         O que IA não substitui — e provavelmente não vai substituir no Brasil — é a capacidade de construir relacionamento genuíno com o decisor. No mercado brasileiro, o "jogo longo" do relacionamento ainda determina muitos contratos. A IA cuida do processo para que o vendedor tenha mais tempo para o que realmente importa: estar presente onde o cliente está.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Como times de vendas B2B usam IA no Brasil?</h3>
+        <p>Equipes usam IA para prospectar e enriquecer contatos, priorizar leads, registrar e resumir reuniões e até prever quais negócios têm mais chance de fechar. O resultado é menos trabalho manual e mais tempo com clientes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA ajuda a fechar mais negócios ou só a prospectar?</h3>
+        <p>Ajuda nas duas pontas. Além de gerar e qualificar leads, a IA analisa o histórico de conversas, sugere próximos passos e identifica riscos no funil — apoiando o vendedor até o fechamento.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Ferramentas de vendas com IA funcionam com CRMs usados no Brasil?</h3>
+        <p>As principais integram-se a CRMs populares no Brasil, como HubSpot, Pipedrive e RD Station. A integração com o CRM é essencial para que a IA trabalhe com dados atualizados e devolva insights úteis.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA vai substituir os vendedores?</h3>
+        <p>Não. A IA automatiza tarefas operacionais e dá inteligência ao processo, mas relacionamento, negociação e confiança continuam humanos. Os times que adotam IA tendem a vender mais com a mesma equipe.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare as melhores ferramentas de vendas para o mercado brasileiro</h2>

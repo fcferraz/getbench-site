@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-08',
   slug: 'ia-para-ecommerce-brasileiro',
   tags: ['ecommerce', 'marketing', 'brasil'],
+  faqs: [
+    {
+      question: "Como usar IA em um e-commerce brasileiro?",
+      answer: "A IA atua em várias frentes do e-commerce: atendimento e recuperação de carrinho, descrições de produto, recomendações personalizadas, campanhas de marketing e previsão de estoque. Dá para começar por uma frente e expandir conforme os resultados.",
+    },
+    {
+      question: "A IA ajuda a vender mais de verdade?",
+      answer: "Sim, quando aplicada a gargalos reais. Recomendações personalizadas e atendimento ágil aumentam a conversão e o ticket médio, enquanto a automação de marketing recupera vendas que se perderiam. O ganho vem de resolver um problema específico, não de adotar IA por moda.",
+    },
+    {
+      question: "As ferramentas se integram com plataformas como Shopify e Nuvemshop?",
+      answer: "A maioria das ferramentas de IA para e-commerce oferece integração com as principais plataformas usadas no Brasil, diretamente ou via automação. Confirme a integração com a sua plataforma antes de contratar.",
+    },
+    {
+      question: "Preciso de uma equipe técnica para usar IA no e-commerce?",
+      answer: "Não para começar. Muitas ferramentas são plug-and-play e se instalam como apps na sua plataforma. Conforme você avança para automações mais sofisticadas, pode valer o apoio de um especialista.",
+    },
+  ],
 };
 ---
 
 <Base
   title="IA para e-commerce brasileiro: ferramentas para vender mais em 2026"
   description="As melhores ferramentas de IA para e-commerce no Brasil: atendimento, marketing, personalização e automação. Veja como aumentar suas vendas com IA."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -236,6 +259,24 @@ export const frontmatter = {
       <p>
         Se você está começando a usar IA no e-commerce, priorize o atendimento automático (Tidio) e o e-mail marketing inteligente (Klaviyo ou ActiveCampaign) — são as duas alavancas com maior retorno imediato. Criativos automatizados com AdCreative e chatbots personalizados com Chatbase vêm na segunda fase, quando a operação básica já estiver rodando bem.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Como usar IA em um e-commerce brasileiro?</h3>
+        <p>A IA atua em várias frentes do e-commerce: atendimento e recuperação de carrinho, descrições de produto, recomendações personalizadas, campanhas de marketing e previsão de estoque. Dá para começar por uma frente e expandir conforme os resultados.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA ajuda a vender mais de verdade?</h3>
+        <p>Sim, quando aplicada a gargalos reais. Recomendações personalizadas e atendimento ágil aumentam a conversão e o ticket médio, enquanto a automação de marketing recupera vendas que se perderiam. O ganho vem de resolver um problema específico, não de adotar IA por moda.</p>
+      </div>
+      <div class="faq-item">
+        <h3>As ferramentas se integram com plataformas como Shopify e Nuvemshop?</h3>
+        <p>A maioria das ferramentas de IA para e-commerce oferece integração com as principais plataformas usadas no Brasil, diretamente ou via automação. Confirme a integração com a sua plataforma antes de contratar.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Preciso de uma equipe técnica para usar IA no e-commerce?</h3>
+        <p>Não para começar. Muitas ferramentas são plug-and-play e se instalam como apps na sua plataforma. Conforme você avança para automações mais sofisticadas, pode valer o apoio de um especialista.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Encontre as melhores ferramentas para o seu e-commerce</h2>

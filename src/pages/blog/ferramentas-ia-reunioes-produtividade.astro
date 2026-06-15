@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-11',
   slug: 'ferramentas-ia-reunioes-produtividade',
   tags: ['produtividade', 'reunioes', 'equipe'],
+  faqs: [
+    {
+      question: "O que uma ferramenta de IA para reuniões faz?",
+      answer: "Ela grava, transcreve e resume reuniões automaticamente, além de destacar decisões e tarefas. Assim a equipe não precisa anotar manualmente e ninguém perde o que foi combinado, mesmo sem ter participado.",
+    },
+    {
+      question: "Essas ferramentas transcrevem reuniões em português?",
+      answer: "Sim. As principais ferramentas de transcrição com IA já reconhecem o português brasileiro com boa precisão. A qualidade melhora com áudio limpo e quando os participantes evitam falar ao mesmo tempo.",
+    },
+    {
+      question: "É seguro gravar reuniões com IA do ponto de vista da LGPD?",
+      answer: "É preciso avisar e ter consentimento dos participantes antes de gravar, e armazenar as transcrições com segurança. Ferramentas sérias oferecem controles de acesso e políticas de retenção que ajudam na conformidade.",
+    },
+    {
+      question: "Vale a pena para equipes pequenas?",
+      answer: "Sim. Mesmo equipes pequenas perdem muito tempo com atas e follow-ups. Automatizar resumos e tarefas libera horas por semana, e a maioria das ferramentas tem plano gratuito ou de baixo custo para começar.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Ferramentas de IA para reuniões e produtividade em equipe em 2026"
   description="As melhores ferramentas de IA para transcrever, resumir e organizar reuniões. Aumente a produtividade da sua equipe com IA."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -237,6 +260,24 @@ export const frontmatter = {
       <p>
         O maior insight sobre ferramentas de reunião é simples: a documentação que exige esforço não acontece consistentemente. Quando é automática, acontece sempre. Escolha a ferramenta que melhor se encaixa no seu fluxo atual — se usa Google Meet, Fireflies ou Bluedot. Se quer gestão de conhecimento, Notion AI. Se o time é remoto e precisa de clips, tldv.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>O que uma ferramenta de IA para reuniões faz?</h3>
+        <p>Ela grava, transcreve e resume reuniões automaticamente, além de destacar decisões e tarefas. Assim a equipe não precisa anotar manualmente e ninguém perde o que foi combinado, mesmo sem ter participado.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Essas ferramentas transcrevem reuniões em português?</h3>
+        <p>Sim. As principais ferramentas de transcrição com IA já reconhecem o português brasileiro com boa precisão. A qualidade melhora com áudio limpo e quando os participantes evitam falar ao mesmo tempo.</p>
+      </div>
+      <div class="faq-item">
+        <h3>É seguro gravar reuniões com IA do ponto de vista da LGPD?</h3>
+        <p>É preciso avisar e ter consentimento dos participantes antes de gravar, e armazenar as transcrições com segurança. Ferramentas sérias oferecem controles de acesso e políticas de retenção que ajudam na conformidade.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Vale a pena para equipes pequenas?</h3>
+        <p>Sim. Mesmo equipes pequenas perdem muito tempo com atas e follow-ups. Automatizar resumos e tarefas libera horas por semana, e a maioria das ferramentas tem plano gratuito ou de baixo custo para começar.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare as melhores ferramentas de IA para reuniões</h2>

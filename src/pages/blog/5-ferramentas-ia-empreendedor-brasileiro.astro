@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-08',
   slug: '5-ferramentas-ia-empreendedor-brasileiro',
   tags: ['brasil', 'produtividade', 'ia-generativa'],
+  faqs: [
+    {
+      question: "Qual a melhor ferramenta de IA para começar sem gastar nada?",
+      answer: "Para quem está começando, o ideal é priorizar ferramentas com plano gratuito real, como os assistentes de IA generativa. Eles cobrem várias necessidades — escrever, resumir, pesquisar — sem custo inicial, e você só migra para planos pagos quando o uso justificar.",
+    },
+    {
+      question: "Preciso saber programar para usar IA no meu negócio?",
+      answer: "Não. A maioria das ferramentas de IA para empreendedores é \"no-code\": você usa por uma interface de chat ou por menus simples. O que exige aprendizado é escrever bons comandos (prompts) e integrar a IA na rotina, não programação.",
+    },
+    {
+      question: "As ferramentas de IA funcionam bem em português?",
+      answer: "As principais ferramentas de IA generativa já funcionam muito bem em português brasileiro. O ponto de atenção fica em ferramentas de dados e SEO, onde a cobertura do Brasil pode variar — vale sempre testar com casos reais do seu negócio.",
+    },
+    {
+      question: "Quanto custa adotar IA em uma pequena empresa?",
+      answer: "É possível começar de graça e evoluir para planos entre US$ 10 e US$ 30 por mês por ferramenta conforme a necessidade. O segredo é começar com uma ou duas ferramentas que resolvam uma dor clara, medir o retorno e só então expandir.",
+    },
+  ],
 };
 ---
 
 <Base
   title="5 ferramentas de IA que todo empreendedor brasileiro deveria conhecer em 2026"
   description="Descubra as 5 ferramentas de IA que estão transformando negócios brasileiros — do atendimento ao cliente até reuniões mais produtivas."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -103,6 +122,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     /* ── Mobile inline sumário ── */
     .sumario-mobile { display: none; }
@@ -266,6 +289,24 @@ export const frontmatter = {
       <p>
         A IA não vai substituir o empreendedor — mas o empreendedor que usa IA vai deixar para trás quem não usa.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Qual a melhor ferramenta de IA para começar sem gastar nada?</h3>
+        <p>Para quem está começando, o ideal é priorizar ferramentas com plano gratuito real, como os assistentes de IA generativa. Eles cobrem várias necessidades — escrever, resumir, pesquisar — sem custo inicial, e você só migra para planos pagos quando o uso justificar.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Preciso saber programar para usar IA no meu negócio?</h3>
+        <p>Não. A maioria das ferramentas de IA para empreendedores é "no-code": você usa por uma interface de chat ou por menus simples. O que exige aprendizado é escrever bons comandos (prompts) e integrar a IA na rotina, não programação.</p>
+      </div>
+      <div class="faq-item">
+        <h3>As ferramentas de IA funcionam bem em português?</h3>
+        <p>As principais ferramentas de IA generativa já funcionam muito bem em português brasileiro. O ponto de atenção fica em ferramentas de dados e SEO, onde a cobertura do Brasil pode variar — vale sempre testar com casos reais do seu negócio.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quanto custa adotar IA em uma pequena empresa?</h3>
+        <p>É possível começar de graça e evoluir para planos entre US$ 10 e US$ 30 por mês por ferramenta conforme a necessidade. O segredo é começar com uma ou duas ferramentas que resolvam uma dor clara, medir o retorno e só então expandir.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Explore mais de 60 ferramentas de IA para o mercado brasileiro</h2>

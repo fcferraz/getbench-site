@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-12',
   slug: 'como-criar-videos-com-ia-sem-ser-designer',
   tags: ['video', 'conteudo', 'criadores'],
+  faqs: [
+    {
+      question: "Dá para criar vídeos com IA sem aparecer na câmera?",
+      answer: "Sim. Ferramentas de avatar de IA geram um apresentador digital que fala o seu roteiro, e ferramentas de texto-para-vídeo criam cenas a partir de descrições. Você produz vídeo profissional sem câmera, estúdio ou aparecer na tela.",
+    },
+    {
+      question: "Preciso saber editar vídeo para usar essas ferramentas?",
+      answer: "Não. As ferramentas de IA para vídeo são feitas para iniciantes: você escreve o roteiro ou faz upload de um vídeo longo e a IA cuida de cortes, legendas e formatação. O conhecimento de edição ajuda, mas não é pré-requisito.",
+    },
+    {
+      question: "Os vídeos gerados por IA funcionam em português?",
+      answer: "Sim. As principais ferramentas geram narração e legendas em português brasileiro, com vozes cada vez mais naturais. Vale revisar a pronúncia de nomes e termos específicos antes de publicar.",
+    },
+    {
+      question: "Quanto custa criar vídeos com IA?",
+      answer: "Muitas ferramentas têm plano gratuito com marca d’água e limite de minutos. Os planos pagos começam por volta de US$ 20 a US$ 30 por mês e liberam mais tempo de vídeo, qualidade maior e remoção da marca d’água.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Como criar vídeos com IA sem ser designer em 2026"
   description="Aprenda a criar vídeos profissionais com IA sem precisar de experiência em design ou edição. As melhores ferramentas para o criador brasileiro."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -237,6 +260,24 @@ export const frontmatter = {
       <p>
         Uma combinação eficiente para criadores brasileiros: use o HeyGen para vídeos com apresentador, o OpusClip para reciclar conteúdo longo, o VEED para edição rápida e o Pika para animações criativas. Com esse conjunto, é possível manter uma presença consistente em vídeo nas redes sociais sem precisar de câmera, estúdio ou editor.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Dá para criar vídeos com IA sem aparecer na câmera?</h3>
+        <p>Sim. Ferramentas de avatar de IA geram um apresentador digital que fala o seu roteiro, e ferramentas de texto-para-vídeo criam cenas a partir de descrições. Você produz vídeo profissional sem câmera, estúdio ou aparecer na tela.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Preciso saber editar vídeo para usar essas ferramentas?</h3>
+        <p>Não. As ferramentas de IA para vídeo são feitas para iniciantes: você escreve o roteiro ou faz upload de um vídeo longo e a IA cuida de cortes, legendas e formatação. O conhecimento de edição ajuda, mas não é pré-requisito.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Os vídeos gerados por IA funcionam em português?</h3>
+        <p>Sim. As principais ferramentas geram narração e legendas em português brasileiro, com vozes cada vez mais naturais. Vale revisar a pronúncia de nomes e termos específicos antes de publicar.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quanto custa criar vídeos com IA?</h3>
+        <p>Muitas ferramentas têm plano gratuito com marca d’água e limite de minutos. Os planos pagos começam por volta de US$ 20 a US$ 30 por mês e liberam mais tempo de vídeo, qualidade maior e remoção da marca d’água.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Explore todas as ferramentas de criação de vídeo com IA</h2>

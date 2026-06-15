@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-05-26',
   slug: 'ferramentas-ia-criadores-conteudo-brasil',
   tags: ['conteudo', 'criadores', 'video'],
+  faqs: [
+    {
+      question: "Quais ferramentas de IA são úteis para criadores de conteúdo?",
+      answer: "Há ferramentas de IA para cada formato: texto (assistentes generativos), imagem (geração e edição), vídeo (avatares e cortes automáticos) e áudio (narração e transcrição). O ideal é montar um conjunto que cubra os formatos que você mais publica.",
+    },
+    {
+      question: "Conteúdo feito com IA tem boa qualidade em português?",
+      answer: "A qualidade em português evoluiu muito, especialmente para texto e narração. Ainda assim, a revisão humana é essencial para garantir voz própria, precisão e contexto local — a IA acelera, mas não substitui o critério do criador.",
+    },
+    {
+      question: "Preciso pagar para usar ferramentas de IA de conteúdo?",
+      answer: "Muitas oferecem plano gratuito suficiente para começar. Conforme o volume cresce, os planos pagos (geralmente entre US$ 10 e US$ 30 por mês) liberam mais capacidade, qualidade e remoção de marca d’água.",
+    },
+    {
+      question: "Usar IA pode prejudicar meu alcance nas redes ou no Google?",
+      answer: "O que importa para plataformas e buscadores é a qualidade e a originalidade, não se houve IA na produção. Conteúdo útil e bem revisado performa bem; conteúdo genérico e em massa tende a ser penalizado.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Ferramentas de IA para criadores de conteúdo brasileiros em 2026"
   description="As melhores ferramentas de IA para criadores de conteúdo no Brasil: geração de texto, vídeo, imagem e áudio. Veja qual se encaixa no seu fluxo de trabalho."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -236,6 +259,24 @@ export const frontmatter = {
       <p>
         Você não precisa usar todas as ferramentas ao mesmo tempo. Comece pela que resolve o maior gargalo do seu fluxo atual. Se você perde tempo em design, comece pelo Canva. Se tem conteúdo longo subutilizado, comece pelo OpusClip. A IA não vai criar pelo você — mas vai multiplicar o que você já cria.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Quais ferramentas de IA são úteis para criadores de conteúdo?</h3>
+        <p>Há ferramentas de IA para cada formato: texto (assistentes generativos), imagem (geração e edição), vídeo (avatares e cortes automáticos) e áudio (narração e transcrição). O ideal é montar um conjunto que cubra os formatos que você mais publica.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Conteúdo feito com IA tem boa qualidade em português?</h3>
+        <p>A qualidade em português evoluiu muito, especialmente para texto e narração. Ainda assim, a revisão humana é essencial para garantir voz própria, precisão e contexto local — a IA acelera, mas não substitui o critério do criador.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Preciso pagar para usar ferramentas de IA de conteúdo?</h3>
+        <p>Muitas oferecem plano gratuito suficiente para começar. Conforme o volume cresce, os planos pagos (geralmente entre US$ 10 e US$ 30 por mês) liberam mais capacidade, qualidade e remoção de marca d’água.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Usar IA pode prejudicar meu alcance nas redes ou no Google?</h3>
+        <p>O que importa para plataformas e buscadores é a qualidade e a originalidade, não se houve IA na produção. Conteúdo útil e bem revisado performa bem; conteúdo genérico e em massa tende a ser penalizado.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare todas as ferramentas de criação de conteúdo</h2>

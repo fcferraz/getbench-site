@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-06-10',
   slug: 'como-escolher-assistente-ia-para-sua-empresa',
   tags: ['assistentes', 'ia-generativa', 'brasil'],
+  faqs: [
+    {
+      question: "Como escolher o melhor assistente de IA para a minha empresa?",
+      answer: "Comece pelo problema que você quer resolver — escrita, atendimento, análise de dados — e teste os principais assistentes nessa tarefa específica. Avalie a qualidade das respostas em português, as integrações com as ferramentas que você já usa, a segurança dos dados e o custo.",
+    },
+    {
+      question: "Vale a pena pagar pela versão paga de um assistente de IA?",
+      answer: "Para uso profissional frequente, sim. Os planos pagos liberam os modelos mais avançados, limites maiores e recursos de segurança. Se o uso é esporádico, os planos gratuitos costumam ser suficientes.",
+    },
+    {
+      question: "Os dados da minha empresa ficam seguros nesses assistentes?",
+      answer: "Depende do plano e do fornecedor. Planos corporativos geralmente garantem que seus dados não serão usados para treinar os modelos e oferecem controles de privacidade. Antes de inserir informações sensíveis, verifique a política de dados e a conformidade com a LGPD.",
+    },
+    {
+      question: "Posso integrar o assistente de IA às ferramentas que já uso?",
+      answer: "Sim. A maioria dos assistentes oferece integrações nativas ou via automação (como o Zapier) com e-mail, CRM, planilhas e apps de produtividade. Isso é decisivo para que a IA realmente entre no fluxo de trabalho da equipe.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Como escolher o melhor assistente de IA para sua empresa em 2026"
   description="ChatGPT, Claude, Gemini ou Copilot? Compare os principais assistentes de IA e descubra qual é o melhor para o seu negócio no Brasil."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -240,6 +263,24 @@ export const frontmatter = {
       <p>
         A melhor estratégia em 2026 é usar mais de um: o ChatGPT ou Claude para tarefas de escrita e análise, e o assistente integrado (Gemini ou Copilot) para produtividade nas ferramentas do dia a dia.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Como escolher o melhor assistente de IA para a minha empresa?</h3>
+        <p>Comece pelo problema que você quer resolver — escrita, atendimento, análise de dados — e teste os principais assistentes nessa tarefa específica. Avalie a qualidade das respostas em português, as integrações com as ferramentas que você já usa, a segurança dos dados e o custo.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Vale a pena pagar pela versão paga de um assistente de IA?</h3>
+        <p>Para uso profissional frequente, sim. Os planos pagos liberam os modelos mais avançados, limites maiores e recursos de segurança. Se o uso é esporádico, os planos gratuitos costumam ser suficientes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Os dados da minha empresa ficam seguros nesses assistentes?</h3>
+        <p>Depende do plano e do fornecedor. Planos corporativos geralmente garantem que seus dados não serão usados para treinar os modelos e oferecem controles de privacidade. Antes de inserir informações sensíveis, verifique a política de dados e a conformidade com a LGPD.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Posso integrar o assistente de IA às ferramentas que já uso?</h3>
+        <p>Sim. A maioria dos assistentes oferece integrações nativas ou via automação (como o Zapier) com e-mail, CRM, planilhas e apps de produtividade. Isso é decisivo para que a IA realmente entre no fluxo de trabalho da equipe.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare todos os assistentes de IA disponíveis no Brasil</h2>

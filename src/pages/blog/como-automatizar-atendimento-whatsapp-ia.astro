@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-05-19',
   slug: 'como-automatizar-atendimento-whatsapp-ia',
   tags: ['whatsapp', 'atendimento', 'automacao'],
+  faqs: [
+    {
+      question: "É possível automatizar o WhatsApp da empresa com IA de forma legal?",
+      answer: "Sim, desde que você use a API oficial do WhatsApp Business e respeite as regras da Meta e a LGPD — com consentimento do cliente e opção de falar com um atendente humano. Ferramentas de chatbot sérias já operam dentro dessas regras.",
+    },
+    {
+      question: "A IA substitui completamente o atendimento humano?",
+      answer: "Não, e não deveria. A IA resolve bem perguntas frequentes e tarefas repetitivas 24 horas por dia, mas casos complexos ou sensíveis devem ser encaminhados a um humano. O melhor resultado vem da combinação dos dois.",
+    },
+    {
+      question: "Quanto custa automatizar o atendimento no WhatsApp?",
+      answer: "Há ferramentas com plano gratuito ou de baixo custo para começar, além dos custos de mensagens da API oficial do WhatsApp. Para a maioria das pequenas empresas, o investimento inicial é baixo e se paga com a redução do tempo gasto em respostas repetitivas.",
+    },
+    {
+      question: "O chatbot consegue responder sobre os meus produtos?",
+      answer: "Sim. Ferramentas modernas permitem treinar o chatbot com os dados da sua empresa — catálogo, políticas e perguntas frequentes — para que ele responda com informações reais do seu negócio, não respostas genéricas.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Como automatizar o atendimento no WhatsApp com IA em 2026"
   description="Descubra como usar IA para automatizar o atendimento no WhatsApp da sua empresa. Ferramentas, estratégias e exemplos práticos para o mercado brasileiro."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -236,6 +259,24 @@ export const frontmatter = {
       <p>
         Não é preciso automatizar tudo de uma vez. Comece mapeando as 5 perguntas que seu time mais responde no WhatsApp e configure um chatbot para lidar com elas. Na maioria das empresas brasileiras, isso já elimina 30% a 40% do volume de atendimento manual — tempo que o time pode usar para negociações que realmente precisam de atenção humana.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>É possível automatizar o WhatsApp da empresa com IA de forma legal?</h3>
+        <p>Sim, desde que você use a API oficial do WhatsApp Business e respeite as regras da Meta e a LGPD — com consentimento do cliente e opção de falar com um atendente humano. Ferramentas de chatbot sérias já operam dentro dessas regras.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A IA substitui completamente o atendimento humano?</h3>
+        <p>Não, e não deveria. A IA resolve bem perguntas frequentes e tarefas repetitivas 24 horas por dia, mas casos complexos ou sensíveis devem ser encaminhados a um humano. O melhor resultado vem da combinação dos dois.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quanto custa automatizar o atendimento no WhatsApp?</h3>
+        <p>Há ferramentas com plano gratuito ou de baixo custo para começar, além dos custos de mensagens da API oficial do WhatsApp. Para a maioria das pequenas empresas, o investimento inicial é baixo e se paga com a redução do tempo gasto em respostas repetitivas.</p>
+      </div>
+      <div class="faq-item">
+        <h3>O chatbot consegue responder sobre os meus produtos?</h3>
+        <p>Sim. Ferramentas modernas permitem treinar o chatbot com os dados da sua empresa — catálogo, políticas e perguntas frequentes — para que ele responda com informações reais do seu negócio, não respostas genéricas.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Encontre a ferramenta certa para o seu atendimento</h2>

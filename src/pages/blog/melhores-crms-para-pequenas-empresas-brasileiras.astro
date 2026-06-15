@@ -9,12 +9,31 @@ export const frontmatter = {
   date: '2026-05-12',
   slug: 'melhores-crms-para-pequenas-empresas-brasileiras',
   tags: ['crm', 'vendas', 'brasil'],
+  faqs: [
+    {
+      question: "Qual o melhor CRM para uma pequena empresa brasileira?",
+      answer: "Depende do seu processo e orçamento. HubSpot e Pipedrive são fortes em usabilidade e integrações; RD Station, Moskit e Agendor são opções nacionais com suporte em português e foco no mercado brasileiro. O ideal é testar com a sua operação real.",
+    },
+    {
+      question: "Existe CRM gratuito que vale a pena?",
+      answer: "Sim. Alguns CRMs oferecem plano gratuito funcional para começar a organizar contatos e oportunidades. Conforme o time e o volume crescem, vale migrar para planos pagos com automação e relatórios mais completos.",
+    },
+    {
+      question: "CRM nacional ou internacional: qual escolher?",
+      answer: "CRMs nacionais costumam ter suporte em português, cobrança em reais e integração com ferramentas locais. Os internacionais oferecem ecossistemas mais amplos e recursos avançados. A melhor escolha depende de quais integrações e suporte você precisa.",
+    },
+    {
+      question: "Como a IA melhora um CRM?",
+      answer: "A IA no CRM automatiza o registro de interações, prioriza os leads com maior chance de conversão e sugere os próximos passos. Isso reduz o trabalho manual de atualização e ajuda o time a focar nas oportunidades certas.",
+    },
+  ],
 };
 ---
 
 <Base
   title="Melhores CRMs para pequenas empresas brasileiras em 2026"
   description="Compare os melhores CRMs para PMEs brasileiras: HubSpot, Pipedrive, RD Station, Moskit e Agendor. Preços, funcionalidades e qual escolher."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -69,6 +88,10 @@ export const frontmatter = {
     .cta-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
     .cta-btn { display: inline-block; padding: 12px 28px; background: var(--accent); color:var(--on-accent); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
     .cta-btn:hover { background: var(--accent-2); }
+    .faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+    .faq-item h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .faq-item p { font-size: 15px; color: var(--text); line-height: 1.75; margin: 0; }
 
     .sumario-mobile { display: none; }
     .sumario-mobile h2 { font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
@@ -239,6 +262,24 @@ export const frontmatter = {
       <p>
         O melhor CRM é o que sua equipe vai realmente usar. Comece com o plano gratuito de dois ou três opções, envolva o time comercial no teste e decida com base na adoção — não apenas nas funcionalidades do papel.
       </p>
+
+      <h2 style="font-size:20px;font-weight:700;margin:40px 0 16px;color:var(--text);">Perguntas frequentes</h2>
+      <div class="faq-item">
+        <h3>Qual o melhor CRM para uma pequena empresa brasileira?</h3>
+        <p>Depende do seu processo e orçamento. HubSpot e Pipedrive são fortes em usabilidade e integrações; RD Station, Moskit e Agendor são opções nacionais com suporte em português e foco no mercado brasileiro. O ideal é testar com a sua operação real.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Existe CRM gratuito que vale a pena?</h3>
+        <p>Sim. Alguns CRMs oferecem plano gratuito funcional para começar a organizar contatos e oportunidades. Conforme o time e o volume crescem, vale migrar para planos pagos com automação e relatórios mais completos.</p>
+      </div>
+      <div class="faq-item">
+        <h3>CRM nacional ou internacional: qual escolher?</h3>
+        <p>CRMs nacionais costumam ter suporte em português, cobrança em reais e integração com ferramentas locais. Os internacionais oferecem ecossistemas mais amplos e recursos avançados. A melhor escolha depende de quais integrações e suporte você precisa.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Como a IA melhora um CRM?</h3>
+        <p>A IA no CRM automatiza o registro de interações, prioriza os leads com maior chance de conversão e sugere os próximos passos. Isso reduz o trabalho manual de atualização e ajuda o time a focar nas oportunidades certas.</p>
+      </div>
 
       <div class="cta-box">
         <h2>Compare CRMs lado a lado no Buskai</h2>

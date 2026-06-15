@@ -9,12 +9,35 @@ export const frontmatter = {
   date: '2026-06-15',
   slug: 'como-usar-ia-para-seo-e-conteudo',
   tags: ['seo', 'conteudo', 'marketing'],
+  faqs: [
+    {
+      question: 'IA pode escrever artigos de SEO sozinha?',
+      answer: 'Tecnicamente sim — mas não é recomendado sem revisão humana. O Google avalia qualidade e utilidade, não a origem do texto. Conteúdo gerado por IA sem revisão tende a ser genérico, sem exemplos reais e sem a voz da marca. Use a IA para acelerar o processo, não para substituir o julgamento editorial.',
+    },
+    {
+      question: 'Usar IA para SEO pode me penalizar no Google?',
+      answer: 'Não existe uma penalização específica para conteúdo gerado por IA. O que o Google penaliza é conteúdo de baixo valor — independente de como foi produzido. A diferença está na qualidade final do texto, não na ferramenta usada para produzi-lo.',
+    },
+    {
+      question: 'Qual é a melhor ferramenta de IA para SEO no Brasil?',
+      answer: 'Depende do seu objetivo. Para otimização de conteúdo em tempo real, o Surfer se destaca. Para estratégia e planejamento de clusters, o Rankai. Para automação de produção, Seobot e Writesonic. Para escrita assistida, o ChatGPT com bons prompts ainda é a opção mais versátil. Veja as opções curadas para o mercado brasileiro no Buskai.',
+    },
+    {
+      question: 'Quanto tempo leva para criar um artigo de SEO com IA?',
+      answer: 'Com um fluxo estruturado (pesquisa → esboço → rascunho → revisão → otimização), um artigo de 1.200 a 1.500 palavras leva entre 2 e 4 horas — contra 6 a 8 horas sem IA. O tempo de revisão humana não desaparece, mas o tempo de geração de rascunho cai drasticamente.',
+    },
+    {
+      question: 'IA funciona para SEO em português?',
+      answer: 'Sim, mas com mais limitações do que em inglês. Assistentes como ChatGPT e Claude performam bem em PT-BR. Plataformas de SEO como Surfer e Rankai cobrem o mercado brasileiro, mas o ponto de atenção é sempre verificar se os dados de volume de busca são específicos para o Brasil, não globais.',
+    },
+  ],
 };
 ---
 
 <Base
   title="Como usar IA para criar e otimizar conteúdo para SEO"
   description="Aprenda a usar ferramentas de IA para criar conteúdo otimizado para SEO e ranquear no Google — com dicas práticas e ferramentas que funcionam no Brasil."
+  faqs={frontmatter.faqs}
 >
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
