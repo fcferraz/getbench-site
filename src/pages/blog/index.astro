@@ -16,6 +16,9 @@ const articles = {
   'ia-para-atendimento-ao-cliente': { title: 'Como usar IA para atender clientes sem contratar mais pessoas', description: 'Descubra como usar IA no atendimento ao cliente da sua empresa reduzindo tempo e custos.', date: '8 de junho de 2026', slug: 'ia-para-atendimento-ao-cliente' },
   'melhores-ferramentas-ia-rh-recrutamento-brasil': { title: 'Melhores ferramentas de IA para RH e recrutamento no Brasil em 2026', description: 'Compare as melhores ferramentas de IA para RH e recrutamento no Brasil.', date: '5 de junho de 2026', slug: 'melhores-ferramentas-ia-rh-recrutamento-brasil' },
   'como-usar-ia-para-seo-e-conteudo': { title: 'Como usar IA para criar e otimizar conteúdo para SEO', description: 'Aprenda a usar ferramentas de IA para criar conteúdo otimizado para SEO e ranquear no Google — com dicas práticas e ferramentas que funcionam no Brasil.', date: '15 de junho de 2026', slug: 'como-usar-ia-para-seo-e-conteudo' },
+  'guia-produtividade-ia-empresas-brasileiras': { title: 'Guia Completo de Produtividade com IA para Empresas Brasileiras em 2026', description: 'Como usar ferramentas de IA para aumentar a produtividade da sua empresa. Ferramentas testadas para o mercado brasileiro.', date: '10 de junho de 2026', slug: 'guia-produtividade-ia-empresas-brasileiras' },
+  'como-ia-esta-transformando-vendas-b2b-brasil': { title: 'Como a IA está Transformando Vendas B2B no Brasil em 2026', description: 'Como equipes de vendas B2B brasileiras estão usando IA para prospectar, qualificar e fechar mais negócios.', date: '14 de junho de 2026', slug: 'como-ia-esta-transformando-vendas-b2b-brasil' },
+  'guia-ia-marketing-digital-brasil': { title: 'Guia Completo de IA para Marketing Digital no Brasil em 2026', description: 'Como usar inteligência artificial no marketing digital. Do conteúdo ao tráfego pago — ferramentas com suporte em português.', date: '17 de junho de 2026', slug: 'guia-ia-marketing-digital-brasil' },
 };
 
 const featured = articles['chatgpt-vs-gemini-vs-claude'];
@@ -25,9 +28,10 @@ const sections = [
     id: 'vendas',
     title: 'Vendas & CRM',
     items: [
-      { ...articles['melhores-crms-para-pequenas-empresas-brasileiras'], tag: 'CRM' },
-      { ...articles['como-usar-ia-gerar-leads-b2b-brasil'],             tag: 'Leads B2B' },
-      { ...articles['ia-para-vendas-times-b2b-brasileiros'],            tag: 'Vendas' },
+      { ...articles['melhores-crms-para-pequenas-empresas-brasileiras'],    tag: 'CRM' },
+      { ...articles['como-usar-ia-gerar-leads-b2b-brasil'],               tag: 'Leads B2B' },
+      { ...articles['ia-para-vendas-times-b2b-brasileiros'],              tag: 'Vendas' },
+      { ...articles['como-ia-esta-transformando-vendas-b2b-brasil'],      tag: 'Guia' },
     ],
   },
   {
@@ -38,15 +42,17 @@ const sections = [
       { ...articles['como-usar-ia-para-seo-e-conteudo'],          tag: 'SEO' },
       { ...articles['como-criar-videos-com-ia-sem-ser-designer'], tag: 'Vídeo' },
       { ...articles['ia-para-ecommerce-brasileiro'],              tag: 'E-commerce' },
+      { ...articles['guia-ia-marketing-digital-brasil'],          tag: 'Guia' },
     ],
   },
   {
     id: 'produtividade',
     title: 'Produtividade & Ferramentas',
     items: [
-      { ...articles['ferramentas-ia-reunioes-produtividade'],         tag: 'Produtividade' },
+      { ...articles['ferramentas-ia-reunioes-produtividade'],           tag: 'Produtividade' },
       { ...articles['como-escolher-assistente-ia-para-sua-empresa'],  tag: 'Assistentes' },
       { ...articles['5-ferramentas-ia-empreendedor-brasileiro'],      tag: 'Geral' },
+      { ...articles['guia-produtividade-ia-empresas-brasileiras'],    tag: 'Guia' },
     ],
   },
   {
