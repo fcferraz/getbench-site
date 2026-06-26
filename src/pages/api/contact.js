@@ -5,7 +5,7 @@ const CONTACT_TO = 'buskai.net@gmail.com';
 const CONTACT_FROM = 'Buskai Contato <noreply@buskai.net>';
 
 export async function POST({ request }) {
-  const limited = rateLimit(request);
+  const limited = await rateLimit(request);
   if (limited) return limited;
 
   let body;

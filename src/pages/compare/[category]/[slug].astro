@@ -5,6 +5,9 @@ import { getTools, getCompareCache, saveCompareCache } from '../../../lib/airtab
 import { categoryCriteria } from '../../../lib/comparisons.js';
 
 const { category, slug } = Astro.params;
+if (!slug || !slug.includes('-vs-')) {
+  return Astro.redirect('/compare');
+}
 const vsIndex = slug.indexOf('-vs-');
 const slugA = slug.substring(0, vsIndex);
 const slugB = slug.substring(vsIndex + 4);
@@ -86,7 +89,7 @@ if (toolA && toolB) {
     try {
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
       const response = await client.messages.create({
-        model: 'claude-haiku-4-5',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 512,
         messages: [{
           role: 'user',

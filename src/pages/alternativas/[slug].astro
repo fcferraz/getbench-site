@@ -275,7 +275,11 @@ const canonicalUrl = `https://www.buskai.net/alternativas/${slug}`;
   {page.como_escolher && (
     <div class="alt-section">
       <h2>Como escolher a melhor alternativa para você</h2>
-      <div class="alt-editorial" set:html={page.como_escolher.split('\n').map((p: string) => p ? `<p>${p}</p>` : '').join('')} />
+      <div class="alt-editorial">
+        {page.como_escolher.split('\n').filter((p: string) => p.trim()).map((p: string) => (
+          <p>{p}</p>
+        ))}
+      </div>
     </div>
   )}
 

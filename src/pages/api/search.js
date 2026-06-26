@@ -2,10 +2,19 @@ import { getTools } from '../../lib/airtable.js';
 import { rateLimit } from '../../lib/rateLimit.js';
 
 export async function POST({ request }) {
-  const limited = rateLimit(request);
+  const limited = await rateLimit(request);
   if (limited) return limited;
 
-  const { query } = await request.json();
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return new Response(JSON.stringify({ error: 'JSON inválido' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  const { query } = body;
 
   if (typeof query !== 'string' || query.length > 200) {
     return new Response(
@@ -73,9 +82,17 @@ Selecione as 3 a 5 tools mais relevantes para essa busca. Responda APENAS com JS
   if (!ai.content || !ai.content[0]) {
     return new Response(JSON.stringify({ error: ai.error || ai }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
-  const text = ai.content[0].text.trim();
-  const clean = text.replace(/```json/g, '').replace(/```/g, '').trim();
-  const data = JSON.parse(clean);
+  let data;
+  try {
+    const text = ai.content[0].text.trim();
+    const clean = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    data = JSON.parse(clean);
+  } catch {
+    return new Response(JSON.stringify({ error: 'Resposta inválida do assistente' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 
   return new Response(JSON.stringify(data), {
     headers: { 'Content-Type': 'application/json' }
