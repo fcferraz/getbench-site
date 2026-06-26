@@ -48,6 +48,11 @@ export async function getToolBySlug(slug) {
   return records[0] ?? null;
 }
 
+export async function getAlternativas() {
+  return fetchFromAirtable('tbl1FgI1foVC7n2HM',
+    'filterByFormula={published}=1&fields%5B%5D=slug_referencia');
+}
+
 // "Compare Cache" table — referenced by ID because the name contains a space.
 const COMPARE_CACHE_TABLE = 'tbl0FHXP8lZaaJaIv';
 
