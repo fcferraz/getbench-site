@@ -1,6 +1,6 @@
 ---
 import CookieBanner from '../components/CookieBanner.astro';
-const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM", description, canonicalUrl, faqs } = Astro.props;
+const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM", description, canonicalUrl, faqs, image } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -55,7 +55,7 @@ const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM"
     <meta property="og:url" content={canonicalUrl ?? new URL(Astro.url.pathname, 'https://www.buskai.net').href} />
     <meta property="og:title" content={title ?? 'Buskai.net — Encontre e compare ferramentas de IA para LATAM'} />
     <meta property="og:description" content={description ?? 'Diretório curado de ferramentas de IA para o mercado brasileiro e LATAM. Compare preços, suporte em português e disponibilidade no Brasil.'} />
-    <meta property="og:image" content="https://www.buskai.net/og-image.png" />
+    <meta property="og:image" content={image ? `https://www.buskai.net${image}` : 'https://www.buskai.net/og-image.png'} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
