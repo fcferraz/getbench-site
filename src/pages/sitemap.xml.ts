@@ -6,11 +6,14 @@ export async function GET({ request }: APIContext) {
   const siteUrl = new URL(request.url).origin;
   const today = new Date().toISOString().split('T')[0];
 
-  const [categories, tools, alternativas] = await Promise.all([
-    getCategories(),
-    getTools(),
-    getAlternativas(),
-  ]);
+  console.log('[sitemap] env check — AIRTABLE_BASE_ID:', !!import.meta.env.AIRTABLE_BASE_ID, 'AIRTABLE_API_KEY:', !!import.meta.env.AIRTABLE_API_KEY);
+
+  let categories: any[] = [], tools: any[] = [], alternativas: any[] = [];
+  try { categories = await getCategories(); } catch (e) { console.error('[sitemap] getCategories failed:', e); }
+  try { tools = await getTools(); } catch (e) { console.error('[sitemap] getTools failed:', e); }
+  try { alternativas = await getAlternativas(); } catch (e) { console.error('[sitemap] getAlternativas failed:', e); }
+
+  console.log(`[sitemap] fetched — categories:${categories.length} tools:${tools.length} alternativas:${alternativas.length}`);
 
   const blogSlugs = [
     '5-ferramentas-ia-empreendedor-brasileiro',

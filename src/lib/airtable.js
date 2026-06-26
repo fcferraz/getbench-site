@@ -1,12 +1,18 @@
 async function fetchFromAirtable(table, params = '') {
-  const BASE_URL = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}`;
+  const baseId = import.meta.env.AIRTABLE_BASE_ID;
+  const apiKey = import.meta.env.AIRTABLE_API_KEY;
+  if (!baseId || !apiKey) {
+    console.error(`[airtable] Missing env vars — AIRTABLE_BASE_ID=${!!baseId} AIRTABLE_API_KEY=${!!apiKey}`);
+    return [];
+  }
+  const BASE_URL = `https://api.airtable.com/v0/${baseId}`;
   const allRecords = [];
   let offset = null;
   try {
     do {
       const url = `${BASE_URL}/${table}?${params}${offset ? '&offset=' + offset : ''}`;
       const res = await fetch(url, {
-        headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` }
+        headers: { Authorization: `Bearer ${apiKey}` }
       });
       const data = await res.json();
       if (!res.ok || !Array.isArray(data.records)) {
@@ -77,12 +83,12 @@ export async function getCompareCache(slugA, slugB) {
 
 // Saves a generated verdict to the Compare Cache table. Returns true on success.
 export async function saveCompareCache(slugA, slugB, bulletsA, bulletsB) {
-  const BASE_URL = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}`;
+  const BASE_URL = `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}`;
   try {
     const res = await fetch(`${BASE_URL}/${COMPARE_CACHE_TABLE}`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+        Authorization: `Bearer ${import.meta.env.AIRTABLE_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
