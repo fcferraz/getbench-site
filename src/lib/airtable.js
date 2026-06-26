@@ -1,3 +1,23 @@
+import { kv } from '@vercel/kv';
+
+const TTL = 6 * 60 * 60; // 6 hours
+
+// Returns cached value on hit, falls back to fn() if KV is unavailable or misses.
+// Never caches null (so kv.get returning null always means a true miss).
+async function withCache(key, fn) {
+  try {
+    const cached = await kv.get(key);
+    if (cached !== null) return cached;
+  } catch {
+    return fn(); // KV not configured or unreachable — go direct
+  }
+  const result = await fn();
+  if (result !== null) {
+    kv.set(key, result, { ex: TTL }).catch(() => {});
+  }
+  return result;
+}
+
 async function fetchFromAirtable(table, params = '') {
   const baseId = import.meta.env.AIRTABLE_BASE_ID;
   const apiKey = import.meta.env.AIRTABLE_API_KEY;
@@ -29,34 +49,38 @@ async function fetchFromAirtable(table, params = '') {
   }
 }
 
-export async function getCategories() {
-  return fetchFromAirtable('Categories');
+export function getCategories() {
+  return withCache('at:categories', () => fetchFromAirtable('Categories'));
 }
 
 // Tool fields: Name, slug, tagline_en, description_pt, website, affiliate_url,
 // has_free_plan, starting_price_usd, pricing_model, works_in_brazil, works_in_mexico,
 // accepts_brl, has_pt_support, has_latam_data, latam_note_pt, ai_native, categories
-export async function getTools() {
-  return fetchFromAirtable('Tools', 'filterByFormula={status}="published"');
+export function getTools() {
+  return withCache('at:tools', () => fetchFromAirtable('Tools', 'filterByFormula={status}="published"'));
 }
 
-export async function getToolsByCategory(categoryName) {
+export function getToolsByCategory(categoryName) {
   const safeName = String(categoryName).replace(/"/g, '\\"');
-  return fetchFromAirtable('Tools',
-    `filterByFormula=AND(FIND("${safeName}",ARRAYJOIN({categories})),{status}="published")`
+  return withCache(`at:cat:${categoryName}`, () =>
+    fetchFromAirtable('Tools',
+      `filterByFormula=AND(FIND("${safeName}",ARRAYJOIN({categories})),{status}="published")`)
   );
 }
 
 export async function getToolBySlug(slug) {
   const safeSlug = String(slug).replace(/"/g, '\\"');
-  const records = await fetchFromAirtable('Tools',
-    `filterByFormula=AND({slug}="${safeSlug}",{status}="published")`);
-  return records[0] ?? null;
+  return withCache(`at:slug:${slug}`, async () => {
+    const records = await fetchFromAirtable('Tools',
+      `filterByFormula=AND({slug}="${safeSlug}",{status}="published")`);
+    return records[0] ?? null;
+  });
 }
 
-export async function getAlternativas() {
-  return fetchFromAirtable('tbl1FgI1foVC7n2HM',
-    'filterByFormula={published}=1&fields%5B%5D=slug_referencia');
+export function getAlternativas() {
+  return withCache('at:alternativas', () =>
+    fetchFromAirtable('tbl1FgI1foVC7n2HM', 'filterByFormula={published}=1&fields%5B%5D=slug_referencia')
+  );
 }
 
 // "Compare Cache" table — referenced by ID because the name contains a space.
