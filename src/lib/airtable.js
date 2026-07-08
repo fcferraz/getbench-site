@@ -1,19 +1,31 @@
 import { kv } from '@vercel/kv';
 
 const TTL = 6 * 60 * 60; // 6 hours
+const LKG_TTL = 30 * 24 * 60 * 60; // 30 days — last-known-good fallback
+
+const isEmpty = v => v == null || (Array.isArray(v) && v.length === 0);
 
 // Returns cached value on hit, falls back to fn() if KV is unavailable or misses.
-// Never caches null (so kv.get returning null always means a true miss).
+// Never caches an empty result: an empty [] (or null) means Airtable failed, so we
+// serve the last-known-good copy (`${key}:lkg`) instead of poisoning the cache.
 async function withCache(key, fn) {
   try {
     const cached = await kv.get(key);
-    if (cached !== null) return cached;
+    if (!isEmpty(cached)) return cached; // treat poisoned/empty cache as a miss
   } catch {
     return fn(); // KV not configured or unreachable — go direct
   }
   const result = await fn();
-  if (result !== null) {
+  if (!isEmpty(result)) {
     kv.set(key, result, { ex: TTL }).catch(() => {});
+    kv.set(`${key}:lkg`, result, { ex: LKG_TTL }).catch(() => {});
+    return result;
+  }
+  // Empty — likely an Airtable failure. Don't cache it; serve last-known-good if any.
+  const lkg = await kv.get(`${key}:lkg`).catch(() => null);
+  if (!isEmpty(lkg)) {
+    console.warn(`[airtable] ${key} came back empty, serving last-known-good cache`);
+    return lkg;
   }
   return result;
 }

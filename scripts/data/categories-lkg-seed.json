@@ -1,0 +1,566 @@
+[
+  {
+    "Name": "Sales Outreach",
+    "Slug": "sales-outreach",
+    "title_en": "Best AI Agents for Sales Outreach",
+    "title_pt": "Melhores Agentes de IA para Prospecção",
+    "title_es": "Mejores Agentes de IA para Ventas",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Instantly",
+      "Lemlist",
+      "Smartlead",
+      "Hunter.io",
+      "Salesloft",
+      "Outreach",
+      "Reply.io",
+      "Woodpecker",
+      "Lavender",
+      "Warmbox",
+      "Snov.io",
+      "Waalaxy"
+    ],
+    "id": "seed_sales-outreach"
+  },
+  {
+    "Name": "Customer Success",
+    "Slug": "customer-success",
+    "title_en": "Best AI Tools for Customer Success",
+    "title_pt": "Melhores Ferramentas de IA para Sucesso do Cliente",
+    "title_es": "Mejores Herramientas de IA para Éxito del Cliente",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Intercom",
+      "Freshdesk",
+      "HubSpot Sales",
+      "Totango",
+      "ChurnZero",
+      "Gainsight",
+      "Custify",
+      "Planhat",
+      "Funnels"
+    ],
+    "id": "seed_customer-success"
+  },
+  {
+    "Name": "SDR Automation",
+    "Slug": "sdr-automation",
+    "title_en": "Best AI SDR Automation Tools",
+    "title_pt": "Melhores Ferramentas de Automação de SDR com IA",
+    "title_es": "Mejores Herramientas de Automatización SDR con IA",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Apollo.io",
+      "Instantly",
+      "Smartlead",
+      "Amplemarket",
+      "Salesloft",
+      "Lusha",
+      "ZoomInfo",
+      "Cognism",
+      "LeadIQ",
+      "Kaspr"
+    ],
+    "id": "seed_sdr-automation"
+  },
+  {
+    "Name": "CRM Automation",
+    "Slug": "crm-automation",
+    "title_en": "Best AI Tools for CRM Automation",
+    "title_pt": "Melhores Ferramentas de IA para CRM",
+    "title_es": "Mejores Herramientas de IA para CRM",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Pipedrive",
+      "HubSpot Sales",
+      "Agendor",
+      "Moskit",
+      "HubSpot CRM",
+      "Salesforce",
+      "Zoho CRM",
+      "Nectar CRM",
+      "Funnels"
+    ],
+    "id": "seed_crm-automation"
+  },
+  {
+    "Name": "Revenue Operations",
+    "Slug": "revenue-operations",
+    "title_en": "Best AI Tools for Revenue Operations",
+    "title_pt": "Melhores Ferramentas de IA para RevOps",
+    "title_es": "Mejores Herramientas de IA para RevOps",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Gong",
+      "Chorus",
+      "RD Station CRM",
+      "Clari",
+      "People.ai"
+    ],
+    "id": "seed_revenue-operations"
+  },
+  {
+    "Name": "Customer Support",
+    "Slug": "customer-support",
+    "title_en": "Best AI Agents for Customer Support",
+    "title_pt": "Melhores Agentes de IA para Atendimento ao Cliente",
+    "title_es": "Mejores Agentes de IA para Atención al Cliente",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Intercom",
+      "Zendesk",
+      "Freshdesk",
+      "Movidesk",
+      "Octadesk",
+      "Desk Manager"
+    ],
+    "id": "seed_customer-support"
+  },
+  {
+    "Name": "Marketing Automation",
+    "Slug": "marketing-automation",
+    "title_en": "Best AI Tools for Marketing Automation",
+    "title_pt": "Melhores Ferramentas de IA para Marketing",
+    "title_es": "Mejores Herramientas de IA para Marketing",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "HubSpot Sales",
+      "ActiveCampaign",
+      "Mailchimp",
+      "RD Station Marketing",
+      "Brevo",
+      "Klaviyo",
+      "E-goi",
+      "Dinamize",
+      "Funnels"
+    ],
+    "id": "seed_marketing-automation"
+  },
+  {
+    "Name": "HR Automation",
+    "Slug": "hr-automation",
+    "title_en": "Best AI Tools for HR Automation",
+    "title_pt": "Melhores Ferramentas de IA para RH",
+    "title_es": "Mejores Herramientas de IA para RR.HH.",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Gupy",
+      "Factorial HR",
+      "Rippling",
+      "Workday",
+      "Sólides",
+      "Kenoby",
+      "BambooHR",
+      "Taqe",
+      "Feedz"
+    ],
+    "id": "seed_hr-automation"
+  },
+  {
+    "Name": "IA Generativa",
+    "Slug": "ia-generativa",
+    "title_en": "Best Generative AI Tools for Business",
+    "title_pt": "Melhores ferramentas de IA generativa para empresas",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "ChatGPT",
+      "Claude",
+      "Gemini",
+      "Mistral",
+      "Meta AI"
+    ],
+    "id": "seed_ia-generativa"
+  },
+  {
+    "Name": "Suíte Criativa",
+    "Slug": "suite-criativa",
+    "title_en": "Best AI Creative Suite Tools",
+    "title_pt": "Melhores ferramentas criativas com IA",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Suno",
+      "Udio",
+      "Viggle",
+      "Remix",
+      "Grok",
+      "Google Flow",
+      "DaVinci"
+    ],
+    "id": "seed_suite-criativa"
+  },
+  {
+    "Name": "Voz e Texto",
+    "Slug": "voz-e-texto",
+    "title_en": "Best AI Voice and Text Tools",
+    "title_pt": "Melhores ferramentas de IA para voz e texto",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "ElevenLabs",
+      "Murf AI",
+      "Speechify",
+      "Superwhisper",
+      "Whispr Flow"
+    ],
+    "id": "seed_voz-e-texto"
+  },
+  {
+    "Name": "Texto para Imagem",
+    "Slug": "texto-para-imagem",
+    "title_en": "Best AI Image Generation Tools",
+    "title_pt": "Melhores geradores de imagem com IA",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Midjourney",
+      "Ideogram",
+      "DALL-E 3",
+      "Imagen 3",
+      "Firefly",
+      "Google Flow",
+      "DaVinci"
+    ],
+    "id": "seed_texto-para-imagem"
+  },
+  {
+    "Name": "Texto para Vídeo",
+    "Slug": "texto-para-video",
+    "title_en": "Best AI Video Generation Tools",
+    "title_pt": "Melhores geradores de vídeo com IA",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "OpenAI Sora",
+      "Google Veo",
+      "Runway",
+      "Luma AI",
+      "Pika",
+      "Google Flow",
+      "DaVinci"
+    ],
+    "id": "seed_texto-para-video"
+  },
+  {
+    "Name": "Assistentes de IA",
+    "Slug": "assistentes-de-ia",
+    "title_en": "Best AI Assistants for Productivity",
+    "title_pt": "Melhores assistentes de IA para produtividade",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Perplexity",
+      "NotebookLM",
+      "You.com",
+      "Microsoft Copilot",
+      "Poe"
+    ],
+    "id": "seed_assistentes-de-ia"
+  },
+  {
+    "Name": "Suporte com IA",
+    "Slug": "suporte-com-ia",
+    "title_en": "Best AI Customer Support Tools",
+    "title_pt": "Melhores ferramentas de IA para suporte ao cliente",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Fin AI",
+      "Decagon",
+      "Sierra",
+      "Pylon",
+      "Duckie"
+    ],
+    "id": "seed_suporte-com-ia"
+  },
+  {
+    "Name": "Criação de Vídeo",
+    "Slug": "criacao-de-video",
+    "title_en": "Best AI Video Creation Tools",
+    "title_pt": "Melhores ferramentas de IA para criação de vídeo",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "HeyGen",
+      "Klap",
+      "OpusClip",
+      "Submagic",
+      "VEED"
+    ],
+    "id": "seed_criacao-de-video"
+  },
+  {
+    "Name": "Criação de Conteúdo",
+    "Slug": "criacao-de-conteudo",
+    "title_en": "Best AI Content Creation Tools",
+    "title_pt": "Melhores ferramentas de IA para criação de conteúdo",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Cohesive",
+      "Beehiiv",
+      "Easygen",
+      "Supermeme",
+      "Descript"
+    ],
+    "id": "seed_criacao-de-conteudo"
+  },
+  {
+    "Name": "SEO e Blog",
+    "Slug": "seo-e-blog",
+    "title_en": "Best AI SEO and Blog Tools",
+    "title_pt": "Melhores ferramentas de IA para SEO e blog",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Surfer",
+      "Rankai",
+      "Seobot",
+      "Byword",
+      "Macaw"
+    ],
+    "id": "seed_seo-e-blog"
+  },
+  {
+    "Name": "Design com IA",
+    "Slug": "design-com-ia",
+    "title_en": "Best AI Design Tools",
+    "title_pt": "Melhores ferramentas de IA para design",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Uizard",
+      "Playground AI",
+      "Lasqo",
+      "Canva",
+      "Galileo AI"
+    ],
+    "id": "seed_design-com-ia"
+  },
+  {
+    "Name": "Criador de Sites",
+    "Slug": "criador-de-sites",
+    "title_en": "Best AI Website Builder Tools",
+    "title_pt": "Melhores ferramentas de IA para criar sites",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Gamma",
+      "Framer",
+      "Webflow",
+      "Durable",
+      "Dora"
+    ],
+    "id": "seed_criador-de-sites"
+  },
+  {
+    "Name": "Chat para Sites",
+    "Slug": "chat-para-sites",
+    "title_en": "Best AI Chat Tools for Websites",
+    "title_pt": "Melhores ferramentas de chat com IA para sites",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Reply Chat",
+      "Dante",
+      "Chatbase",
+      "Chatbit",
+      "Tidio"
+    ],
+    "id": "seed_chat-para-sites"
+  },
+  {
+    "Name": "Código com IA",
+    "Slug": "codigo-com-ia",
+    "title_en": "Best AI Coding Tools",
+    "title_pt": "Melhores ferramentas de IA para programar",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Cursor",
+      "v0",
+      "Replit",
+      "Lovable",
+      "Devin"
+    ],
+    "id": "seed_codigo-com-ia"
+  },
+  {
+    "Name": "Reuniões com IA",
+    "Slug": "reunioes-com-ia",
+    "title_en": "Best AI Meeting Tools",
+    "title_pt": "Melhores ferramentas de IA para reuniões",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Bluedot",
+      "tldv",
+      "Noty",
+      "Grain",
+      "Fireflies",
+      "Fathom"
+    ],
+    "id": "seed_reunioes-com-ia"
+  },
+  {
+    "Name": "Produtividade com IA",
+    "Slug": "produtividade-com-ia",
+    "title_en": "Best AI Productivity Tools",
+    "title_pt": "Melhores ferramentas de IA para produtividade",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Notion AI",
+      "Airtable AI",
+      "Superhuman",
+      "Loom",
+      "Raycast"
+    ],
+    "id": "seed_produtividade-com-ia"
+  },
+  {
+    "Name": "Operações com IA",
+    "Slug": "operacoes-com-ia",
+    "title_en": "Best AI Operations Tools",
+    "title_pt": "Melhores ferramentas de IA para operações",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Juicebox",
+      "PolyAI",
+      "CrewAI",
+      "Respell",
+      "Slite"
+    ],
+    "id": "seed_operacoes-com-ia"
+  },
+  {
+    "Name": "Fluxos de Trabalho",
+    "Slug": "fluxos-de-trabalho",
+    "title_en": "Best AI Workflow Automation Tools",
+    "title_pt": "Melhores ferramentas de IA para fluxos de trabalho",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Zapier",
+      "Lindy",
+      "Beam",
+      "Cass",
+      "Magical"
+    ],
+    "id": "seed_fluxos-de-trabalho"
+  },
+  {
+    "Name": "Marketing com IA",
+    "Slug": "marketing-com-ia",
+    "title_en": "Best AI Marketing Tools",
+    "title_pt": "Melhores ferramentas de IA para marketing",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Writesonic",
+      "Coframe",
+      "Blaze",
+      "AdCreative",
+      "Jasper AI"
+    ],
+    "id": "seed_marketing-com-ia"
+  },
+  {
+    "Name": "Vendas com IA",
+    "Slug": "vendas-com-ia",
+    "title_en": "Best AI Sales Tools",
+    "title_pt": "Melhores ferramentas de IA para vendas",
+    "title_es": "",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [
+      "Jason AI",
+      "Folk",
+      "Sendspark",
+      "Reply.io",
+      "Clay"
+    ],
+    "id": "seed_vendas-com-ia"
+  },
+  {
+    "Name": "Jurídico com IA",
+    "Slug": "juridico-com-ia",
+    "title_en": "Best AI Legal Tech Tools",
+    "title_pt": "Melhores ferramentas de IA para o jurídico",
+    "title_es": "Mejores herramientas de IA para el sector legal",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [],
+    "id": "seed_juridico-com-ia"
+  },
+  {
+    "Name": "Finanças com IA",
+    "Slug": "financas-com-ia",
+    "title_en": "Best AI Finance Tools",
+    "title_pt": "Melhores ferramentas de IA para finanças",
+    "title_es": "Mejores herramientas de IA para finanzas",
+    "description_en": "",
+    "description_pt": "",
+    "description_es": "",
+    "Tools": [],
+    "id": "seed_financas-com-ia"
+  }
+]
