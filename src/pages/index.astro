@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCategories, getTools } from '../lib/airtable.js';
+import { getCategories, getTools } from '../lib/supabase.js';
 
 const [categories, tools] = await Promise.all([getCategories(), getTools()]);
 

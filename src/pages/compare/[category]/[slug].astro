@@ -1,7 +1,7 @@
 ---
 import Anthropic from '@anthropic-ai/sdk';
 import Base from '../../../layouts/Base.astro';
-import { getTools, getCompareCache, saveCompareCache } from '../../../lib/airtable.js';
+import { getTools, getCompareCache, saveCompareCache } from '../../../lib/supabase.js';
 import { categoryCriteria } from '../../../lib/comparisons.js';
 
 const { category, slug } = Astro.params;

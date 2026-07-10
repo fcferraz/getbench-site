@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCategories, getToolsByCategory } from '../../lib/airtable.js';
+import { getCategories, getToolsByCategory } from '../../lib/supabase.js';
 
 const { slug } = Astro.params;
 const categories = await getCategories();

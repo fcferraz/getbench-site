@@ -1,6 +1,6 @@
 ---
 import PSeoToolList from '../components/PSeoToolList.astro';
-import { getTools } from '../lib/airtable.js';
+import { getTools } from '../lib/supabase.js';
 
 const tools = (await getTools()).filter(t => t.accepts_brl === true);
 ---

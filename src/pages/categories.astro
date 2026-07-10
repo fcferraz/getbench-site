@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCategories } from '../lib/airtable.js';
+import { getCategories } from '../lib/supabase.js';
 
 const categories = await getCategories();
 ---

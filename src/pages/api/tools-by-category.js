@@ -1,4 +1,4 @@
-import { getCategories, getToolsByCategory } from '../../lib/airtable.js';
+import { getCategories, getToolsByCategory } from '../../lib/supabase.js';
 
 export async function GET({ url }) {
   const slug = url.searchParams.get('category');

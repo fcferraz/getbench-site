@@ -1,6 +1,6 @@
 ---
 import PSeoToolList from '../components/PSeoToolList.astro';
-import { getTools, getCategories } from '../lib/airtable.js';
+import { getTools, getCategories } from '../lib/supabase.js';
 
 const targetSlugs = ['marketing-automation', 'marketing-com-ia'];
 const [cats, allTools] = await Promise.all([getCategories(), getTools()]);

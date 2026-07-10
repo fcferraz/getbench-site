@@ -1,4 +1,4 @@
-import { getTools } from '../../lib/airtable.js';
+import { getTools } from '../../lib/supabase.js';
 import { rateLimit } from '../../lib/rateLimit.js';
 
 export async function POST({ request }) {

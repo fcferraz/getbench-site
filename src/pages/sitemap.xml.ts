@@ -1,5 +1,5 @@
 import type { APIContext } from 'astro';
-import { getCategories, getTools, getAlternativas } from '../lib/airtable.js';
+import { getCategories, getTools, getAlternativas } from '../lib/supabase.js';
 import { curatedComparisons } from '../lib/comparisons.js';
 
 export async function GET({ request }: APIContext) {

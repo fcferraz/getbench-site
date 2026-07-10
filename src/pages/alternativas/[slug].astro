@@ -1,57 +1,25 @@
 ---
 // src/pages/alternativas/[slug].astro
 // Página pSEO de alternativas — Buskai.net
-// Lê da tabela "Alternativas" no Airtable e gera /alternativas/[slug]
+// Lê da tabela "alternativas_pages" no Supabase e gera /alternativas/[slug]
 
 import Base from '../../layouts/Base.astro';
+import { getAlternativaBySlug } from '../../lib/supabase.js';
 
 export const prerender = false; // SSR via Vercel
 
-const AIRTABLE_TOKEN = import.meta.env.AIRTABLE_API_KEY;
-const BASE_ID = import.meta.env.AIRTABLE_BASE_ID;
-const ALTERNATIVAS_TABLE = "tbl1FgI1foVC7n2HM";
-const TOOLS_TABLE = "tbl66b2aHBKUkkAF0";
-
 const { slug } = Astro.params;
 
-// ─── 1. Busca o registro de alternativa pelo slug_referencia ────────────────
-const searchRes = await fetch(
-  `https://api.airtable.com/v0/${BASE_ID}/${ALTERNATIVAS_TABLE}?` +
-  new URLSearchParams({
-    filterByFormula: `AND({slug_referencia} = "${slug}", {published} = 1)`,
-    maxRecords: '1',
-  }),
-  { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
-);
+// ─── 1. Busca a página de alternativa + ferramentas linkadas (por nome) ─────
+const result = await getAlternativaBySlug(slug);
 
-const searchData = await searchRes.json();
-
-if (!searchData.records || searchData.records.length === 0) {
+if (!result) {
   return Astro.redirect('/404');
 }
 
-const page = searchData.records[0].fields;
+const { page, tools } = result;
 
-// ─── 2. Busca as ferramentas alternativas linkadas ──────────────────────────
-const toolIds: string[] = page.alternativas || [];
-
-let tools: any[] = [];
-
-if (toolIds.length > 0) {
-  const formula =
-    'AND(OR(' + toolIds.map((id) => `RECORD_ID() = "${id}"`).join(',') + '),{status}="published")';
-
-  const toolsRes = await fetch(
-    `https://api.airtable.com/v0/${BASE_ID}/${TOOLS_TABLE}?` +
-    new URLSearchParams({ filterByFormula: formula }),
-    { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
-  );
-
-  const toolsData = await toolsRes.json();
-  tools = toolsData.records?.map((r: any) => r.fields) ?? [];
-}
-
-// ─── 3. Meta SEO ────────────────────────────────────────────────────────────
+// ─── 2. Meta SEO ────────────────────────────────────────────────────────────
 const title = `Melhores alternativas ao ${page.nome_referencia} com IA — Buskai.net`;
 const description = `Confira as ${tools.length} melhores alternativas ao ${page.nome_referencia} com IA para o mercado brasileiro. Comparamos preço, suporte em português e disponibilidade no Brasil.`;
 const canonicalUrl = `https://www.buskai.net/alternativas/${slug}`;
