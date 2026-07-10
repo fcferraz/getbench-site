@@ -147,10 +147,10 @@ export function getTools() {
   });
 }
 
-export function getToolsByCategory(categoryName) {
-  return withCache(`sb:cat:${categoryName}`, async () => {
+export function getToolsByCategory(categorySlug) {
+  return withCache(`sb:cat:${categorySlug}`, async () => {
     const tools = await getTools();
-    return tools.filter(t => (t.categories || []).some(c => c.name === categoryName));
+    return tools.filter(t => (t.categories || []).some(c => c.slug === categorySlug));
   });
 }
 

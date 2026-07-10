@@ -5,7 +5,7 @@ import { getCategories, getToolsByCategory } from '../../lib/supabase.js';
 const { slug } = Astro.params;
 const categories = await getCategories();
 const category = categories.find(c => c.Slug === slug) || {};
-const tools = await getToolsByCategory(category.Name || '');
+const tools = await getToolsByCategory(slug);
 const currencySymbol = (c) => c === 'BRL' ? 'R$' : c === 'EUR' ? '€' : '$';
 
 const ptCount = tools.filter(t => t.has_pt_support).length;
