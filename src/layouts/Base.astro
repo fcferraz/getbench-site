@@ -5,33 +5,41 @@ const { title = "Buskai.net — Encontre e compare ferramentas de IA para LATAM"
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <!-- Google Tag Manager + AdSense (carregados apenas com consentimento) -->
+    <!-- Consent Mode v2 defaults (MUST run before GTM) + GTM + AdSense -->
     <script is:inline>
-      (function () {
-        window.loadTrackingScripts = function () {
-          if (window.__buskaiTrackingLoaded) return;
-          window.__buskaiTrackingLoaded = true;
-          // Google Tag Manager (GA4)
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-MGVXP6BK');
-          // Google AdSense
-          var ad = document.createElement('script');
-          ad.async = true;
-          ad.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3858312966776117';
-          ad.crossOrigin = 'anonymous';
-          document.head.appendChild(ad);
-        };
-        try {
-          if (localStorage.getItem('buskai_cookie_consent') === 'accepted') {
-            window.loadTrackingScripts();
-          }
-        } catch (e) {}
-      })();
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      // Default: everything denied until the user chooses.
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500
+      });
+      // Returning visitor who already accepted → grant before GTM loads (no denied flash).
+      try {
+        if (localStorage.getItem('buskai_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted'
+          });
+        }
+      } catch (e) {}
     </script>
-    <!-- End Google Tag Manager + AdSense -->
+    <!-- Google Tag Manager (loads unconditionally; consent governed above) -->
+    <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MGVXP6BK');
+    </script>
+    <!-- Google AdSense (consent-aware via Consent Mode v2) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3858312966776117" crossorigin="anonymous"></script>
+    <!-- End GTM + AdSense -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

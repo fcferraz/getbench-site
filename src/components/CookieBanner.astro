@@ -75,12 +75,18 @@
 
     banner.classList.add('is-visible');
 
+    function gtag(){ (window.dataLayer = window.dataLayer || []).push(arguments); }
+
     function choose(value) {
       try { localStorage.setItem(KEY, value); } catch (e) {}
       banner.classList.remove('is-visible');
-      if (value === 'accepted' && typeof window.loadTrackingScripts === 'function') {
-        window.loadTrackingScripts();
-      }
+      var granted = value === 'accepted' ? 'granted' : 'denied';
+      gtag('consent', 'update', {
+        'ad_storage': granted,
+        'ad_user_data': granted,
+        'ad_personalization': granted,
+        'analytics_storage': granted
+      });
     }
 
     var accept = document.getElementById('cookie-accept');
